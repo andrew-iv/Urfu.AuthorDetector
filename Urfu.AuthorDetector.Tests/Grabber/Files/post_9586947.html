@@ -1,0 +1,379 @@
+﻿<!DOCTYPE html>
+<html lang=ru>
+<head>
+<link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono|Open+Sans:600&amp;subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+  <LINK REL="stylesheet" TYPE="text/css" HREF="/tango/combined.css?20130914-1007">
+
+<script type="text/javascript">
+    /*!
+    * $script.js Async loader & dependency manager
+    * https://github.com/ded/script.js
+    * (c) Dustin Diaz, Jacob Thornton 2011
+    * License: MIT
+    */
+    (function (e, d, f) {
+        typeof f.module != "undefined" && f.module.exports ? f.module.exports = d() : typeof f.define != "undefined" && f.define == "function" && f.define.amd ? define(e, d) : f[e] = d()
+    })("$script", function () {
+        function y(f, e) {
+            for (var h = 0, g = f.length;
+            h < g;
+            ++h) {
+                if (!e(f[h])) {
+                    return E
+                }
+            } return 1
+        } function x(d, c) {
+            y(d, function (b) {
+                return !c(b)
+            })
+        } function w(p, k, h) {
+            function c(b) {
+                return b.call ? b() : K[b]
+            } function q() {
+                if (!--d) {
+                    K[e] = 1, f && f();
+                    for (var b in I) {
+                        y(b.split("|"), c) && !x(I[b], c) && (I[b] = [])
+                    }
+                }
+            } p = p[D] ? p : [p];
+            var g = k && k.call, f = g ? k : h, e = g ? p.join("") : k, d = p.length;
+            return setTimeout(function () {
+                x(p, function (b) {
+                    if (G[b]) {
+                        return e && (J[e] = 1), G[b] == 2 && q()
+                    } G[b] = 1, e && (J[e] = 1), v(!L.test(b) && H ? H + b + ".js" : b, q)
+                })
+            }, 0), w
+        } function v(h, g) {
+            var b = N.createElement("script"), a = E;
+            b.onload = b.onerror = b[z] = function () {
+                if (b[B] && !/^c|loade/.test(b[B]) || a) {
+                    return
+                } b.onload = b[z] = null, a = 1, G[h] = 2, g()
+            }, b.async = 1, b.src = h, M.insertBefore(b, M.firstChild)
+        } var N = document, M = N.getElementsByTagName("head")[0], L = /^https?:\/\//, K = {}, J = {}, I = {}, H, G = {}, F = "string", E = !1, D = "push", C = "DOMContentLoaded", B = "readyState", A = "addEventListener", z = "onreadystatechange";
+        return !N[B] && N[A] && (N[A](C, function u() {
+            N.removeEventListener(C, u, E), N[B] = "complete"
+        }, E), N[B] = "loading"), w.get = v, w.order = function (f, e, h) {
+            (function g(a) {
+                a = f.shift(), f.length ? w(a, g) : w(a, e, h)
+            })()
+        }, w.path = function (b) {
+            H = b
+        }, w.ready = function (f, d, h) {
+            f = f[D] ? f : [f];
+            var g = [];
+            return !x(f, function (b) {
+                K[b] || g[D](b)
+            }) && y(f, function (b) {
+                return K[b]
+            }) ? d() : !function (b) {
+                I[b] = I[b] || [], I[b][D](d), h && h(g)
+            }(f.join("|")), w
+        }, w
+    }, this);</script>
+
+  <!--[if lt IE 9]>
+<script src="/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    if (typeof jQuery == 'undefined') {
+        document.write(unescape("%3Cscript src='/js/jquery-1.10.1.min.js' type='text/javascript'%3E%3C/script%3E"));
+    }
+</script>
+
+<script type="text/javascript">
+    $script('/js/plugins.js', 'plugins');
+    $script('/js/lor.js?20130914-1007', 'lorjs');
+    $script('/js/highlight.pack.js', function () { hljs.initHighlightingOnLoad(); });
+</script>
+<title>Запилим аниме-клиент под андроид! - Talks - Форум</title>
+<meta property="og:title" content="Запилим аниме-клиент под андроид!" >
+
+<meta property="og:image" content="http://www.linux.org.ru/img/good-penguin.jpg">
+  <meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@wwwlinuxorgru">
+<meta property="og:description" content="Возможности: Заливка своих скринов Френды, для эффективного поиска по общим любимым видео Добавление новых материалов пользователями(модерация) Вход через гуглоплюс/яндекс и ещёчонить. Ненужная хрень в платной версии (гифты н.п.) Рейтинги аниме Теги,...">
+<meta property="og:url" content="http://www.linux.org.ru/forum/talks/9587170">
+
+<link rel="canonical" href="http://www.linux.org.ru/forum/talks/9587170">
+
+<link rel="Previous" id="PrevLink" href="/forum/talks/9586947" title="Посоветуйте какое-нибудь красивое анимэ">
+<link rel="Next" id="NextLink" href="/forum/talks/9587221" title="Почему все группы скатываются в говно?">
+<LINK REL="alternate" TITLE="Comments RSS" HREF="/forum/talks/9587170?output=rss" TYPE="application/rss+xml">
+<script type="text/javascript">
+    $script.ready('lorjs', function () { initNextPrevKeys(); });
+  </script>
+<link rel="search" title="Search L.O.R." href="/search.jsp">
+
+<base href="http://www.linux.org.ru/">
+<LINK REL="shortcut icon" HREF="/favicon.ico" TYPE="image/x-icon">
+<link rel="yandex-tableau-widget" href="/tango/manifest.json" />
+<meta name = "viewport" content = "initial-scale=1.0">
+</head>
+<body>
+  	<div id="hd">
+        <a id="sitetitle" href="/">LINUX.ORG.RU</a>
+
+        <ul class="menu">
+          <li id="loginGreating">
+            <div id="regmenu" class="head">
+                <a href="https://www.linux.org.ru/register.jsp">Регистрация</a> -
+                <a id="loginbutton" href="https://www.linux.org.ru/login.jsp">Вход</a>
+              </div>
+
+              <form method=POST action="https://www.linux.org.ru//ajax_login_process" style="display: none" id="regform">
+                <input type="hidden" name="csrf" value="3L5NEAkNgm0kSoMhLj3WeQ==">
+<label>Имя: <input type=text name=nick size=15 placeholder="nick или email"></label>
+                <label>Пароль: <input type=password name=passwd size=15></label>
+                <input type=submit value="Вход">
+                <input id="hide_loginbutton" type="button" value="Отмена">
+              </form>
+            </li>
+
+          <li><a href="/news/">Новости</a></li>
+          <li><a href="/gallery/">Галерея</a></li>
+
+          <li><a href="/forum/">Форум</a></li>
+          <li><a href="/tracker/">Трекер</a></li>
+          <li><a href="/wiki/">Wiki</a></li>
+          <li><a href="/search.jsp">Поиск</a></li>
+
+        </ul>
+      </div>
+      <div style="clear: both"></div>
+<!-- Rating@Mail.ru counter -->
+    <img src="http://d7.c1.b1.a0.top.mail.ru/counter?id=71642"
+    height="1" width="1" alt="" style="position: absolute">
+    <!-- //Rating@Mail.ru counter -->
+<div id="bd">
+<div class=messages itemscope itemtype="http://schema.org/Article">
+
+<!-- 9587170  -->
+<article class=msg id="topic-9587170">
+<header>
+    <div class="msg-top-header">
+    <span itemprop="articleSection">
+      <a href="/forum/">Форум</a> -
+      <a href="/forum/talks/">Talks</a>
+      </span>
+      </span>
+    </div>
+
+    <h1 itemprop="headline">
+      <a href="/forum/talks/9587170">Запилим аниме-клиент под андроид!</a>
+      </h1>
+
+    <div class=tags>
+        <i class="icon-tag"></i>&nbsp;<a class=tag rel=tag href="/tag/%D0%B0%D0%BD%D0%B8%D0%BC%D0%B5">аниме</a></div>
+    </header>
+
+  <div class="msg-container">
+
+  <div class="fav-buttons">
+    <a id="favs_button" href="#"><i class="icon-star"></i></a><br><span id="favs_count">1</span><br>
+    <a id="memories_button" href="#"><i class="icon-eye"></i></a><br><span id="memories_count">2</span>
+  </div>
+
+  <div class="msg_body">
+  <div itemprop="articleBody">
+      <p>Возможности:</p><ul><li>Заливка своих скринов
+</li><li>Френды, для эффективного поиска по общим любимым видео
+</li><li>Добавление новых материалов пользователями(модерация)
+</li><li>Вход через гуглоплюс/яндекс и ещёчонить.
+</li><li>Ненужная хрень в платной версии (гифты н.п.)
+</li><li>Рейтинги аниме
+</li><li>Теги, куда же без них
+</li><li>Кроссплатформенность: лин, бсд, А-фон, айфон, сырцы под остальные(обсуждаемо)
+</li><li>Интеграция с джаббер-ботом.
+</li><li>БД режиссёров, мангаку.
+</li><li>БД персонажей аниме.
+</li><li>Страничка в сети(минимум у когонить на сайте)
+</li><li>Фан-арт с голосовалкой
+<p>Как делаем:
+Пожалуйста, сообщите мне, кто заинтересован и может кодить. Считаем людей, распределяем, кто что сможет сделать. Например, оформление два человека, звуковое оформление ещё два. Есть тут художники, звукорежиссёры?
+ Пока не накопится нужное число.
+Далее выкладываем на indiegogo копилку, ждём. Если накопится нужная сумма, делим её и <s>сваливаем в Маями</s> пишем.</p></li></ul></div>
+<footer>
+
+<div class="userpic"><img class="photo" src="/photos/104584:-1277009017.jpg" alt="" width=138 height=150 ></div><div class=sign >
+  <a rel="author"itemprop="creator" href="/people/darkenshvein/profile">darkenshvein</a> <span class="stars">★</span><br>
+  <time datetime="2013-09-15T19:05:59.063+04:00" itemprop="dateCreated">15.09.2013 19:05:59</time><span class="sign_more">
+  </span>
+</div>
+</footer>
+
+    <div class=reply>
+          <div class="social-buttons">
+            <a target="_blank" style="text-decoration: none"
+               href="http://juick.com/post?body=*LOR+%D0%97%D0%B0%D0%BF%D0%B8%D0%BB%D0%B8%D0%BC+%D0%B0%D0%BD%D0%B8%D0%BC%D0%B5-%D0%BA%D0%BB%D0%B8%D0%B5%D0%BD%D1%82+%D0%BF%D0%BE%D0%B4+%D0%B0%D0%BD%D0%B4%D1%80%D0%BE%D0%B8%D0%B4%21+http%3A%2F%2Fwww.linux.org.ru%2Fforum%2Ftalks%2F9587170">
+              <img src="/img/juick.png" width=16 height=16 alt="Juick" title="Share on Juick">
+            </a>
+
+            <a target="_blank" style="text-decoration: none"
+               href="https://twitter.com/intent/tweet?text=%D0%97%D0%B0%D0%BF%D0%B8%D0%BB%D0%B8%D0%BC+%D0%B0%D0%BD%D0%B8%D0%BC%D0%B5-%D0%BA%D0%BB%D0%B8%D0%B5%D0%BD%D1%82+%D0%BF%D0%BE%D0%B4+%D0%B0%D0%BD%D0%B4%D1%80%D0%BE%D0%B8%D0%B4%21&amp;url=http%3A%2F%2Fwww.linux.org.ru%2Fforum%2Ftalks%2F9587170&amp;hashtags=%D0%BB%D0%BE%D1%80">
+              <img src="/img/twitter.png" width=16 height=16 alt="Share on Twitter" title="Share on Twitter">
+            </a>
+
+            <a target="_blank" style="text-decoration: none"
+               href="https://plus.google.com/share?url=http%3A%2F%2Fwww.linux.org.ru%2Fforum%2Ftalks%2F9587170">
+              <img src="/img/google-plus-icon.png" width=16 height=16 alt="Share on Google Plus" title="Share on Google Plus">
+            </a>
+          </div>
+          <ul id="topicMenu">
+          <li><a href="/forum/talks/9587170">Ссылка</a></li>
+          </ul>
+        </div>
+      </div>
+</div>
+</article>
+
+<script type="text/javascript">
+    $script.ready('lorjs', function () {
+        initStarPopovers();
+    });
+</script>
+<div class="nav">
+  <div class="grid-row">
+    <div class="grid-3-1">
+      <table>
+        <tr valign=middle>
+          <td style="padding-right: 5px">
+              <a href="/forum/talks/9586947" rel=prev>←</a>
+            </td>
+            <td align=left valign=top class="hideon-phone">
+              <a href="/forum/talks/9586947" rel=prev>
+                Посоветуйте какое-нибудь красивое анимэ</a>
+            </td>
+          </tr>
+      </table>
+    </div>
+    <div class="grid-3-2">
+    </div>
+    <div class="grid-3-3">
+      <table align="right">
+          <tr valign=middle align=right>
+            <td class="hideon-phone">
+              <a href="/forum/talks/9587221" rel=next>
+                Почему все группы скатываются в говно?</a>
+            </td>
+            <td align="right" valign="middle" style="padding-left: 5px">
+              <a href="/forum/talks/9587221" rel=next>→</a>
+            </td>
+          </tr>
+        </table>
+      </div>
+  </div>
+  </div><div class="comment" id="comments" style="padding-top: 0.5em">
+
+<div style="text-align: center; margin-top: 0.5em; height: 91px" id="interpage-adv">
+</div>
+
+  <script type="text/javascript">
+      $script.ready('lorjs', function () {
+          var ads = [
+              {
+                  type: 'img',
+                  src: '/adv/selectel/selectel_728-90.gif',
+                  href: 'http://selectel.ru/?utm_source=lor&utm_medium=banner&utm_content=dedicated&utm_campaign=080813'
+              },
+              {
+                  type: 'img',
+                  src: '/adv/selectel/storage_728-90.gif',
+                  href: 'http://storage.selectel.ru/?utm_source=lor&utm_medium=banner&utm_content=storage&utm_campaign=080813'
+              }
+          ];
+
+          init_interpage_adv(ads);
+      });
+  </script>
+  <br>
+<div class="nav">
+            &emsp;<span class='page-number'>←</span>
+    <strong class='page-number'>1</strong>
+        <a class='page-number' href='/forum/talks/9587170/page1#comments'>2</a>
+        <a class='page-number' href='/forum/talks/9587170/page1#comments'>→</a></div>
+    <article itemtype="http://schema.org/UserComments" id="comment-9587173" itemprop="comment" class="msg" itemscope="itemscope"><div class="title"></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="150" src="/photos/101002:744453732.png"></div><div class="msg_body message-w-userpic"><p>Лучше под J2ME.</p><div class="sign"><a itemprop="creator" href="/people/postman_/profile">postman_</a> <span class="stars">★</span> (<time itemprop="commentTime" datetime="2013-09-15T19:07:16.682+04:00">15.09.2013 19:07:16</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587173">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587174" itemprop="comment" class="msg" itemscope="itemscope"><div class="title"></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="150" src="http://www.gravatar.com/avatar/19c1cf3208fd699ca93aa0eeecdc690c?s=150&amp;r=g&amp;d=blank"></div><div class="msg_body message-w-userpic"><p>Не нужно, проще создать посоветуй-тред на лоре или на бордах.</p><div class="sign"><a itemprop="creator" href="/people/vurdalak/profile">vurdalak</a> <span class="stars">★★★★★</span> (<time itemprop="commentTime" datetime="2013-09-15T19:07:25.525+04:00">15.09.2013 19:07:25</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587174">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587179" itemprop="comment" class="msg" itemscope="itemscope"><div class="title"></div><div class="msg-container"><div class="userpic"><img class="photo" height="100" width="100" src="/photos/64006:-696283275.png"></div><div class="msg_body message-w-userpic"><p>&#171;Ведроид&#187; - што эта? Лучше бы запилили анимешную прослойку над КДЕ.</p><div class="sign"><a itemprop="creator" href="/people/Napilnik/profile">Napilnik</a> <span class="stars">★★★★</span> (<time itemprop="commentTime" datetime="2013-09-15T19:10:25.536+04:00">15.09.2013 19:10:25</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587179">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587188" itemprop="comment" class="msg" itemscope="itemscope"><div class="title"></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="150" src="http://www.gravatar.com/avatar/19c1cf3208fd699ca93aa0eeecdc690c?s=150&amp;r=g&amp;d=blank"></div><div class="msg_body message-w-userpic"><div class="none">&gt;&gt;-----Цитата----&gt;&gt;</div><div class="quote"><p> БД режиссёров, мангаку.<br></p></div><div class="none">&lt;&lt;-----Цитата----&lt;&lt;</div><p>Куда мангаку?</p><div class="sign"><a itemprop="creator" href="/people/vurdalak/profile">vurdalak</a> <span class="stars">★★★★★</span> (<time itemprop="commentTime" datetime="2013-09-15T19:13:03.410+04:00">15.09.2013 19:13:03</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587188">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587191" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587174">комментарий</a> от vurdalak <time itemprop="false" datetime="2013-09-15T19:07:25.525+04:00">15.09.2013 19:07:25</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="138" src="/photos/104584:-1277009017.jpg"></div><div class="msg_body message-w-userpic"><p>чего ты хочешь?</p><div class="sign"><a itemprop="creator" href="/people/darkenshvein/profile">darkenshvein</a> <span class="stars">★</span> (<time itemprop="commentTime" datetime="2013-09-15T19:14:02.936+04:00">15.09.2013 19:14:02</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587191">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587193" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587191">комментарий</a> от darkenshvein <time itemprop="false" datetime="2013-09-15T19:14:02.936+04:00">15.09.2013 19:14:02</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="150" src="http://www.gravatar.com/avatar/19c1cf3208fd699ca93aa0eeecdc690c?s=150&amp;r=g&amp;d=blank"></div><div class="msg_body message-w-userpic"><p>Есть хочу.</p><div class="sign"><a itemprop="creator" href="/people/vurdalak/profile">vurdalak</a> <span class="stars">★★★★★</span> (<time itemprop="commentTime" datetime="2013-09-15T19:14:35.419+04:00">15.09.2013 19:14:35</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587193">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587207" itemprop="comment" class="msg" itemscope="itemscope"><div class="title"></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="150" src="/photos/73441:-300785346.png"></div><div class="msg_body message-w-userpic"><p>Убийца anidb/mal? Пожалей общественность, вот только в начале сентябре прошлый киллер появлялся - <a href="http://anilist.co/">http://anilist.co/</a>.</p><div class="sign"><a itemprop="creator" href="/people/aidan/profile">aidan</a> <span class="stars">★</span> (<time itemprop="commentTime" datetime="2013-09-15T19:17:42.968+04:00">15.09.2013 19:17:42</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587207">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587256" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587207">комментарий</a> от aidan <time itemprop="false" datetime="2013-09-15T19:17:42.968+04:00">15.09.2013 19:17:42</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="138" src="/photos/104584:-1277009017.jpg"></div><div class="msg_body message-w-userpic"><p><a href="https://play.google.com/store/search?q=anilist">https://play.google.com/store/search?q=anilist</a>
+где? </p><div class="sign"><a itemprop="creator" href="/people/darkenshvein/profile">darkenshvein</a> <span class="stars">★</span> (<time itemprop="commentTime" datetime="2013-09-15T19:30:47.040+04:00">15.09.2013 19:30:47</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587256">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587272" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587256">комментарий</a> от darkenshvein <time itemprop="false" datetime="2013-09-15T19:30:47.040+04:00">15.09.2013 19:30:47</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="150" src="/photos/73441:-300785346.png"></div><div class="msg_body message-w-userpic"><p>Чего ты привязался к Андроиду? Так или иначе аниме на смартфоне/планшете ты смотреть не будешь. Посмотрел на ПК, отметил галочкой на сайте и гуляй дальше. Ну, если очень хочется, запили клиент для mal/anidb. Для mal их уже есть - <a href="https://play.google.com/store/search?q=myanimelist">https://play.google.com/store/search?q=myanimelist</a>.</p><div class="sign"><a itemprop="creator" href="/people/aidan/profile">aidan</a> <span class="stars">★</span> (<time itemprop="commentTime" datetime="2013-09-15T19:35:23.935+04:00">15.09.2013 19:35:23</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587272">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587273" itemprop="comment" class="msg" itemscope="itemscope"><div class="title"></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="150" src="/photos/89557:-1163597976.jpg"></div><div class="msg_body message-w-userpic"><p>вот если бы ты предложил сделать какбэ Steam для онимэ - я бы почесался. </p><p>Чтобы там можно было выбрать какбэ качество(битрэйт,разрешение) видоса, какбэ звуковую дорожку (язык,качество) и какбэ субтитры.</p><p>Но всё что я смогу - написать несложный сайтик :'(</p><p>//Пользуясь случаем хочу попросить тыкнуть носом в литературу типа &#171;Qt5 для JS-программистов&#187;</p><div class="sign"><a itemprop="creator" href="/people/Ford_Focus/profile">Ford_Focus</a> <span class="stars">★★</span> (<time itemprop="commentTime" datetime="2013-09-15T19:35:34.187+04:00">15.09.2013 19:35:34</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587273">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587277" itemprop="comment" class="msg" itemscope="itemscope"><div class="title"></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="138" src="/photos/97319:-123794069.jpg"></div><div class="msg_body message-w-userpic"><p>[offtop]Как переводится ваш ник?[/offtop]</p><div class="sign"><a itemprop="creator" href="/people/cinyflo/profile">cinyflo</a> <span class="stars">★</span> (<time itemprop="commentTime" datetime="2013-09-15T19:37:25.981+04:00">15.09.2013 19:37:25</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587277">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587284" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587273">комментарий</a> от Ford_Focus <time itemprop="false" datetime="2013-09-15T19:35:34.187+04:00">15.09.2013 19:35:34</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="138" src="/photos/97319:-123794069.jpg"></div><div class="msg_body message-w-userpic"><p>Считаю что аниме это кал, но фанатов русскоязычных очень много, напиши сайтик, думаю найдутся добровольцы готовые помочь, думаю ваш ресурс будет довольно популярным. Будет самый лучший сайт данной направленности. =)</p><div class="sign"><a itemprop="creator" href="/people/cinyflo/profile">cinyflo</a> <span class="stars">★</span> (<time itemprop="commentTime" datetime="2013-09-15T19:40:47.416+04:00">15.09.2013 19:40:47</time>)<span class="sign_more"><br>Последнее исправление: cinyflo <time itemprop="false" datetime="2013-09-15T19:41:06.515+04:00">15.09.2013 19:41:06</time> (всего  <a href="/forum/talks/9587170/9587284/history">исправлений: 1</a>)</span></div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587284">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587287" itemprop="comment" class="msg" itemscope="itemscope"><div class="title"></div><div class="msg-container"><div class="userpic"><img class="photo" height="140" width="140" src="/photos/100360:1750027013.png"></div><div class="msg_body message-w-userpic"><div class="none">&gt;&gt;-----Цитата----&gt;&gt;</div><div class="quote"><p>Запилим аниме-клиент<br></p></div><div class="none">&lt;&lt;-----Цитата----&lt;&lt;</div><p>К чему блеа? Какой клиент без сервера?<br>Мал уже есть.</p><div class="sign"><a itemprop="creator" href="/people/ritsufag/profile">ritsufag</a> <span class="stars">★</span> (<time itemprop="commentTime" datetime="2013-09-15T19:41:37.237+04:00">15.09.2013 19:41:37</time>)<span class="sign_more"><br>Последнее исправление: ritsufag <time itemprop="false" datetime="2013-09-15T19:41:55.141+04:00">15.09.2013 19:41:55</time> (всего  <a href="/forum/talks/9587170/9587287/history">исправлений: 1</a>)</span></div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587287">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587296" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587273">комментарий</a> от Ford_Focus <time itemprop="false" datetime="2013-09-15T19:35:34.187+04:00">15.09.2013 19:35:34</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="150" src="/photos/73441:-300785346.png"></div><div class="msg_body message-w-userpic"><p><a href="http://www.crunchyroll.com/videos/anime">http://www.crunchyroll.com/videos/anime</a></p><p><a href="http://www.animefreak.tv/">http://www.animefreak.tv/</a></p><p><a href="http://www.animeseason.com/">http://www.animeseason.com/</a></p><p>Мильёны таких сайтов.</p><p>// <span style="white-space: nowrap"><img src="/img/tuxlor.png"><a style="text-decoration: none" href="http://www.linux.org.ru/people/LongLiveUbuntu/profile">LongLiveUbuntu</a></span>, а по Кранчроллу Руби показывают.</p><div class="sign"><a itemprop="creator" href="/people/aidan/profile">aidan</a> <span class="stars">★</span> (<time itemprop="commentTime" datetime="2013-09-15T19:44:10.906+04:00">15.09.2013 19:44:10</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587296">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587301" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587296">комментарий</a> от aidan <time itemprop="false" datetime="2013-09-15T19:44:10.906+04:00">15.09.2013 19:44:10</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="120" width="120" src="/photos/33768:-435522320.png"></div><div class="msg_body message-w-userpic"><p>Ни на одном русского в интерфейсе нет. Ненужно.</p><div class="sign"><a itemprop="creator" href="/people/Mystra_x64/profile">Mystra_x64</a> <span class="stars">★★★★★</span> (<time itemprop="commentTime" datetime="2013-09-15T19:45:50.656+04:00">15.09.2013 19:45:50</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587301">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587303" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587273">комментарий</a> от Ford_Focus <time itemprop="false" datetime="2013-09-15T19:35:34.187+04:00">15.09.2013 19:35:34</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="150" src="http://www.gravatar.com/avatar/c4d7552a4d106a5964bb3cd9d495f28a?s=150&amp;r=g&amp;d=blank"></div><div class="msg_body message-w-userpic"><p>Хорошая тема, но нужно своё файлохранилище и МНОГО трафика. Можно DHT приделать, но будут проблемы. </p><div class="sign"><a itemprop="creator" href="/people/wakuwaku/profile">wakuwaku</a> <span class="stars"></span> (<time itemprop="commentTime" datetime="2013-09-15T19:45:56.628+04:00">15.09.2013 19:45:56</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587303">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587309" itemprop="comment" class="msg" itemscope="itemscope"><div class="title"></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="150" src="/photos/11845:1727722157.png"></div><div class="msg_body message-w-userpic"><p>кетайские порномультики не нужны</p><div class="sign"><a itemprop="creator" href="/people/Reset/profile">Reset</a> <span class="stars">★★★★★</span> (<time itemprop="commentTime" datetime="2013-09-15T19:48:16.234+04:00">15.09.2013 19:48:16</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587309">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587316" itemprop="comment" class="msg" itemscope="itemscope"><div class="title"></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="150" src="/photos/94257:931786120.jpg"></div><div class="msg_body message-w-userpic"><p>Нафига, если есть MAL, причем уже вместе с клиентом?</p><div class="sign"><a itemprop="creator" href="/people/SjZ/profile">SjZ</a> <span class="stars">★★</span> (<time itemprop="commentTime" datetime="2013-09-15T19:49:38.550+04:00">15.09.2013 19:49:38</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587316">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587320" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587309">комментарий</a> от Reset <time itemprop="false" datetime="2013-09-15T19:48:16.234+04:00">15.09.2013 19:48:16</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="150" src="/photos/94257:931786120.jpg"></div><div class="msg_body message-w-userpic"><p>Вроде большой мальчик, а такой бред несешь.</p><div class="sign"><a itemprop="creator" href="/people/SjZ/profile">SjZ</a> <span class="stars">★★</span> (<time itemprop="commentTime" datetime="2013-09-15T19:50:11.222+04:00">15.09.2013 19:50:11</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587320">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587322" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587284">комментарий</a> от cinyflo <time itemprop="false" datetime="2013-09-15T19:40:47.416+04:00">15.09.2013 19:40:47</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="150" src="/photos/89557:-1163597976.jpg"></div><div class="msg_body message-w-userpic"><p>просто сайтик ничего не даст, нужен сервер с хардами на n Tb и хотя бы минимальный клиент, состоящий вэб-браузера (QWebElement?) и обвёртки над mplayer(или хотя бы просто запускалка SMPlayer'a с параметрами).</p><p>если первым на период разработки может побыть мой домашний сервер, то со вторым у меня проблема - не хватает знаний.</p><div class="sign"><a itemprop="creator" href="/people/Ford_Focus/profile">Ford_Focus</a> <span class="stars">★★</span> (<time itemprop="commentTime" datetime="2013-09-15T19:50:33.702+04:00">15.09.2013 19:50:33</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587322">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587329" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587320">комментарий</a> от SjZ <time itemprop="false" datetime="2013-09-15T19:50:11.222+04:00">15.09.2013 19:50:11</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="150" src="/photos/11845:1727722157.png"></div><div class="msg_body message-w-userpic"><p>конечно большой, я ведь не смотрю это ваше онимэ</p><div class="sign"><a itemprop="creator" href="/people/Reset/profile">Reset</a> <span class="stars">★★★★★</span> (<time itemprop="commentTime" datetime="2013-09-15T19:52:13.732+04:00">15.09.2013 19:52:13</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587329">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587331" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587303">комментарий</a> от wakuwaku <time itemprop="false" datetime="2013-09-15T19:45:56.628+04:00">15.09.2013 19:45:56</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="150" src="/photos/89557:-1163597976.jpg"></div><div class="msg_body message-w-userpic"><p>и своё хранилище обязательно и без p2p не обойтись</p><div class="sign"><a itemprop="creator" href="/people/Ford_Focus/profile">Ford_Focus</a> <span class="stars">★★</span> (<time itemprop="commentTime" datetime="2013-09-15T19:53:51.835+04:00">15.09.2013 19:53:51</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587331">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587338" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587301">комментарий</a> от Mystra_x64 <time itemprop="false" datetime="2013-09-15T19:45:50.656+04:00">15.09.2013 19:45:50</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="150" src="/photos/73441:-300785346.png"></div><div class="msg_body message-w-userpic"><div class="none">&gt;&gt;-----Цитата----&gt;&gt;</div><div class="quote"><p> Ни на одном русского в интерфейсе нет. Ненужно.<br></p></div><div class="none">&lt;&lt;-----Цитата----&lt;&lt;</div><p>Прослушай краткую лекцию о необходимости знания английского языка: <a href="http://www.linux.org.ru/forum/talks/9573508" title=" Stack Overflow (in Russian): 2">www.linux.org.ru/forum/talks/9573508</a></p><div class="sign"><a itemprop="creator" href="/people/aidan/profile">aidan</a> <span class="stars">★</span> (<time itemprop="commentTime" datetime="2013-09-15T19:54:59.975+04:00">15.09.2013 19:54:59</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587338">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587351" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587329">комментарий</a> от Reset <time itemprop="false" datetime="2013-09-15T19:52:13.732+04:00">15.09.2013 19:52:13</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="150" src="/photos/94257:931786120.jpg"></div><div class="msg_body message-w-userpic"><p>Т.е. ты считаешь людей которые живут в свое удовольствие хуже других?</p><div class="sign"><a itemprop="creator" href="/people/SjZ/profile">SjZ</a> <span class="stars">★★</span> (<time itemprop="commentTime" datetime="2013-09-15T19:58:10.179+04:00">15.09.2013 19:58:10</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587351">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587352" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587338">комментарий</a> от aidan <time itemprop="false" datetime="2013-09-15T19:54:59.975+04:00">15.09.2013 19:54:59</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="120" width="120" src="/photos/33768:-435522320.png"></div><div class="msg_body message-w-userpic"><p>Прослушай моё авторитетное НЕНУЖНО прямо здесь и сейчас. Дорогой мой, я смотрю ансаб, у тебя есть ещё какие-нибудь крутые намёки? :} Нет русского интерфейса — нет ориентированности на русскоязычный сегмент — значит оплата будет через задницу. Зачем?</p><div class="sign"><a itemprop="creator" href="/people/Mystra_x64/profile">Mystra_x64</a> <span class="stars">★★★★★</span> (<time itemprop="commentTime" datetime="2013-09-15T19:58:10.287+04:00">15.09.2013 19:58:10</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587352">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587356" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587296">комментарий</a> от aidan <time itemprop="false" datetime="2013-09-15T19:44:10.906+04:00">15.09.2013 19:44:10</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="150" src="/photos/89557:-1163597976.jpg"></div><div class="msg_body message-w-userpic"><p>да да, я знаю, что есть пачка ресурсов с flash-просмотрщиками. но выбора битрейта, дорожки и титров я на них не встречал.</p><div class="sign"><a itemprop="creator" href="/people/Ford_Focus/profile">Ford_Focus</a> <span class="stars">★★</span> (<time itemprop="commentTime" datetime="2013-09-15T19:59:40.287+04:00">15.09.2013 19:59:40</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587356">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587359" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587351">комментарий</a> от SjZ <time itemprop="false" datetime="2013-09-15T19:58:10.179+04:00">15.09.2013 19:58:10</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="150" src="/photos/11845:1727722157.png"></div><div class="msg_body message-w-userpic"><p>Я тоже живу в свое удовольствие, при этом не смотрю онимэ. Сюрприз, да? Можно жить в удовольствие и при этом не потреблять говно.</p><div class="sign"><a itemprop="creator" href="/people/Reset/profile">Reset</a> <span class="stars">★★★★★</span> (<time itemprop="commentTime" datetime="2013-09-15T20:00:44.131+04:00">15.09.2013 20:00:44</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587359">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587361" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587322">комментарий</a> от Ford_Focus <time itemprop="false" datetime="2013-09-15T19:50:33.702+04:00">15.09.2013 19:50:33</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="138" src="/photos/97319:-123794069.jpg"></div><div class="msg_body message-w-userpic"><p>Ну а что-то типа торрент трекера? Сервером будут компы пользователей.</p><div class="sign"><a itemprop="creator" href="/people/cinyflo/profile">cinyflo</a> <span class="stars">★</span> (<time itemprop="commentTime" datetime="2013-09-15T20:00:50.356+04:00">15.09.2013 20:00:50</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587361">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587362" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587272">комментарий</a> от aidan <time itemprop="false" datetime="2013-09-15T19:35:23.935+04:00">15.09.2013 19:35:23</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="138" src="/photos/104584:-1277009017.jpg"></div><div class="msg_body message-w-userpic"><div class="none">&gt;&gt;-----Цитата----&gt;&gt;</div><div class="quote"><p>Так или иначе аниме на смартфоне/планшете ты смотреть не будешь. <br></p></div><div class="none">&lt;&lt;-----Цитата----&lt;&lt;</div><p>Ого. Как много ты знаешь. А что я ещё не буду делать? Да нету поддержки друзей для MAL, я тебе это ещё в другом треде ответил, а без этого он зело бесполезен.</p><div class="sign"><a itemprop="creator" href="/people/darkenshvein/profile">darkenshvein</a> <span class="stars">★</span> (<time itemprop="commentTime" datetime="2013-09-15T20:00:50.871+04:00">15.09.2013 20:00:50</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587362">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587366" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587359">комментарий</a> от Reset <time itemprop="false" datetime="2013-09-15T20:00:44.131+04:00">15.09.2013 20:00:44</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="150" src="/photos/94257:931786120.jpg"></div><div class="msg_body message-w-userpic"><p>Ни для кого кроме тебя не имеет значения, смотришь ли ты аниме. Некоторые в 30+ в свое удовольствие смотрят смешариков. Это делает их хуже самих по себе?</p><div class="sign"><a itemprop="creator" href="/people/SjZ/profile">SjZ</a> <span class="stars">★★</span> (<time itemprop="commentTime" datetime="2013-09-15T20:02:18.228+04:00">15.09.2013 20:02:18</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587366">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587367" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587359">комментарий</a> от Reset <time itemprop="false" datetime="2013-09-15T20:00:44.131+04:00">15.09.2013 20:00:44</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="120" width="120" src="/photos/33768:-435522320.png"></div><div class="msg_body message-w-userpic"><div class="none">&gt;&gt;-----Цитата----&gt;&gt;</div><div class="quote"><p>не потреблять говно<br></p></div><div class="none">&lt;&lt;-----Цитата----&lt;&lt;</div><div class="none">&gt;&gt;-----Цитата----&gt;&gt;</div><div class="quote"><p>убунта<br>венда<br>mir<br></p></div><div class="none">&lt;&lt;-----Цитата----&lt;&lt;</div><p>Да у тебя же просраны все полимеры, практически :}</p><div class="sign"><a itemprop="creator" href="/people/Mystra_x64/profile">Mystra_x64</a> <span class="stars">★★★★★</span> (<time itemprop="commentTime" datetime="2013-09-15T20:02:21.334+04:00">15.09.2013 20:02:21</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587367">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587368" itemprop="comment" class="msg" itemscope="itemscope"><div class="title"></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="150" src="/photos/55404:1936705371.png"></div><div class="msg_body message-w-userpic"><p>Что значит аниме клиент? Для чего он нужен?</p><div class="sign"><a itemprop="creator" href="/people/anonymous_sama/profile">anonymous_sama</a> <span class="stars">★★★</span> (<time itemprop="commentTime" datetime="2013-09-15T20:02:31.679+04:00">15.09.2013 20:02:31</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587368">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587372" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587309">комментарий</a> от Reset <time itemprop="false" datetime="2013-09-15T19:48:16.234+04:00">15.09.2013 19:48:16</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="138" src="/photos/97319:-123794069.jpg"></div><div class="msg_body message-w-userpic"><p>Знаете, я тоже ненавижу аниме, но заходить в тему специально чтобы кого-то обосрать это ещё хуже. </p><div class="sign"><a itemprop="creator" href="/people/cinyflo/profile">cinyflo</a> <span class="stars">★</span> (<time itemprop="commentTime" datetime="2013-09-15T20:03:01.039+04:00">15.09.2013 20:03:01</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587372">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587373" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587273">комментарий</a> от Ford_Focus <time itemprop="false" datetime="2013-09-15T19:35:34.187+04:00">15.09.2013 19:35:34</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="138" src="/photos/104584:-1277009017.jpg"></div><div class="msg_body message-w-userpic"><p>сайтик, или страничка на сайте бы не помешала. Тебя записывать?</p><p>Да и клиент можно со временем превратить в магазин. Я и так кучу фич указал, а ресурсов, на написание даже этого, пока нет.</p><div class="sign"><a itemprop="creator" href="/people/darkenshvein/profile">darkenshvein</a> <span class="stars">★</span> (<time itemprop="commentTime" datetime="2013-09-15T20:03:05.971+04:00">15.09.2013 20:03:05</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587373">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587376" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587368">комментарий</a> от anonymous_sama <time itemprop="false" datetime="2013-09-15T20:02:31.679+04:00">15.09.2013 20:02:31</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="138" src="/photos/104584:-1277009017.jpg"></div><div class="msg_body message-w-userpic"><p><a href="http://ru.wikipedia.org/wiki/MyAnimeList">http://ru.wikipedia.org/wiki/MyAnimeList</a></p><div class="sign"><a itemprop="creator" href="/people/darkenshvein/profile">darkenshvein</a> <span class="stars">★</span> (<time itemprop="commentTime" datetime="2013-09-15T20:04:03.257+04:00">15.09.2013 20:04:03</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587376">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587384" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587376">комментарий</a> от darkenshvein <time itemprop="false" datetime="2013-09-15T20:04:03.257+04:00">15.09.2013 20:04:03</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="150" src="/photos/55404:1936705371.png"></div><div class="msg_body message-w-userpic"><p>Тогда зачем если оно уже есть, оно работает, и оно бесплатное, а в открытой альтернативе смысла нет ибо это веб. И да что так плохо с памятью, что посмотрел?</p><div class="sign"><a itemprop="creator" href="/people/anonymous_sama/profile">anonymous_sama</a> <span class="stars">★★★</span> (<time itemprop="commentTime" datetime="2013-09-15T20:07:03.447+04:00">15.09.2013 20:07:03</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587384">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587387" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587352">комментарий</a> от Mystra_x64 <time itemprop="false" datetime="2013-09-15T19:58:10.287+04:00">15.09.2013 19:58:10</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="150" src="/photos/73441:-300785346.png"></div><div class="msg_body message-w-userpic"><p>Если знаешь английский, то зачем пользоваться русскоязычными сайтами? Руссаб по определению вторичен к ансабу, как все его сайты/сервисы. Как и ансаб к оригиналу, да.</p><div class="none">&gt;&gt;-----Цитата----&gt;&gt;</div><div class="quote"><p> оплата будет через задницу<br></p></div><div class="none">&lt;&lt;-----Цитата----&lt;&lt;</div><p>За что платить-то? На anidb.</p><div class="sign"><a itemprop="creator" href="/people/aidan/profile">aidan</a> <span class="stars">★</span> (<time itemprop="commentTime" datetime="2013-09-15T20:07:11.330+04:00">15.09.2013 20:07:11</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587387">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587392" itemprop="comment" class="msg" itemscope="itemscope"><div class="title"></div><div class="msg-container"><div class="userpic"><img class="photo" height="121" width="150" src="/photos/67566:658581664.png"></div><div class="msg_body message-w-userpic"><div class="none">&gt;&gt;-----Цитата----&gt;&gt;</div><div class="quote"><p>Есть тут художники, звукорежиссёры?<br></p></div><div class="none">&lt;&lt;-----Цитата----&lt;&lt;</div><p>Смеёшься что ли? Конечно, нет.</p><div class="sign"><a itemprop="creator" href="/people/sT331h0rs3/profile">sT331h0rs3</a> <span class="stars">★</span> (<time itemprop="commentTime" datetime="2013-09-15T20:08:08.396+04:00">15.09.2013 20:08:08</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587392">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587394" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587361">комментарий</a> от cinyflo <time itemprop="false" datetime="2013-09-15T20:00:50.356+04:00">15.09.2013 20:00:50</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="150" src="/photos/89557:-1163597976.jpg"></div><div class="msg_body message-w-userpic"><p>а торрент-трекеры уже есть =) мало того, на них как правило бывает выбор качества и языка дорожек =) зачем миру jaf-трэкер? </p><p>суть именно в клиенте, контент можно награбить из уже существующих ресурсов. даже элементы соц сети для социоблядей можно прикрутить уже существующие.</p><div class="sign"><a itemprop="creator" href="/people/Ford_Focus/profile">Ford_Focus</a> <span class="stars">★★</span> (<time itemprop="commentTime" datetime="2013-09-15T20:08:24.962+04:00">15.09.2013 20:08:24</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587394">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587395" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587356">комментарий</a> от Ford_Focus <time itemprop="false" datetime="2013-09-15T19:59:40.287+04:00">15.09.2013 19:59:40</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="150" src="/photos/73441:-300785346.png"></div><div class="msg_body message-w-userpic"><p>На Кранче точно есть выбор битрейта. В премиуме. Зато все легально :)</p><div class="sign"><a itemprop="creator" href="/people/aidan/profile">aidan</a> <span class="stars">★</span> (<time itemprop="commentTime" datetime="2013-09-15T20:08:26.349+04:00">15.09.2013 20:08:26</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587395">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587398" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587296">комментарий</a> от aidan <time itemprop="false" datetime="2013-09-15T19:44:10.906+04:00">15.09.2013 19:44:10</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="138" src="/photos/104584:-1277009017.jpg"></div><div class="msg_body message-w-userpic"><p><a href="http://www.crunchyroll.com/videos/anime">http://www.crunchyroll.com/videos/anime</a></p><p>к слову есть для андроида, смотрю иногда с английскими сабами.</p><div class="sign"><a itemprop="creator" href="/people/darkenshvein/profile">darkenshvein</a> <span class="stars">★</span> (<time itemprop="commentTime" datetime="2013-09-15T20:09:02.310+04:00">15.09.2013 20:09:02</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587398">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587401" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587384">комментарий</a> от anonymous_sama <time itemprop="false" datetime="2013-09-15T20:07:03.447+04:00">15.09.2013 20:07:03</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="138" src="/photos/104584:-1277009017.jpg"></div><div class="msg_body message-w-userpic"><p>Ай, читай внимательнее.</p><div class="sign"><a itemprop="creator" href="/people/darkenshvein/profile">darkenshvein</a> <span class="stars">★</span> (<time itemprop="commentTime" datetime="2013-09-15T20:10:00.723+04:00">15.09.2013 20:10:00</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587401">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587405" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587373">комментарий</a> от darkenshvein <time itemprop="false" datetime="2013-09-15T20:03:05.971+04:00">15.09.2013 20:03:05</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="150" src="/photos/89557:-1163597976.jpg"></div><div class="msg_body message-w-userpic"><p>full-time не обещаю, но хорошей идее рад помочь.</p><div class="sign"><a itemprop="creator" href="/people/Ford_Focus/profile">Ford_Focus</a> <span class="stars">★★</span> (<time itemprop="commentTime" datetime="2013-09-15T20:10:31.022+04:00">15.09.2013 20:10:31</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587405">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587406" itemprop="comment" class="msg" itemscope="itemscope"><div class="title"></div><div class="msg-container"><div class="userpic"><img class="photo" height="121" width="150" src="/photos/67566:658581664.png"></div><div class="msg_body message-w-userpic"><p>А так я бы помог, чем мог. Дай ссылку на гитхаб, когда/если будет проект.</p><div class="sign"><a itemprop="creator" href="/people/sT331h0rs3/profile">sT331h0rs3</a> <span class="stars">★</span> (<time itemprop="commentTime" datetime="2013-09-15T20:10:35.775+04:00">15.09.2013 20:10:35</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587406">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587410" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587362">комментарий</a> от darkenshvein <time itemprop="false" datetime="2013-09-15T20:00:50.871+04:00">15.09.2013 20:00:50</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="150" src="/photos/73441:-300785346.png"></div><div class="msg_body message-w-userpic"><p>Создатели всех этих сайтов отталкивались от слова &#171;database&#187;, друзья там не нужны. Я, честно говоря, и не знаю никого кто бы использовал их для общения, местный форум и ирка - да, а сам сайт - нет.</p><div class="sign"><a itemprop="creator" href="/people/aidan/profile">aidan</a> <span class="stars">★</span> (<time itemprop="commentTime" datetime="2013-09-15T20:11:00.450+04:00">15.09.2013 20:11:00</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587410">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587416" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587395">комментарий</a> от aidan <time itemprop="false" datetime="2013-09-15T20:08:26.349+04:00">15.09.2013 20:08:26</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="150" src="/photos/89557:-1163597976.jpg"></div><div class="msg_body message-w-userpic"><p>угу, даже 720р зажали.</p><div class="sign"><a itemprop="creator" href="/people/Ford_Focus/profile">Ford_Focus</a> <span class="stars">★★</span> (<time itemprop="commentTime" datetime="2013-09-15T20:12:11.937+04:00">15.09.2013 20:12:11</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587416">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587418" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587387">комментарий</a> от aidan <time itemprop="false" datetime="2013-09-15T20:07:11.330+04:00">15.09.2013 20:07:11</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="120" width="120" src="/photos/33768:-435522320.png"></div><div class="msg_body message-w-userpic"><p>А разве подразумевался не сервис где можно всё быстро/вовремя/легально достать? Иначе какой смысл :}</p><div class="sign"><a itemprop="creator" href="/people/Mystra_x64/profile">Mystra_x64</a> <span class="stars">★★★★★</span> (<time itemprop="commentTime" datetime="2013-09-15T20:12:37.966+04:00">15.09.2013 20:12:37</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587418">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587424" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587272">комментарий</a> от aidan <time itemprop="false" datetime="2013-09-15T19:35:23.935+04:00">15.09.2013 19:35:23</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="150" src="/photos/46967:-292479613.jpg"></div><div class="msg_body message-w-userpic"><div class="none">&gt;&gt;-----Цитата----&gt;&gt;</div><div class="quote"><p>Так или иначе аниме на смартфоне/планшете ты смотреть не будешь.<br></p></div><div class="none">&lt;&lt;-----Цитата----&lt;&lt;</div><p>ну почему? я в метро видел волосатых задротов, смотрящих онеме на смартфонах</p><div class="sign"><a itemprop="creator" href="/people/BambarbiyaKirgudu/profile">BambarbiyaKirgudu</a> <span class="stars">★</span> (<time itemprop="commentTime" datetime="2013-09-15T20:15:05.110+04:00">15.09.2013 20:15:05</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587424">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587428" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587418">комментарий</a> от Mystra_x64 <time itemprop="false" datetime="2013-09-15T20:12:37.966+04:00">15.09.2013 20:12:37</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="150" src="/photos/89557:-1163597976.jpg"></div><div class="msg_body message-w-userpic"><p>с японцами в плане легальности возни много. по крайней мере - дело не для пачки любителей. им на rest of world покласть, ну и замечательно.</p><div class="sign"><a itemprop="creator" href="/people/Ford_Focus/profile">Ford_Focus</a> <span class="stars">★★</span> (<time itemprop="commentTime" datetime="2013-09-15T20:16:01.117+04:00">15.09.2013 20:16:01</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587428">Ссылка</a></li></ul></div></div></div></article><article itemtype="http://schema.org/UserComments" id="comment-9587431" itemprop="comment" class="msg" itemscope="itemscope"><div class="title">Ответ на: <a data-samepage="samePage" href="/forum/talks/9587170?cid=9587406">комментарий</a> от sT331h0rs3 <time itemprop="false" datetime="2013-09-15T20:10:35.775+04:00">15.09.2013 20:10:35</time></div><div class="msg-container"><div class="userpic"><img class="photo" height="150" width="138" src="/photos/104584:-1277009017.jpg"></div><div class="msg_body message-w-userpic"><p>языки, технологии, платформы, сеньор программер?</p><div class="sign"><a itemprop="creator" href="/people/darkenshvein/profile">darkenshvein</a> <span class="stars">★</span> (<time itemprop="commentTime" datetime="2013-09-15T20:16:48.203+04:00">15.09.2013 20:16:48</time>)</div><div class="reply"><ul>   <li><a href="/forum/talks/9587170?cid=9587431">Ссылка</a></li></ul></div></div></div></article></div>
+<div class="nav">
+      &emsp;<span class='page-number'>←</span>
+    <strong class='page-number'>1</strong>
+        <a class='page-number' href='/forum/talks/9587170/page1#comments'>2</a>
+        <a class='page-number' href='/forum/talks/9587170/page1#comments'>→</a></div>
+  <div class="nav">
+  <div class="grid-row">
+    <div class="grid-3-1">
+      <table>
+        <tr valign=middle>
+          <td style="padding-right: 5px">
+              <a href="/forum/talks/9586947" rel=prev>←</a>
+            </td>
+            <td align=left valign=top class="hideon-phone">
+              <a href="/forum/talks/9586947" rel=prev>
+                Посоветуйте какое-нибудь красивое анимэ</a>
+            </td>
+          </tr>
+      </table>
+    </div>
+    <div class="grid-3-2">
+      <a title="Форум - Talks"
+         href="/forum/talks/">
+          Talks</a>
+    </div>
+    <div class="grid-3-3">
+      <table align="right">
+          <tr valign=middle align=right>
+            <td class="hideon-phone">
+              <a href="/forum/talks/9587221" rel=next>
+                Почему все группы скатываются в говно?</a>
+            </td>
+            <td align="right" valign="middle" style="padding-left: 5px">
+              <a href="/forum/talks/9587221" rel=next>→</a>
+            </td>
+          </tr>
+        </table>
+      </div>
+  </div>
+  </div></div>
+
+</div>
+<footer id="ft">
+
+<p id="ft-info">
+  <a href="/about">О Сервере</a> -
+  <a href="/rules.jsp">Правила форума</a><br>
+  <a href="http://www.linux.org.ru/">http://www.linux.org.ru/</a>
+  </p>
+
+<div id="ft-buttons">
+<!-- begin of Top100 logo -->
+  <a href="http://top100.rambler.ru/home?id=29833" target="_blank"><img src="http://top100-images.rambler.ru/top100/banner-88x31-rambler-black2.gif" alt="Rambler's Top100" width="88" height="31" /></a>
+  <!-- end of Top100 logo -->
+    <!-- Rating@Mail.ru logo -->
+    <a target="_top" href="http://top.mail.ru/jump?from=71642">
+    <img src="http://d7.c1.b1.a0.top.mail.ru/counter?id=71642;t=11;l=1"
+    height="31" width="88" alt="Рейтинг@Mail.ru"></a>
+    <!-- //Rating@Mail.ru logo -->
+</div>
+
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-2184304-1");
+        pageTracker._setCustomVar(1, "Authorized", "false");
+        pageTracker._setCustomVar(2, "Style", "tango");
+        pageTracker._setSiteSpeedSampleRate(10);
+        pageTracker._trackPageview();
+    } catch (err) { }</script>
+
+<!-- begin of Top100 code -->
+    <script id="top100Counter" type="text/javascript" src="http://counter.rambler.ru/top100.jcn?29833"></script><noscript><img src="http://counter.rambler.ru/top100.cnt?29833" alt="" width="1" height="1"/></noscript>
+    <!-- end of Top100 code -->
+</footer>
+</body></html>

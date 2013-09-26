@@ -1,0 +1,81 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urfu.AuthorDetector.Grabber", "Urfu.AuthorDetector.Grabber\Urfu.AuthorDetector.Grabber.csproj", "{6C96DDD4-6F1F-4381-A112-A93A183CB320}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urfu.AuthorDetector.DataLayer", "Urfu.AuthorDetector.DataLayer\Urfu.AuthorDetector.DataLayer.csproj", "{CCDAF9B5-4BF7-41A9-9A7C-196A42949474}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urfu.Utils", "Urfu.Utils\Urfu.Utils.csproj", "{C180F1B6-6740-4CB8-A806-0C5772B91B3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urfu.AuthorDetector.Tests", "Urfu.AuthorDetector.Tests\Urfu.AuthorDetector.Tests.csproj", "{8D735778-D7C5-4A8A-810F-2F91FBA1EB1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urfu.AuthorDetector.Common", "Urfu.AuthorDetector.Common\Urfu.AuthorDetector.Common.csproj", "{A381334C-10F5-4FC0-A8A3-548618D581F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urfu.AuthorDetector.TalksGrabber", "Urfu.AuthorDetector.TalksGrabber\Urfu.AuthorDetector.TalksGrabber.csproj", "{07E6BE1B-E8AD-4087-85DB-615754C84FA5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConsoleUtils", "ConsoleUtils", "{1BD0FFC2-DD7E-4B77-BFE2-47BCE0E2E8EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urfu.AuthorDetector.MetricsToCSV", "Urfu.AuthorDetector.MetricsToCSV\Urfu.AuthorDetector.MetricsToCSV.csproj", "{B2DEA941-E8F4-4E30-8FFE-18D29DF9251A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Experiment", "Experiment", "{B372B2BF-B7E1-4AA7-BBBD-F2D184E613A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urfu.AuthorDetecor.Experiment", "Urfu.AuthorDetecor.Experiment\Urfu.AuthorDetecor.Experiment.csproj", "{39FB2945-0C7E-4845-AC24-6C7DF30AD1A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urfu.AuthorDetecor.ExperimentConsole", "Urfu.AuthorDetecor.ExperimentConsole\Urfu.AuthorDetecor.ExperimentConsole.csproj", "{E6778475-27E4-4EE9-B72E-8463348A77AF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6C96DDD4-6F1F-4381-A112-A93A183CB320}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C96DDD4-6F1F-4381-A112-A93A183CB320}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C96DDD4-6F1F-4381-A112-A93A183CB320}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C96DDD4-6F1F-4381-A112-A93A183CB320}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCDAF9B5-4BF7-41A9-9A7C-196A42949474}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCDAF9B5-4BF7-41A9-9A7C-196A42949474}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCDAF9B5-4BF7-41A9-9A7C-196A42949474}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCDAF9B5-4BF7-41A9-9A7C-196A42949474}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C180F1B6-6740-4CB8-A806-0C5772B91B3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C180F1B6-6740-4CB8-A806-0C5772B91B3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C180F1B6-6740-4CB8-A806-0C5772B91B3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C180F1B6-6740-4CB8-A806-0C5772B91B3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D735778-D7C5-4A8A-810F-2F91FBA1EB1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D735778-D7C5-4A8A-810F-2F91FBA1EB1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D735778-D7C5-4A8A-810F-2F91FBA1EB1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D735778-D7C5-4A8A-810F-2F91FBA1EB1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A381334C-10F5-4FC0-A8A3-548618D581F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A381334C-10F5-4FC0-A8A3-548618D581F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A381334C-10F5-4FC0-A8A3-548618D581F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A381334C-10F5-4FC0-A8A3-548618D581F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07E6BE1B-E8AD-4087-85DB-615754C84FA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07E6BE1B-E8AD-4087-85DB-615754C84FA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07E6BE1B-E8AD-4087-85DB-615754C84FA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07E6BE1B-E8AD-4087-85DB-615754C84FA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2DEA941-E8F4-4E30-8FFE-18D29DF9251A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2DEA941-E8F4-4E30-8FFE-18D29DF9251A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2DEA941-E8F4-4E30-8FFE-18D29DF9251A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2DEA941-E8F4-4E30-8FFE-18D29DF9251A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39FB2945-0C7E-4845-AC24-6C7DF30AD1A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39FB2945-0C7E-4845-AC24-6C7DF30AD1A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39FB2945-0C7E-4845-AC24-6C7DF30AD1A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39FB2945-0C7E-4845-AC24-6C7DF30AD1A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6778475-27E4-4EE9-B72E-8463348A77AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6778475-27E4-4EE9-B72E-8463348A77AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6778475-27E4-4EE9-B72E-8463348A77AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6778475-27E4-4EE9-B72E-8463348A77AF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{07E6BE1B-E8AD-4087-85DB-615754C84FA5} = {1BD0FFC2-DD7E-4B77-BFE2-47BCE0E2E8EB}
+		{B2DEA941-E8F4-4E30-8FFE-18D29DF9251A} = {1BD0FFC2-DD7E-4B77-BFE2-47BCE0E2E8EB}
+		{E6778475-27E4-4EE9-B72E-8463348A77AF} = {1BD0FFC2-DD7E-4B77-BFE2-47BCE0E2E8EB}
+		{39FB2945-0C7E-4845-AC24-6C7DF30AD1A2} = {B372B2BF-B7E1-4AA7-BBBD-F2D184E613A9}
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
+EndGlobal

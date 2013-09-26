@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Statistics.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="StatisticsStoreContainer">
+          <EntitySet Name="Authors" EntityType="Statistics.Store.Authors" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ForumSet" EntityType="Statistics.Store.ForumSet" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Posts" EntityType="Statistics.Store.Posts" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Themes" EntityType="Statistics.Store.Themes" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_ForumAuthor" Association="Statistics.Store.FK_ForumAuthor">
+            <End Role="ForumSet" EntitySet="ForumSet" />
+            <End Role="Authors" EntitySet="Authors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForumTheme" Association="Statistics.Store.FK_ForumTheme">
+            <End Role="ForumSet" EntitySet="ForumSet" />
+            <End Role="Themes" EntitySet="Themes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostAuthor" Association="Statistics.Store.FK_PostAuthor">
+            <End Role="Authors" EntitySet="Authors" />
+            <End Role="Posts" EntitySet="Posts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ThemePost" Association="Statistics.Store.FK_ThemePost">
+            <End Role="Themes" EntitySet="Themes" />
+            <End Role="Posts" EntitySet="Posts" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Authors">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Identity" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar(max)" />
+          <Property Name="Forum_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ForumSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ForumUrl" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Posts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DateTime" Type="datetime" />
+          <Property Name="IdOnForum" Type="int" Nullable="false" />
+          <Property Name="Author_Id" Type="int" Nullable="false" />
+          <Property Name="Theme_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="Themes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IdOnForum" Type="int" Nullable="false" />
+          <Property Name="Forum_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ForumAuthor">
+          <End Role="ForumSet" Type="Statistics.Store.ForumSet" Multiplicity="1" />
+          <End Role="Authors" Type="Statistics.Store.Authors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForumSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Authors">
+              <PropertyRef Name="Forum_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForumTheme">
+          <End Role="ForumSet" Type="Statistics.Store.ForumSet" Multiplicity="1" />
+          <End Role="Themes" Type="Statistics.Store.Themes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForumSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Themes">
+              <PropertyRef Name="Forum_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostAuthor">
+          <End Role="Authors" Type="Statistics.Store.Authors" Multiplicity="1" />
+          <End Role="Posts" Type="Statistics.Store.Posts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authors">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Posts">
+              <PropertyRef Name="Author_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ThemePost">
+          <End Role="Themes" Type="Statistics.Store.Themes" Multiplicity="0..1" />
+          <End Role="Posts" Type="Statistics.Store.Posts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Themes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Posts">
+              <PropertyRef Name="Theme_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Statistics" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="StatisticsContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Posts" EntityType="Statistics.Post" />
+          <EntitySet Name="Themes" EntityType="Statistics.Theme" />
+          <EntitySet Name="Authors" EntityType="Statistics.Author" />
+          <AssociationSet Name="PostAuthor" Association="Statistics.PostAuthor">
+            <End Role="Post" EntitySet="Posts" />
+            <End Role="Author" EntitySet="Authors" />
+          </AssociationSet>
+          <AssociationSet Name="ThemePost" Association="Statistics.ThemePost">
+            <End Role="Theme" EntitySet="Themes" />
+            <End Role="Post" EntitySet="Posts" />
+          </AssociationSet>
+          <EntitySet Name="ForumSet" EntityType="Statistics.Forum" />
+          <AssociationSet Name="ForumTheme" Association="Statistics.ForumTheme">
+            <End Role="Forum" EntitySet="ForumSet" />
+            <End Role="Theme" EntitySet="Themes" />
+          </AssociationSet>
+          <AssociationSet Name="ForumAuthor" Association="Statistics.ForumAuthor">
+            <End Role="Forum" EntitySet="ForumSet" />
+            <End Role="Author" EntitySet="Authors" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Text" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Type="DateTime" Name="DateTime" Nullable="true" Precision="3" />
+          <NavigationProperty Name="Author" Relationship="Statistics.PostAuthor" FromRole="Post" ToRole="Author" />
+          <NavigationProperty Name="Theme" Relationship="Statistics.ThemePost" FromRole="Post" ToRole="Theme" />
+          <Property Type="Int32" Name="IdOnForum" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Theme">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Post" Relationship="Statistics.ThemePost" FromRole="Theme" ToRole="Post" />
+          <NavigationProperty Name="Forum" Relationship="Statistics.ForumTheme" FromRole="Theme" ToRole="Forum" />
+          <Property Type="Int32" Name="IdOnForum" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Identity" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Type="String" Name="DisplayName" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Post" Relationship="Statistics.PostAuthor" FromRole="Author" ToRole="Post" />
+          <NavigationProperty Name="Forum" Relationship="Statistics.ForumAuthor" FromRole="Author" ToRole="Forum" />
+        </EntityType>
+        <Association Name="PostAuthor">
+          <End Type="Statistics.Post" Role="Post" Multiplicity="*" />
+          <End Type="Statistics.Author" Role="Author" Multiplicity="1" />
+        </Association>
+        <Association Name="ThemePost">
+          <End Type="Statistics.Theme" Role="Theme" Multiplicity="0..1" />
+          <End Type="Statistics.Post" Role="Post" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Forum">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="ForumUrl" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Theme" Relationship="Statistics.ForumTheme" FromRole="Forum" ToRole="Theme" />
+          <NavigationProperty Name="Author" Relationship="Statistics.ForumAuthor" FromRole="Forum" ToRole="Author" />
+        </EntityType>
+        <Association Name="ForumTheme">
+          <End Type="Statistics.Forum" Role="Forum" Multiplicity="1" />
+          <End Type="Statistics.Theme" Role="Theme" Multiplicity="*" />
+        </Association>
+        <Association Name="ForumAuthor">
+          <End Type="Statistics.Forum" Role="Forum" Multiplicity="1" />
+          <End Type="Statistics.Author" Role="Author" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="StatisticsStoreContainer" CdmEntityContainer="StatisticsContainer">
+    <EntitySetMapping Name="Posts">
+      <EntityTypeMapping TypeName="IsTypeOf(Statistics.Post)">
+        <MappingFragment StoreEntitySet="Posts">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="IdOnForum" ColumnName="IdOnForum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Themes">
+      <EntityTypeMapping TypeName="IsTypeOf(Statistics.Theme)">
+        <MappingFragment StoreEntitySet="Themes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="IdOnForum" ColumnName="IdOnForum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Authors">
+      <EntityTypeMapping TypeName="IsTypeOf(Statistics.Author)">
+        <MappingFragment StoreEntitySet="Authors">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Identity" ColumnName="Identity" />
+          <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ForumSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Statistics.Forum)">
+        <MappingFragment StoreEntitySet="ForumSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ForumUrl" ColumnName="ForumUrl" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="PostAuthor" TypeName="Statistics.PostAuthor" StoreEntitySet="Posts">
+      <EndProperty Name="Author">
+        <ScalarProperty Name="Id" ColumnName="Author_Id" />
+      </EndProperty>
+      <EndProperty Name="Post">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ThemePost" TypeName="Statistics.ThemePost" StoreEntitySet="Posts">
+      <EndProperty Name="Theme">
+        <ScalarProperty Name="Id" ColumnName="Theme_Id" />
+      </EndProperty>
+      <EndProperty Name="Post">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Theme_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ForumTheme" TypeName="Statistics.ForumTheme" StoreEntitySet="Themes">
+      <EndProperty Name="Forum">
+        <ScalarProperty Name="Id" ColumnName="Forum_Id" />
+      </EndProperty>
+      <EndProperty Name="Theme">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ForumAuthor" TypeName="Statistics.ForumAuthor" StoreEntitySet="Authors">
+      <EndProperty Name="Forum">
+        <ScalarProperty Name="Id" ColumnName="Forum_Id" />
+      </EndProperty>
+      <EndProperty Name="Author">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

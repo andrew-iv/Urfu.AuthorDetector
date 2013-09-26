@@ -1,0 +1,153 @@
+
+-- --------------------------------------------------
+-- Entity Designer DDL Script for SQL Server Compact Edition
+-- --------------------------------------------------
+-- Date Created: 09/20/2013 14:18:40
+-- Generated from EDMX file: C:\Users\andrew-iv\documents\visual studio 2012\Projects\Urfu.AuthorDetector\Urfu.AuthorDetector.DataLayer\Statistics.edmx
+-- --------------------------------------------------
+
+
+-- --------------------------------------------------
+-- Dropping existing FOREIGN KEY constraints
+-- NOTE: if the constraint does not exist, an ignorable error will be reported.
+-- --------------------------------------------------
+
+
+-- --------------------------------------------------
+-- Dropping existing tables
+-- NOTE: if the table does not exist, an ignorable error will be reported.
+-- --------------------------------------------------
+
+
+-- --------------------------------------------------
+-- Creating all tables
+-- --------------------------------------------------
+
+-- Creating table 'Posts'
+CREATE TABLE [Posts] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Text] nvarchar(4000)  NOT NULL,
+    [DateTime] datetime  NULL,
+    [IdOnForum] int  NOT NULL,
+    [Author_Id] int  NOT NULL,
+    [Theme_Id] int  NULL
+);
+GO
+
+-- Creating table 'Themes'
+CREATE TABLE [Themes] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Title] nvarchar(4000)  NOT NULL,
+    [IdOnForum] int  NOT NULL,
+    [Forum_Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'Authors'
+CREATE TABLE [Authors] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Identity] nvarchar(4000)  NOT NULL,
+    [DisplayName] nvarchar(4000)  NULL,
+    [Forum_Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'ForumSet'
+CREATE TABLE [ForumSet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [ForumUrl] nvarchar(4000)  NOT NULL,
+    [Description] nvarchar(4000)  NULL
+);
+GO
+
+-- --------------------------------------------------
+-- Creating all PRIMARY KEY constraints
+-- --------------------------------------------------
+
+-- Creating primary key on [Id] in table 'Posts'
+ALTER TABLE [Posts]
+ADD CONSTRAINT [PK_Posts]
+    PRIMARY KEY ([Id] );
+GO
+
+-- Creating primary key on [Id] in table 'Themes'
+ALTER TABLE [Themes]
+ADD CONSTRAINT [PK_Themes]
+    PRIMARY KEY ([Id] );
+GO
+
+-- Creating primary key on [Id] in table 'Authors'
+ALTER TABLE [Authors]
+ADD CONSTRAINT [PK_Authors]
+    PRIMARY KEY ([Id] );
+GO
+
+-- Creating primary key on [Id] in table 'ForumSet'
+ALTER TABLE [ForumSet]
+ADD CONSTRAINT [PK_ForumSet]
+    PRIMARY KEY ([Id] );
+GO
+
+-- --------------------------------------------------
+-- Creating all FOREIGN KEY constraints
+-- --------------------------------------------------
+
+-- Creating foreign key on [Author_Id] in table 'Posts'
+ALTER TABLE [Posts]
+ADD CONSTRAINT [FK_PostAuthor]
+    FOREIGN KEY ([Author_Id])
+    REFERENCES [Authors]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_PostAuthor'
+CREATE INDEX [IX_FK_PostAuthor]
+ON [Posts]
+    ([Author_Id]);
+GO
+
+-- Creating foreign key on [Theme_Id] in table 'Posts'
+ALTER TABLE [Posts]
+ADD CONSTRAINT [FK_ThemePost]
+    FOREIGN KEY ([Theme_Id])
+    REFERENCES [Themes]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ThemePost'
+CREATE INDEX [IX_FK_ThemePost]
+ON [Posts]
+    ([Theme_Id]);
+GO
+
+-- Creating foreign key on [Forum_Id] in table 'Themes'
+ALTER TABLE [Themes]
+ADD CONSTRAINT [FK_ForumTheme]
+    FOREIGN KEY ([Forum_Id])
+    REFERENCES [ForumSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ForumTheme'
+CREATE INDEX [IX_FK_ForumTheme]
+ON [Themes]
+    ([Forum_Id]);
+GO
+
+-- Creating foreign key on [Forum_Id] in table 'Authors'
+ALTER TABLE [Authors]
+ADD CONSTRAINT [FK_ForumAuthor]
+    FOREIGN KEY ([Forum_Id])
+    REFERENCES [ForumSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ForumAuthor'
+CREATE INDEX [IX_FK_ForumAuthor]
+ON [Authors]
+    ([Forum_Id]);
+GO
+
+-- --------------------------------------------------
+-- Script has ended
+-- --------------------------------------------------

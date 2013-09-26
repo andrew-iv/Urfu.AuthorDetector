@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4b3d61e9120e4ef2b69a342239a9bbcd" Name="Диаграмма1" >
+        <EntityTypeShape EntityType="Statistics.Post" Width="1.375" PointX="4.25" PointY="2.5" />
+        <EntityTypeShape EntityType="Statistics.Theme" Width="1.5" PointX="6.875" PointY="1.5" />
+        <EntityTypeShape EntityType="Statistics.Author" Width="1.5" PointX="6.75" PointY="4.125" />
+        <AssociationConnector Association="Statistics.PostAuthor" />
+        <AssociationConnector Association="Statistics.ThemePost" />
+        <EntityTypeShape EntityType="Statistics.Forum" Width="1.5" PointX="9" PointY="2.5" />
+        <AssociationConnector Association="Statistics.ForumTheme" />
+        <AssociationConnector Association="Statistics.ForumAuthor" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

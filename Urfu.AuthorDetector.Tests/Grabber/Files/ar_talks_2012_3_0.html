@@ -1,0 +1,635 @@
+﻿<!DOCTYPE html>
+<html lang=ru>
+<head>
+<link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono|Open+Sans:600&amp;subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+  <LINK REL="stylesheet" TYPE="text/css" HREF="/tango/combined.css?20130919-0937">
+
+<script type="text/javascript">
+    /*!
+    * $script.js Async loader & dependency manager
+    * https://github.com/ded/script.js
+    * (c) Dustin Diaz, Jacob Thornton 2011
+    * License: MIT
+    */
+    (function(e,d,f){typeof f.module!="undefined"&&f.module.exports?f.module.exports=d():typeof f.define!="undefined"&&f.define=="function"&&f.define.amd?define(e,d):f[e]=d()
+    })("$script",function(){function y(f,e){for(var h=0,g=f.length;
+    h<g;
+    ++h){if(!e(f[h])){return E
+    }}return 1
+    }function x(d,c){y(d,function(b){return !c(b)
+    })
+    }function w(p,k,h){function c(b){return b.call?b():K[b]
+    }function q(){if(!--d){K[e]=1,f&&f();
+        for(var b in I){y(b.split("|"),c)&&!x(I[b],c)&&(I[b]=[])
+        }}}p=p[D]?p:[p];
+        var g=k&&k.call,f=g?k:h,e=g?p.join(""):k,d=p.length;
+        return setTimeout(function(){x(p,function(b){if(G[b]){return e&&(J[e]=1),G[b]==2&&q()
+        }G[b]=1,e&&(J[e]=1),v(!L.test(b)&&H?H+b+".js":b,q)
+        })
+        },0),w
+    }function v(h,g){var b=N.createElement("script"),a=E;
+        b.onload=b.onerror=b[z]=function(){if(b[B]&&!/^c|loade/.test(b[B])||a){return
+        }b.onload=b[z]=null,a=1,G[h]=2,g()
+        },b.async=1,b.src=h,M.insertBefore(b,M.firstChild)
+    }var N=document,M=N.getElementsByTagName("head")[0],L=/^https?:\/\//,K={},J={},I={},H,G={},F="string",E=!1,D="push",C="DOMContentLoaded",B="readyState",A="addEventListener",z="onreadystatechange";
+        return !N[B]&&N[A]&&(N[A](C,function u(){N.removeEventListener(C,u,E),N[B]="complete"
+        },E),N[B]="loading"),w.get=v,w.order=function(f,e,h){(function g(a){a=f.shift(),f.length?w(a,g):w(a,e,h)
+        })()
+        },w.path=function(b){H=b
+        },w.ready=function(f,d,h){f=f[D]?f:[f];
+            var g=[];
+            return !x(f,function(b){K[b]||g[D](b)
+            })&&y(f,function(b){return K[b]
+            })?d():!function(b){I[b]=I[b]||[],I[b][D](d),h&&h(g)
+            }(f.join("|")),w
+        },w
+    },this);</script>
+
+  <!--[if lt IE 9]>
+<script src="/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    if (typeof jQuery == 'undefined') {
+        document.write(unescape("%3Cscript src='/js/jquery-1.10.1.min.js' type='text/javascript'%3E%3C/script%3E"));
+    }
+</script>
+
+<script type="text/javascript">
+    $script('/js/plugins.js', 'plugins');
+    $script('/js/lor.js?20130919-0937', 'lorjs');
+    $script('/js/highlight.pack.js', function() { hljs.initHighlightingOnLoad(); });
+</script>
+<script type="text/javascript">
+  <!--
+    function goto(mySelect) {
+        window.location.href = mySelect.options[mySelect.selectedIndex].value;
+    }
+    -->
+</script>
+
+<title>Форум - Talks
+    - Архив 2012, Март</title>
+    <LINK REL="alternate" HREF="/section-rss.jsp?section=2&amp;group=8404" TYPE="application/rss+xml">
+<link rel="search" title="Search L.O.R." href="/search.jsp">
+
+<base href="http://www.linux.org.ru/">
+<LINK REL="shortcut icon" HREF="/favicon.ico" TYPE="image/x-icon">
+<link rel="yandex-tableau-widget" href="/tango/manifest.json" />
+<meta name = "viewport" content = "initial-scale=1.0">
+</head>
+<body>
+<div id="hd">
+  <a id="sitetitle" href="/">LINUX.ORG.RU</a>
+
+  <div class="menu">
+    <div id="loginGreating">
+      <div id="regmenu" class="head">
+          <a href="https://www.linux.org.ru/register.jsp">Регистрация</a> -
+          <a id="loginbutton" href="https://www.linux.org.ru/login.jsp">Вход</a>
+        </div>
+
+        <form method=POST action="https://www.linux.org.ru//ajax_login_process" style="display: none" id="regform">
+          <input type="hidden" name="csrf" value="3L5NEAkNgm0kSoMhLj3WeQ==">
+<label>Имя: <input type=text name=nick size=15 placeholder="nick или email"></label>
+          <label>Пароль: <input type=password name=passwd size=15></label>
+          <input type=submit value="Вход">
+          <input id="hide_loginbutton" type="button" value="Отмена">
+        </form>
+      </div>
+
+    <ul>
+      <li><a href="/news/">Новости</a></li>
+      <li><a href="/gallery/">Галерея</a></li>
+
+      <li><a href="/forum/">Форум</a></li>
+      <li><a href="/tracker/">Трекер</a></li>
+      <li><a href="/wiki/">Wiki</a></li>
+      <li><a href="/search.jsp">Поиск</a></li>
+    </ul>
+  </div>
+</div>
+<div style="clear: both"></div>
+<!-- Rating@Mail.ru counter -->
+    <img src="http://d7.c1.b1.a0.top.mail.ru/counter?id=71642"
+    height="1" width="1" alt="" style="position: absolute">
+    <!-- //Rating@Mail.ru counter -->
+<div id="bd">
+<form>
+  <div class=nav>
+    <div id="navPath">
+      <a href="/forum/">Форум</a> - Talks
+        - Архив 2012, Март</div>
+
+    <div class="nav-buttons">
+      <ul>
+      <li><a href="/forum/talks/archive/">Архив</a></li>
+      </div>
+ </div>
+
+</form>
+
+<div class=forum>
+<table class="message-table">
+<thead>
+<tr>
+  <th>Тема<br>
+    <form action="/forum/talks/2012/3/" method="GET" style="font-weight: normal; display: inline;">
+      фильтр:
+      <select name="showignored" onchange="submit();">
+          <option value="t"  >все темы</option>
+          <option value="f" selected >без игнорируемых</option>
+          </select> [<a style="text-decoration: underline" href="/user-filter">настроить</a>]
+    </form>
+  </th>
+  <th>Последнее сообщение<br>
+    </th>
+  <th>Число ответов<br>всего/день/час</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+  <td>
+    <a href="/forum/talks/7589284">
+          <span class="tag">mac os x</span>
+      <span class="tag">стоит ли</span> bizon computers</a>
+    
+      (стр.
+       <a href="/forum/talks/7589284/page1">2</a>)
+    
+    (<s>uniqwert</s>)
+  </td>
+
+  <td class="dateinterval">
+    <time datetime="2012-04-04T14:54:45.894+04:00">04.04.12 14:54</time></td>
+
+  <td class=numbers>
+      <b>70</b>/-/-</td> </tr>
+<tr>
+  <td>
+    <a href="/forum/talks/7589283?lastmod=1333528736975">
+           Чем рисовать такие мини чертежи?</a>
+    
+    (sol_linux)
+  </td>
+
+  <td class="dateinterval">
+    <time datetime="2012-04-04T12:38:56.975+04:00">04.04.12 12:38</time></td>
+
+  <td class=numbers>
+      <b>49</b>/-/-</td> </tr>
+<tr>
+  <td>
+    <a href="/forum/talks/7589004">
+           Ходьба и отягощения</a>
+    
+      (стр.
+       <a href="/forum/talks/7589004/page1">2</a> <a href="/forum/talks/7589004/page2">3</a> <a href="/forum/talks/7589004/page3">4</a> <a href="/forum/talks/7589004/page4">5</a>)
+    
+    (quest)
+  </td>
+
+  <td class="dateinterval">
+    <time datetime="2012-04-03T02:02:40.457+04:00">03.04.12 02:02</time></td>
+
+  <td class=numbers>
+      <b>203</b>/-/-</td> </tr>
+<tr>
+  <td>
+    <a href="/forum/talks/7588940?lastmod=1333280013666">
+          <span class="tag">тупняк</span> 1-е апреля в связном</a>
+    
+    (kombrig)
+  </td>
+
+  <td class="dateinterval">
+    <time datetime="2012-04-01T15:33:33.666+04:00">01.04.12 15:33</time></td>
+
+  <td class=numbers>
+      <b>29</b>/-/-</td> </tr>
+<tr>
+  <td>
+    <a href="/forum/talks/7588921?lastmod=1333278723804">
+          <span class="tag">жж</span>
+      <span class="tag">мракобесие</span> Earth Hour</a>
+    
+    (KDE41user)
+  </td>
+
+  <td class="dateinterval">
+    <time datetime="2012-04-01T15:12:03.804+04:00">01.04.12 15:12</time></td>
+
+  <td class=numbers>
+      <b>17</b>/-/-</td> </tr>
+<tr>
+  <td>
+    <a href="/forum/talks/7588529">
+          <span class="tag">macosx</span>
+      <span class="tag">ubuntu</span> В ubuntu тихо и незаметно запилили плавный скроллинг тачпадом.</a>
+    
+      (стр.
+       <a href="/forum/talks/7588529/page1">2</a> <a href="/forum/talks/7588529/page2">3</a>)
+    
+    (PolarFox)
+  </td>
+
+  <td class="dateinterval">
+    <time datetime="2012-06-05T18:58:26.495+04:00">05.06.12 18:58</time></td>
+
+  <td class=numbers>
+      <b>125</b>/-/-</td> </tr>
+<tr>
+  <td>
+    <a href="/forum/talks/7588469">
+           реквестирую сайт с контрольными суммами образов официальных дисков с играми</a>
+    
+      (стр.
+       <a href="/forum/talks/7588469/page1">2</a>)
+    
+    (teod0r)
+  </td>
+
+  <td class="dateinterval">
+    <time datetime="2012-04-01T17:53:36.875+04:00">01.04.12 17:53</time></td>
+
+  <td class=numbers>
+      <b>51</b>/-/-</td> </tr>
+<tr>
+  <td>
+    <img src="/img/solved.png" width="15" height="15" alt="Решено" title="Решено"/>
+    <a href="/forum/talks/7588380?lastmod=1333214959698">
+          <span class="tag">домашний слесарь</span>
+      <span class="tag">спв</span> Как называется эта штука?</a>
+    
+    (flareguner)
+  </td>
+
+  <td class="dateinterval">
+    <time datetime="2012-03-31T21:29:19.698+04:00">31.03.12 21:29</time></td>
+
+  <td class=numbers>
+      <b>4</b>/-/-</td> </tr>
+<tr>
+  <td>
+    <img src="/img/solved.png" width="15" height="15" alt="Решено" title="Решено"/>
+    <a href="/forum/talks/7588269?lastmod=1333208310687">
+          <span class="tag">kde oxygen</span> Не могу найти иконку</a>
+    
+    (<s>AlexCones</s>)
+  </td>
+
+  <td class="dateinterval">
+    <time datetime="2012-03-31T19:38:30.687+04:00">31.03.12 19:38</time></td>
+
+  <td class=numbers>
+      <b>7</b>/-/-</td> </tr>
+<tr>
+  <td>
+    <a href="/forum/talks/7587976?lastmod=1333227276453">
+           AlwaysInnovating</a>
+    
+    (ViTeX)
+  </td>
+
+  <td class="dateinterval">
+    <time datetime="2012-04-01T00:54:36.453+04:00">01.04.12 00:54</time></td>
+
+  <td class=numbers>
+      <b>14</b>/-/-</td> </tr>
+<tr>
+  <td>
+    <a href="/forum/talks/7587974?lastmod=1333223071735">
+          <span class="tag">loroogle</span> Посветуйте wiki с ACL, RBAC, аутентификацией и прочими такими делами</a>
+    
+    (muon)
+  </td>
+
+  <td class="dateinterval">
+    <time datetime="2012-03-31T23:44:31.735+04:00">31.03.12 23:44</time></td>
+
+  <td class=numbers>
+      <b>8</b>/-/-</td> </tr>
+<tr>
+  <td>
+    <a href="/forum/talks/7587535">
+          <span class="tag">linux</span>
+      <span class="tag">vmware</span>
+      <span class="tag">репутация</span> Звонят из дружественной конторы, говорят всё пропало и  &#171;ничо не работает&#187;...</a>
+    
+      (стр.
+       <a href="/forum/talks/7587535/page1">2</a> <a href="/forum/talks/7587535/page2">3</a> <a href="/forum/talks/7587535/page3">4</a>)
+    
+    (<s>King_Diamond</s>)
+  </td>
+
+  <td class="dateinterval">
+    <time datetime="2012-04-02T23:14:31.081+04:00">02.04.12 23:14</time></td>
+
+  <td class=numbers>
+      <b>162</b>/-/-</td> </tr>
+<tr>
+  <td>
+    <a href="/forum/talks/7587497?lastmod=1333209136735">
+          <span class="tag">ксж</span>
+      <span class="tag">мембрана</span> Ученые сделали кишечник</a>
+    
+    (flareguner)
+  </td>
+
+  <td class="dateinterval">
+    <time datetime="2012-03-31T19:52:16.735+04:00">31.03.12 19:52</time></td>
+
+  <td class=numbers>
+      <b>23</b>/-/-</td> </tr>
+<tr>
+  <td>
+    <a href="/forum/talks/7587475?lastmod=1333233383186">
+           сколько весит полный кэш DNS?</a>
+    
+    (stevejobs)
+  </td>
+
+  <td class="dateinterval">
+    <time datetime="2012-04-01T02:36:23.186+04:00">01.04.12 02:36</time></td>
+
+  <td class=numbers>
+      <b>32</b>/-/-</td> </tr>
+<tr>
+  <td>
+    <a href="/forum/talks/7587210">
+          <span class="tag">poettering</span>
+      <span class="tag">прекрасный новый мир</span> ConsoleKit -&gt; systemd</a>
+    
+      (стр.
+       <a href="/forum/talks/7587210/page1">2</a>)
+    
+    (<s>geekless</s>)
+  </td>
+
+  <td class="dateinterval">
+    <time datetime="2012-03-31T18:52:43.290+04:00">31.03.12 18:52</time></td>
+
+  <td class=numbers>
+      <b>71</b>/-/-</td> </tr>
+<tr>
+  <td>
+    <a href="/forum/talks/7587119?lastmod=1333219025134">
+           6,5 кГц vs 2,2 ГГц</a>
+    
+    (cvs-255)
+  </td>
+
+  <td class="dateinterval">
+    <time datetime="2012-03-31T22:37:05.134+04:00">31.03.12 22:37</time></td>
+
+  <td class=numbers>
+      <b>25</b>/-/-</td> </tr>
+<tr>
+  <td>
+    <a href="/forum/talks/7586916?lastmod=1333199421165">
+          <span class="tag">наука</span>
+      <span class="tag">павт2012</span> Кто был на конференции ПаВТ 2012?</a>
+    
+    (pianolender)
+  </td>
+
+  <td class="dateinterval">
+    <time datetime="2012-03-31T17:10:21.165+04:00">31.03.12 17:10</time></td>
+
+  <td class=numbers>
+      <b>7</b>/-/-</td> </tr>
+<tr>
+  <td>
+    <a href="/forum/talks/7586889?lastmod=1333205430001">
+           [DIASPORA*] Я всё понял</a>
+    
+    (vasilenko)
+  </td>
+
+  <td class="dateinterval">
+    <time datetime="2012-03-31T18:50:30.001+04:00">31.03.12 18:50</time></td>
+
+  <td class=numbers>
+      <b>36</b>/-/-</td> </tr>
+<tr>
+  <td>
+    <a href="/forum/talks/7586812?lastmod=1333182315089">
+          <span class="tag">debian</span>
+      <span class="tag">osi</span> Кому не лень запилите мини-новость</a>
+    
+    (coldy)
+  </td>
+
+  <td class="dateinterval">
+    <time datetime="2012-03-31T12:25:15.089+04:00">31.03.12 12:25</time></td>
+
+  <td class=numbers>
+      <b>5</b>/-/-</td> </tr>
+<tr>
+  <td>
+    <a href="/forum/talks/7586750">
+          <span class="tag">anonymous</span> А во сколько отключают интернет?</a>
+    
+      (стр.
+       <a href="/forum/talks/7586750/page1">2</a>)
+    
+    (insfel)
+  </td>
+
+  <td class="dateinterval">
+    <time datetime="2012-03-31T20:22:24.253+04:00">31.03.12 20:22</time></td>
+
+  <td class=numbers>
+      <b>56</b>/-/-</td> </tr>
+<tr>
+  <td>
+    <a href="/forum/talks/7586744?lastmod=1333209089846">
+           С праздником, товарищи!</a>
+    
+    (Axon)
+  </td>
+
+  <td class="dateinterval">
+    <time datetime="2012-03-31T19:51:29.846+04:00">31.03.12 19:51</time></td>
+
+  <td class=numbers>
+      <b>14</b>/-/-</td> </tr>
+<tr>
+  <td>
+    <a href="/forum/talks/7586535?lastmod=1333185860632">
+          <span class="tag">youtube</span> С ютуба убрали обычный rss?</a>
+    
+    (HunOL)
+  </td>
+
+  <td class="dateinterval">
+    <time datetime="2012-03-31T13:24:20.632+04:00">31.03.12 13:24</time></td>
+
+  <td class=numbers>
+      <b>8</b>/-/-</td> </tr>
+<tr>
+  <td>
+    <a href="/forum/talks/7586413?lastmod=1333218335286">
+          <span class="tag">музыка</span> а вы говорите &#171;железный занавес&#187;</a>
+    
+    (DoctorSinus)
+  </td>
+
+  <td class="dateinterval">
+    <time datetime="2012-03-31T22:25:35.286+04:00">31.03.12 22:25</time></td>
+
+  <td class=numbers>
+      <b>22</b>/-/-</td> </tr>
+<tr>
+  <td>
+    <a href="/forum/talks/7586340">
+          <span class="tag">13 дюймов</span>
+      <span class="tag">irl</span>
+      <span class="tag">жж</span> С какой сумкой ходите? </a>
+    
+      (стр.
+       <a href="/forum/talks/7586340/page1">2</a> <a href="/forum/talks/7586340/page2">3</a>)
+    
+    (<s>VictimOfLoveToLinux</s>)
+  </td>
+
+  <td class="dateinterval">
+    <time datetime="2012-04-02T15:50:24.125+04:00">02.04.12 15:50</time></td>
+
+  <td class=numbers>
+      <b>138</b>/-/-</td> </tr>
+<tr>
+  <td>
+    <a href="/forum/talks/7586312?lastmod=1333226099721">
+          <span class="tag">консоль</span>
+      <span class="tag">управление</span> ^C в консоли — это баг или фича?</a>
+    
+    (Xenius)
+  </td>
+
+  <td class="dateinterval">
+    <time datetime="2012-04-01T00:34:59.721+04:00">01.04.12 00:34</time></td>
+
+  <td class=numbers>
+      <b>41</b>/-/-</td> </tr>
+<tr>
+  <td>
+    <a href="/forum/talks/7586038?lastmod=1333138758122">
+          <span class="tag">кулхацкеры</span> Запуск bat-файла при входе на сайт</a>
+    
+    (morpheus)
+  </td>
+
+  <td class="dateinterval">
+    <time datetime="2012-03-31T00:19:18.122+04:00">31.03.12 00:19</time></td>
+
+  <td class=numbers>
+      <b>12</b>/-/-</td> </tr>
+<tr>
+  <td>
+    <a href="/forum/talks/7586030?lastmod=1333134628405">
+           Proxmox VE 2.0</a>
+    
+    (UnnamedUA)
+  </td>
+
+  <td class="dateinterval">
+    <time datetime="2012-03-30T23:10:28.405+04:00">30.03.12 23:10</time></td>
+
+  <td class=numbers>
+      -/-/-</td> </tr>
+<tr>
+  <td>
+    <a href="/forum/talks/7585502?lastmod=1333336391883">
+          <span class="tag">google</span> Гугл строит графики</a>
+    
+    (RedPossum)
+  </td>
+
+  <td class="dateinterval">
+    <time datetime="2012-04-02T07:13:11.883+04:00">02.04.12 07:13</time></td>
+
+  <td class=numbers>
+      <b>45</b>/-/-</td> </tr>
+<tr>
+  <td>
+    <a href="/forum/talks/7585499">
+          <span class="tag">linux</span>
+      <span class="tag">phoronix</span>
+      <span class="tag">source-engine</span> Гейб Ньюэл ищет разработчиков для линукс</a>
+    
+      (стр.
+       <a href="/forum/talks/7585499/page1">2</a>)
+    
+    (gavlig)
+  </td>
+
+  <td class="dateinterval">
+    <time datetime="2012-04-14T08:58:52.613+04:00">14.04.12 08:58</time></td>
+
+  <td class=numbers>
+      <b>71</b>/-/-</td> </tr>
+<tr>
+  <td>
+    <a href="/forum/talks/7585240?lastmod=1333216189554">
+          <span class="tag">научная конференция</span> [Краткие телефонные заметки] ПаВТ 2012  (параллельные вычислительные технологии)</a>
+    
+    (Evgueni)
+  </td>
+
+  <td class="dateinterval">
+    <time datetime="2012-03-31T21:49:49.554+04:00">31.03.12 21:49</time></td>
+
+  <td class=numbers>
+      <b>15</b>/-/-</td> </tr>
+</tbody>
+<tfoot>
+<tr><td colspan=3><p>
+<div style="float: left">
+</div>
+<div style="float: right">
+  <a rel="next" href="/forum/talks/2012/3/?offset=30">вперед →</a>
+  </div>
+</tfoot>
+</table>
+</div>
+</div>
+<footer id="ft">
+
+<p id="ft-info">
+  <a href="/about">О Сервере</a> -
+  <a href="/rules.jsp">Правила форума</a><br>
+  <a href="http://www.linux.org.ru/">http://www.linux.org.ru/</a>
+  </p>
+
+<div id="ft-buttons">
+<!-- begin of Top100 logo -->
+  <a href="http://top100.rambler.ru/home?id=29833" target="_blank"><img src="http://top100-images.rambler.ru/top100/banner-88x31-rambler-black2.gif" alt="Rambler's Top100" width="88" height="31" /></a>
+  <!-- end of Top100 logo -->
+    <!-- Rating@Mail.ru logo -->
+    <a target="_top" href="http://top.mail.ru/jump?from=71642">
+    <img src="http://d7.c1.b1.a0.top.mail.ru/counter?id=71642;t=11;l=1"
+    height="31" width="88" alt="Рейтинг@Mail.ru"></a>
+    <!-- //Rating@Mail.ru logo -->
+</div>
+
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-2184304-1");
+        pageTracker._setCustomVar(1, "Authorized", "false");
+        pageTracker._setCustomVar(2, "Style", "tango");
+        pageTracker._setSiteSpeedSampleRate(10);
+        pageTracker._trackPageview();
+    } catch(err) {}</script>
+
+<!-- begin of Top100 code -->
+    <script id="top100Counter" type="text/javascript" src="http://counter.rambler.ru/top100.jcn?29833"></script><noscript><img src="http://counter.rambler.ru/top100.cnt?29833" alt="" width="1" height="1"/></noscript>
+    <!-- end of Top100 code -->
+</footer>
+</body></html>

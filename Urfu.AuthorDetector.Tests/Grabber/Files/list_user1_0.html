@@ -1,0 +1,455 @@
+﻿
+<!DOCTYPE html>
+<html lang=ru>
+<head>
+<link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono|Open+Sans:600&amp;subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+  <LINK REL="stylesheet" TYPE="text/css" HREF="/tango/combined.css?20130914-1007">
+
+<script type="text/javascript">
+    /*!
+    * $script.js Async loader & dependency manager
+    * https://github.com/ded/script.js
+    * (c) Dustin Diaz, Jacob Thornton 2011
+    * License: MIT
+    */
+    (function (e, d, f) {
+        typeof f.module != "undefined" && f.module.exports ? f.module.exports = d() : typeof f.define != "undefined" && f.define == "function" && f.define.amd ? define(e, d) : f[e] = d()
+    })("$script", function () {
+        function y(f, e) {
+            for (var h = 0, g = f.length;
+            h < g;
+            ++h) {
+                if (!e(f[h])) {
+                    return E
+                }
+            } return 1
+        } function x(d, c) {
+            y(d, function (b) {
+                return !c(b)
+            })
+        } function w(p, k, h) {
+            function c(b) {
+                return b.call ? b() : K[b]
+            } function q() {
+                if (!--d) {
+                    K[e] = 1, f && f();
+                    for (var b in I) {
+                        y(b.split("|"), c) && !x(I[b], c) && (I[b] = [])
+                    }
+                }
+            } p = p[D] ? p : [p];
+            var g = k && k.call, f = g ? k : h, e = g ? p.join("") : k, d = p.length;
+            return setTimeout(function () {
+                x(p, function (b) {
+                    if (G[b]) {
+                        return e && (J[e] = 1), G[b] == 2 && q()
+                    } G[b] = 1, e && (J[e] = 1), v(!L.test(b) && H ? H + b + ".js" : b, q)
+                })
+            }, 0), w
+        } function v(h, g) {
+            var b = N.createElement("script"), a = E;
+            b.onload = b.onerror = b[z] = function () {
+                if (b[B] && !/^c|loade/.test(b[B]) || a) {
+                    return
+                } b.onload = b[z] = null, a = 1, G[h] = 2, g()
+            }, b.async = 1, b.src = h, M.insertBefore(b, M.firstChild)
+        } var N = document, M = N.getElementsByTagName("head")[0], L = /^https?:\/\//, K = {}, J = {}, I = {}, H, G = {}, F = "string", E = !1, D = "push", C = "DOMContentLoaded", B = "readyState", A = "addEventListener", z = "onreadystatechange";
+        return !N[B] && N[A] && (N[A](C, function u() {
+            N.removeEventListener(C, u, E), N[B] = "complete"
+        }, E), N[B] = "loading"), w.get = v, w.order = function (f, e, h) {
+            (function g(a) {
+                a = f.shift(), f.length ? w(a, g) : w(a, e, h)
+            })()
+        }, w.path = function (b) {
+            H = b
+        }, w.ready = function (f, d, h) {
+            f = f[D] ? f : [f];
+            var g = [];
+            return !x(f, function (b) {
+                K[b] || g[D](b)
+            }) && y(f, function (b) {
+                return K[b]
+            }) ? d() : !function (b) {
+                I[b] = I[b] || [], I[b][D](d), h && h(g)
+            }(f.join("|")), w
+        }, w
+    }, this);</script>
+
+  <!--[if lt IE 9]>
+<script src="/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    if (typeof jQuery == 'undefined') {
+        document.write(unescape("%3Cscript src='/js/jquery-1.10.1.min.js' type='text/javascript'%3E%3C/script%3E"));
+    }
+</script>
+
+<script type="text/javascript">
+    $script('/js/plugins.js', 'plugins');
+    $script('/js/lor.js?20130914-1007', 'lorjs');
+    $script('/js/highlight.pack.js', function () { hljs.initHighlightingOnLoad(); });
+</script>
+<title>Комментарии пользователя ZenitharChampion</title>
+<link rel="search" title="Search L.O.R." href="/search.jsp">
+
+<base href="http://www.linux.org.ru/">
+<LINK REL="shortcut icon" HREF="/favicon.ico" TYPE="image/x-icon">
+<link rel="yandex-tableau-widget" href="/tango/manifest.json" />
+<meta name = "viewport" content = "initial-scale=1.0">
+</head>
+<body>
+  	<div id="hd">
+        <a id="sitetitle" href="/">LINUX.ORG.RU</a>
+
+        <ul class="menu">
+          <li id="loginGreating">
+            <div id="regmenu" class="head">
+                <a href="https://www.linux.org.ru/register.jsp">Регистрация</a> -
+                <a id="loginbutton" href="https://www.linux.org.ru/login.jsp">Вход</a>
+              </div>
+
+              <form method=POST action="https://www.linux.org.ru//ajax_login_process" style="display: none" id="regform">
+                <input type="hidden" name="csrf" value="uSOodaHN1dCCFtOIkSfUfw==">
+<label>Имя: <input type=text name=nick size=15 placeholder="nick или email"></label>
+                <label>Пароль: <input type=password name=passwd size=15></label>
+                <input type=submit value="Вход">
+                <input id="hide_loginbutton" type="button" value="Отмена">
+              </form>
+            </li>
+
+          <li><a href="/news/">Новости</a></li>
+          <li><a href="/gallery/">Галерея</a></li>
+
+          <li><a href="/forum/">Форум</a></li>
+          <li><a href="/tracker/">Трекер</a></li>
+          <li><a href="/wiki/">Wiki</a></li>
+          <li><a href="/search.jsp">Поиск</a></li>
+
+        </ul>
+      </div>
+      <div style="clear: both"></div>
+<!-- Rating@Mail.ru counter -->
+    <img src="http://d7.c1.b1.a0.top.mail.ru/counter?id=71642"
+    height="1" width="1" alt="" style="position: absolute">
+    <!-- //Rating@Mail.ru counter -->
+<div id="bd">
+<h1>Комментарии пользователя ZenitharChampion</h1>
+
+<div class=forum>
+<table width="100%" class="message-table">
+<thead>
+<tr><th colspan=5>
+<div style="float: left">
+<a rel=prev rev=next href="show-comments.jsp?nick=ZenitharChampion&amp;offset=50">← назад</a>
+</div>
+<div style="float: right">
+<a rel=next rev=prev href="show-comments.jsp?nick=ZenitharChampion&amp;offset=150">вперед →</a>
+</div>
+</th></tr>
+<tr><th>Раздел</th><th>Группа</th><th>Заглавие темы</th><th>Дата</th></tr>
+<tbody>
+
+<tr>
+  <td>Форум</td>
+  <td>Games</td>
+  <td><a href="jump-message.jsp?msgid=9220719&amp;cid=9552105" rev=contents>Тред для обмена ключами, скидками и прочими игровыми радостями</a></td>
+  <td><time datetime="2013-09-06T07:16:03.576+04:00">06.09.13 07:16</time></td>
+<tr>
+  <td>Галерея</td>
+  <td>Рабочие места</td>
+  <td><a href="jump-message.jsp?msgid=9484813&amp;cid=9550759" rev=contents>Ubuntu 5.04</a></td>
+  <td><time datetime="2013-09-05T19:53:01.326+04:00">05.09.13 19:53</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Linux-install</td>
+  <td><a href="jump-message.jsp?msgid=9550314&amp;cid=9550593" rev=contents>Установка Linux с нуля и без опыта работы.</a></td>
+  <td><time datetime="2013-09-05T18:54:16.048+04:00">05.09.13 18:54</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Linux-install</td>
+  <td><a href="jump-message.jsp?msgid=9550314&amp;cid=9550527" rev=contents>Установка Linux с нуля и без опыта работы.</a></td>
+  <td><time datetime="2013-09-05T18:26:33.419+04:00">05.09.13 18:26</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Games</td>
+  <td><a href="jump-message.jsp?msgid=9220719&amp;cid=9550426" rev=contents>Тред для обмена ключами, скидками и прочими игровыми радостями</a></td>
+  <td><time datetime="2013-09-05T17:59:42.264+04:00">05.09.13 17:59</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Games</td>
+  <td><a href="jump-message.jsp?msgid=9220719&amp;cid=9549247" rev=contents>Тред для обмена ключами, скидками и прочими игровыми радостями</a></td>
+  <td><time datetime="2013-09-05T12:48:12.384+04:00">05.09.13 12:48</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Games</td>
+  <td><a href="jump-message.jsp?msgid=9220719&amp;cid=9549171" rev=contents>Тред для обмена ключами, скидками и прочими игровыми радостями</a></td>
+  <td><time datetime="2013-09-05T12:30:01.723+04:00">05.09.13 12:30</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Games</td>
+  <td><a href="jump-message.jsp?msgid=9220719&amp;cid=9549126" rev=contents>Тред для обмена ключами, скидками и прочими игровыми радостями</a></td>
+  <td><time datetime="2013-09-05T12:19:41.110+04:00">05.09.13 12:19</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Games</td>
+  <td><a href="jump-message.jsp?msgid=9220719&amp;cid=9549057" rev=contents>Тред для обмена ключами, скидками и прочими игровыми радостями</a></td>
+  <td><time datetime="2013-09-05T12:02:56.387+04:00">05.09.13 12:02</time></td>
+<tr>
+  <td>Форум</td>
+  <td>General</td>
+  <td><a href="jump-message.jsp?msgid=9548208&amp;cid=9548530" rev=contents>WIne 1.7</a></td>
+  <td><time datetime="2013-09-05T07:28:01.985+04:00">05.09.13 07:28</time></td>
+<tr>
+  <td>Форум</td>
+  <td>General</td>
+  <td><a href="jump-message.jsp?msgid=9548217&amp;cid=9548528" rev=contents>У Pulseaudio слишком громкий звук. Pulseaudio хочет меня убить.</a></td>
+  <td><time datetime="2013-09-05T07:27:20.744+04:00">05.09.13 07:27</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Desktop</td>
+  <td><a href="jump-message.jsp?msgid=9509219&amp;cid=9548135" rev=contents>Что оптимальнее на десктопе: Debian Testing/Unstable или OpenSuse?</a></td>
+  <td><time datetime="2013-09-05T01:11:29.252+04:00">05.09.13 01:11</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Talks</td>
+  <td><a href="jump-message.jsp?msgid=9547754&amp;cid=9548105" rev=contents>Ubuntu. Очередные впечатления.</a></td>
+  <td><time datetime="2013-09-05T00:55:54.034+04:00">05.09.13 00:55</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Talks</td>
+  <td><a href="jump-message.jsp?msgid=9547754&amp;cid=9548102" rev=contents>Ubuntu. Очередные впечатления.</a></td>
+  <td><time datetime="2013-09-05T00:55:02.132+04:00">05.09.13 00:55</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Talks</td>
+  <td><a href="jump-message.jsp?msgid=9546209&amp;cid=9547291" rev=contents>адекватные люди с казани имеются?</a></td>
+  <td><time datetime="2013-09-04T20:08:14.925+04:00">04.09.13 20:08</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Talks</td>
+  <td><a href="jump-message.jsp?msgid=9546209&amp;cid=9547287" rev=contents>адекватные люди с казани имеются?</a></td>
+  <td><time datetime="2013-09-04T20:07:44.978+04:00">04.09.13 20:07</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Talks</td>
+  <td><a href="jump-message.jsp?msgid=9546209&amp;cid=9546303" rev=contents>адекватные люди с казани имеются?</a></td>
+  <td><time datetime="2013-09-04T15:57:50.623+04:00">04.09.13 15:57</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Linux-hardware</td>
+  <td><a href="jump-message.jsp?msgid=9545491&amp;cid=9546250" rev=contents>Гибридная графика AMD на буках</a></td>
+  <td><time datetime="2013-09-04T15:47:28.228+04:00">04.09.13 15:47</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Linux-hardware</td>
+  <td><a href="jump-message.jsp?msgid=9545491&amp;cid=9546248" rev=contents>Гибридная графика AMD на буках</a></td>
+  <td><time datetime="2013-09-04T15:47:03.969+04:00">04.09.13 15:47</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Talks</td>
+  <td><a href="jump-message.jsp?msgid=9546209&amp;cid=9546220" rev=contents>адекватные люди с казани имеются?</a></td>
+  <td><time datetime="2013-09-04T15:40:05.880+04:00">04.09.13 15:40</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Linux-hardware</td>
+  <td><a href="jump-message.jsp?msgid=9545491&amp;cid=9545628" rev=contents>Гибридная графика AMD на буках</a></td>
+  <td><time datetime="2013-09-04T13:32:37.308+04:00">04.09.13 13:32</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Linux-hardware</td>
+  <td><a href="jump-message.jsp?msgid=9545491&amp;cid=9545531" rev=contents>Гибридная графика AMD на буках</a></td>
+  <td><time datetime="2013-09-04T13:11:49.018+04:00">04.09.13 13:11</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Talks</td>
+  <td><a href="jump-message.jsp?msgid=9545213&amp;cid=9545453" rev=contents>Wine теперь быстр для игр как винда???</a></td>
+  <td><time datetime="2013-09-04T12:55:58.164+04:00">04.09.13 12:55</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Talks</td>
+  <td><a href="jump-message.jsp?msgid=9540202&amp;cid=9540285" rev=contents>115-й подтвержден</a></td>
+  <td><time datetime="2013-09-03T06:52:09.363+04:00">03.09.13 06:52</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Multimedia</td>
+  <td><a href="jump-message.jsp?msgid=9538828&amp;cid=9540157" rev=contents>Какое ПО доступно на данный момент для калибровки мониторов???</a></td>
+  <td><time datetime="2013-09-03T03:10:41.336+04:00">03.09.13 03:10</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Talks</td>
+  <td><a href="jump-message.jsp?msgid=9539565&amp;cid=9539741" rev=contents>Где грань между характером и унынием?</a></td>
+  <td><time datetime="2013-09-02T23:48:41.998+04:00">02.09.13 23:48</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Talks</td>
+  <td><a href="jump-message.jsp?msgid=9539036&amp;cid=9539505" rev=contents>необходимость в 64 на 2013</a></td>
+  <td><time datetime="2013-09-02T22:50:38.403+04:00">02.09.13 22:50</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Talks</td>
+  <td><a href="jump-message.jsp?msgid=9539036&amp;cid=9539497" rev=contents>необходимость в 64 на 2013</a></td>
+  <td><time datetime="2013-09-02T22:49:55.549+04:00">02.09.13 22:49</time></td>
+<tr>
+  <td>Форум</td>
+  <td>General</td>
+  <td><a href="jump-message.jsp?msgid=9539378&amp;cid=9539495" rev=contents>Снова про USB-модем и Linux</a></td>
+  <td><time datetime="2013-09-02T22:48:45.068+04:00">02.09.13 22:48</time></td>
+<tr>
+  <td>Форум</td>
+  <td>General</td>
+  <td><a href="jump-message.jsp?msgid=9539066&amp;cid=9539487" rev=contents>GNU/Linux или Linux?</a></td>
+  <td><time datetime="2013-09-02T22:47:02.814+04:00">02.09.13 22:47</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Talks</td>
+  <td><a href="jump-message.jsp?msgid=9539032&amp;cid=9539477" rev=contents>куда катится киноиндустрия ?</a></td>
+  <td><time datetime="2013-09-02T22:44:38.309+04:00">02.09.13 22:44</time></td>
+<tr>
+  <td>Форум</td>
+  <td>General</td>
+  <td><a href="jump-message.jsp?msgid=9534589&amp;cid=9539470" rev=contents>Проблема с KDE</a></td>
+  <td><time datetime="2013-09-02T22:42:34.631+04:00">02.09.13 22:42</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Talks</td>
+  <td><a href="jump-message.jsp?msgid=9534999&amp;cid=9539373" rev=contents>Почему OpenSource такой?</a></td>
+  <td><time datetime="2013-09-02T22:15:41.010+04:00">02.09.13 22:15</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Linux-install</td>
+  <td><a href="jump-message.jsp?msgid=9535087&amp;cid=9538878" rev=contents>Проблемы новичка</a></td>
+  <td><time datetime="2013-09-02T19:41:25.504+04:00">02.09.13 19:41</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Linux-install</td>
+  <td><a href="jump-message.jsp?msgid=9535087&amp;cid=9538725" rev=contents>Проблемы новичка</a></td>
+  <td><time datetime="2013-09-02T18:56:14.471+04:00">02.09.13 18:56</time></td>
+<tr>
+  <td>Новости</td>
+  <td>OpenSource</td>
+  <td><a href="jump-message.jsp?msgid=9534023&amp;cid=9537746" rev=contents>Вышел WindowMaker 0.95.5</a></td>
+  <td><time datetime="2013-09-02T14:45:36.838+04:00">02.09.13 14:45</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Talks</td>
+  <td><a href="jump-message.jsp?msgid=9485993&amp;cid=9537599" rev=contents>Помогите восстановить статью в вики</a></td>
+  <td><time datetime="2013-09-02T14:05:08.295+04:00">02.09.13 14:05</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Linux-install</td>
+  <td><a href="jump-message.jsp?msgid=9535087&amp;cid=9537584" rev=contents>Проблемы новичка</a></td>
+  <td><time datetime="2013-09-02T14:01:27.311+04:00">02.09.13 14:01</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Linux-install</td>
+  <td><a href="jump-message.jsp?msgid=9535087&amp;cid=9537578" rev=contents>Проблемы новичка</a></td>
+  <td><time datetime="2013-09-02T13:58:21.705+04:00">02.09.13 13:58</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Linux-hardware</td>
+  <td><a href="jump-message.jsp?msgid=9492304&amp;cid=9536742" rev=contents>Восстановить рабочий стол  Ubuntu 13.04</a></td>
+  <td><time datetime="2013-09-02T10:40:11.622+04:00">02.09.13 10:40</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Linux-install</td>
+  <td><a href="jump-message.jsp?msgid=9535087&amp;cid=9536731" rev=contents>Проблемы новичка</a></td>
+  <td><time datetime="2013-09-02T10:36:03.597+04:00">02.09.13 10:36</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Linux-install</td>
+  <td><a href="jump-message.jsp?msgid=9535087&amp;cid=9536717" rev=contents>Проблемы новичка</a></td>
+  <td><time datetime="2013-09-02T10:29:23.030+04:00">02.09.13 10:29</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Linux-install</td>
+  <td><a href="jump-message.jsp?msgid=9535087&amp;cid=9536671" rev=contents>Проблемы новичка</a></td>
+  <td><time datetime="2013-09-02T10:14:38.157+04:00">02.09.13 10:14</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Linux-install</td>
+  <td><a href="jump-message.jsp?msgid=9536180&amp;cid=9536640" rev=contents>один раз не кедерас</a></td>
+  <td><time datetime="2013-09-02T10:03:01.127+04:00">02.09.13 10:03</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Linux-install</td>
+  <td><a href="jump-message.jsp?msgid=9535087&amp;cid=9535304" rev=contents>Проблемы новичка</a></td>
+  <td><time datetime="2013-09-01T21:29:26.571+04:00">01.09.13 21:29</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Talks</td>
+  <td><a href="jump-message.jsp?msgid=9534999&amp;cid=9535282" rev=contents>Почему OpenSource такой?</a></td>
+  <td><time datetime="2013-09-01T21:22:43.665+04:00">01.09.13 21:22</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Security</td>
+  <td><a href="jump-message.jsp?msgid=9535068&amp;cid=9535234" rev=contents>Защита от NSA в Skype</a></td>
+  <td><time datetime="2013-09-01T21:10:10.575+04:00">01.09.13 21:10</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Talks</td>
+  <td><a href="jump-message.jsp?msgid=9535180&amp;cid=9535223" rev=contents>Школьный дискомфорт</a></td>
+  <td><time datetime="2013-09-01T21:07:39.444+04:00">01.09.13 21:07</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Talks</td>
+  <td><a href="jump-message.jsp?msgid=9535180&amp;cid=9535222" rev=contents>Школьный дискомфорт</a></td>
+  <td><time datetime="2013-09-01T21:07:03.692+04:00">01.09.13 21:07</time></td>
+<tr>
+  <td>Форум</td>
+  <td>Linux-install</td>
+  <td><a href="jump-message.jsp?msgid=9535087&amp;cid=9535181" rev=contents>Проблемы новичка</a></td>
+  <td><time datetime="2013-09-01T20:57:39.530+04:00">01.09.13 20:57</time></td>
+</tbody>
+<tfoot>
+  <tr><td colspan=5><p>
+<div style="float: left">
+<a rel=prev rev=next href="show-comments.jsp?nick=ZenitharChampion&amp;offset=50">← назад</a>
+</div>
+<div style="float: right">
+  <a rel=next rev=prev href="show-comments.jsp?nick=ZenitharChampion&amp;offset=150">вперед →</a>
+  </div>
+  </td></tr>
+</tfoot>
+</table>
+</div>
+
+</div>
+<footer id="ft">
+
+<p id="ft-info">
+  <a href="/about">О Сервере</a> -
+  <a href="/rules.jsp">Правила форума</a><br>
+  <a href="http://www.linux.org.ru/">http://www.linux.org.ru/</a>
+  </p>
+
+<div id="ft-buttons">
+<!-- begin of Top100 logo -->
+  <a href="http://top100.rambler.ru/home?id=29833" target="_blank"><img src="http://top100-images.rambler.ru/top100/banner-88x31-rambler-black2.gif" alt="Rambler's Top100" width="88" height="31" /></a>
+  <!-- end of Top100 logo -->
+    <!-- Rating@Mail.ru logo -->
+    <a target="_top" href="http://top.mail.ru/jump?from=71642">
+    <img src="http://d7.c1.b1.a0.top.mail.ru/counter?id=71642;t=11;l=1"
+    height="31" width="88" alt="Рейтинг@Mail.ru"></a>
+    <!-- //Rating@Mail.ru logo -->
+</div>
+
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-2184304-1");
+        pageTracker._setCustomVar(1, "Authorized", "false");
+        pageTracker._setCustomVar(2, "Style", "tango");
+        pageTracker._setSiteSpeedSampleRate(10);
+        pageTracker._trackPageview();
+    } catch (err) { }</script>
+
+<!-- begin of Top100 code -->
+    <script id="top100Counter" type="text/javascript" src="http://counter.rambler.ru/top100.jcn?29833"></script><noscript><img src="http://counter.rambler.ru/top100.cnt?29833" alt="" width="1" height="1"/></noscript>
+    <!-- end of Top100 code -->
+</footer>
+</body></html>
