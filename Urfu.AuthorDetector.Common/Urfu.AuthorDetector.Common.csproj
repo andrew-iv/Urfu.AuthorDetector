@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EeekSoft.Text">
+      <HintPath>..\Lib\EeekSoft.Text.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -50,6 +53,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -57,20 +61,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AllMetricProvider.cs" />
+    <Compile Include="BaseMetricProvider.cs" />
     <Compile Include="BaseMetrics.cs" />
-    <Compile Include="Classification\BaseNeighboorClassifier.cs" />
+    <Compile Include="Chi2ForAuthorMetricSelector.cs" />
+    <Compile Include="Classification\BayesClassifier.cs" />
+    <Compile Include="Classification\NeighboorClassifier.cs" />
+    <Compile Include="Classification\StatsHelper.cs" />
     <Compile Include="Classification\GrammsMetricNeighboorClassifier.cs" />
     <Compile Include="Classification\IClassifier.cs" />
     <Compile Include="Classification\MetricNeighboorClassifier.cs" />
     <Compile Include="CommonModule.cs" />
     <Compile Include="Classification\CommonStatisctics.cs" />
     <Compile Include="DictionaryMetrics.cs" />
+    <Compile Include="HistogramOperation.cs" />
+    <Compile Include="IDataExtractor.cs" />
     <Compile Include="ILorStorage.cs" />
+    <Compile Include="IMetricProvider.cs" />
+    <Compile Include="IMetricSelector.cs" />
+    <Compile Include="LorDataExtractor.cs" />
     <Compile Include="LorPostBrief.cs" />
     <Compile Include="LorPostInfo.cs" />
     <Compile Include="LorStorage.cs" />
+    <Compile Include="MetricInfo.cs" />
     <Compile Include="PostMetrics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StaticVars.cs" />
     <Compile Include="TrivialMetrics.cs" />
   </ItemGroup>
   <ItemGroup>

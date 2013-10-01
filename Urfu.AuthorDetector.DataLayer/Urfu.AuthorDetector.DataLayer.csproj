@@ -90,9 +90,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Database.sdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Statistics.edmx.sql" />
   </ItemGroup>
   <ItemGroup>

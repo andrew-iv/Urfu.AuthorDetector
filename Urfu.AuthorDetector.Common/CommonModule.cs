@@ -17,6 +17,10 @@ namespace Urfu.AuthorDetector.Common
                 }).InTransientScope();
             Kernel.Bind<ILorStorage>().To<LorStorage>().InTransientScope();
             Kernel.Bind<IPostsQueryFilter>().To<PostsQueryFilter>().InThreadScope();
+
+            Kernel.Bind<IDataExtractor>().To<LorDataExtractor>().InThreadScope();
+            
+
         }
 
     }

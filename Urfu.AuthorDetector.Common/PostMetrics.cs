@@ -11,7 +11,7 @@ namespace Urfu.AuthorDetector.Common
 
     public interface IFillableMetric:IMetric
     {
-        void FillFromPost(Post post);
+        void FillFromPost(string post);
     }
 
     public interface IGrammsMetric : IMetric

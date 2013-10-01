@@ -14,7 +14,7 @@ namespace Urfu.AuthorDetector.Common
 
         public string[] UseGramms { set; private get; }
 
-        public override void FillFromPost(Post post)
+        public override void FillFromPost(string post)
         {
             base.FillFromPost(post);
             if (UseGramms != null)
@@ -48,12 +48,7 @@ namespace Urfu.AuthorDetector.Common
 
     public class TrivialMetric : BaseMetric, IFillableMetric
     {
-        public IEnumerable<string> NGramms(int n  )
-        {
-            if (PureText.Length < n)
-                return Enumerable.Empty<string>();
-            return Enumerable.Range(0,PureText.Length-n+1).Select(i => PureText.Substring(i, n));
-        }
+
 
         public const int NewDayInSeconds = 1 * 3600;
 
@@ -107,21 +102,21 @@ namespace Urfu.AuthorDetector.Common
                 return new Dictionary<string, double>()
                     {
                         {"Length", this.Length},
-                        {"Time", this.Time},
+                 //       {"Time", this.Time},
                         {"WhitespacesShare", this.WhitespacesShare},
-                        {"ParagraphsShare", this.ParagraphsShare},
+                 //       {"ParagraphsShare", this.ParagraphsShare},
                         {"PunctuationShare", this.PunctuationShare},
-                        {"OtherNodesShare", this.OtherNodesShare},
+                     //   {"OtherNodesShare", this.OtherNodesShare},
                      //   {"RussianWordLength", this.RussianWordLength},
                  //       {"VowelCount", this.VowelCount},
                     };
             }
         }
 
-        public virtual void FillFromPost(Post post)
+        public virtual void FillFromPost(string post)
         {
             var htmlDoc = new HtmlDocument();
-            htmlDoc.LoadHtml(post.Text);
+            htmlDoc.LoadHtml(post);
             List<HtmlNode> nodes;
             var paragraphs = HtmlExtractor.ExtractParagrahps(htmlDoc, out nodes);
             PureText = string.Join(" ", paragraphs);
@@ -132,16 +127,6 @@ namespace Urfu.AuthorDetector.Common
                 PunctuationShare = Convert.ToDouble(PureText.Count(Char.IsPunctuation)) / Length;
                 WhitespacesShare = Convert.ToDouble(PureText.Count(Char.IsWhiteSpace)) / Length;
                 OtherNodesShare = Convert.ToDouble(nodes.Count) / Length;
-                if (post.DateTime.HasValue)
-                {
-                    var timeOfDay = post.DateTime.Value.ToUniversalTime().TimeOfDay;
-
-                    Time = timeOfDay.TotalSeconds - NewDayInSeconds;
-                    if (Time < 0)
-                        Time += 24 * 3600;
-                    if (Time > 24 * 3600)
-                        Time -= 24 * 3600;
-                }
                 var words = PureText.RussianWords().ToArray();
                 if (words.Any())
                 {
@@ -167,7 +152,7 @@ namespace Urfu.AuthorDetector.Common
             Time = posts.Average(x => x.Time);
         }
 
-        public TrivialMetric(Post post)
+        public TrivialMetric(string post)
         {
             FillFromPost(post);
         }

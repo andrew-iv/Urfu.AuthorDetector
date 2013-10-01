@@ -29,67 +29,78 @@ namespace Urfu.AuthorDetecor.ExperimentConsole
 "Mystra_x64"}
 ;
 
-        private const int TopAuthors = 50;
+        private const int TopAuthors = 10;
 
         private static StandardKernel _kernel;
 
-        private static void Test(Func<IDictionary<Author, IEnumerable<Post>>, IClassifier> constructor, string filePrefix)
+        private static void Test(Func<IDictionary<Author, IEnumerable<string>>, IClassifier> constructor,
+                                 string filePrefix)
         {
+            const int cnt1 = 1;
+            const int cnt2 = 1000;
             _kernel.Bind<IExperiment>().ToConstant(new Experiment.Experiment()
-            {
-                TopAuthors = TopAuthors,
-                ForumId = LorStorage.LorId,
-                EndGeneral = new DateTime(2013, 3, 1),
-                PostsCount = 100,
-                StartGeneral = new DateTime(2012, 1, 1)
-            });
+                {
+                    TopAuthors = TopAuthors,
+                    ForumId = LorStorage.LorId,
+                    EndGeneral = new DateTime(2013, 3, 1),
+                    PostsCount = 1000,
+                    StartGeneral = new DateTime(2012, 1, 1)
+                });
             var exp = new Experimentator(_kernel, constructor);
             _kernel.Unbind<IExperiment>();
-
-            foreach (var postsCount in Enumerable.Range(1,3).Select(i=>i*100))
+            
+            using (var fileStat = File.Open(
+                string.Format("{1}_{0}_Total.csv", DateTime.Now.Ticks, filePrefix)
+                , FileMode.Create, FileAccess.Write))
+            using (var writerStat = new CsvWriter(new StreamWriter(fileStat)))
             {
-                using (var file = File.Open(
-    string.Format("{2}_{1}_{0}.csv",postsCount, DateTime.Now.Ticks, filePrefix)
-    , FileMode.Create, FileAccess.Write))
-                using (var writer = new CsvWriter(new StreamWriter(file)))
+
+                foreach (var postsCount in Enumerable.Range(1, 16).Select(i => i*25))
                 {
-                    const int cnt1 = 1;
-                    const int cnt2 = 100;
-                    int success = 0;
-
-
-                    foreach (var endMonth in Enumerable.Range(3, cnt1).Select(x => new DateTime(2013, x, 1)))
+                    using (var file = File.Open(
+                        string.Format("{2}_{1}_{0}.csv", postsCount, DateTime.Now.Ticks, filePrefix)
+                        , FileMode.Create, FileAccess.Write))
+                    using (var writer = new CsvWriter(new StreamWriter(file)))
                     {
-                        _kernel.Bind<IExperiment>().ToConstant(new Experiment.Experiment()
-                        {
-                            TopAuthors = TopAuthors,
-                            EndGeneral = endMonth,
-                            ForumId = LorStorage.LorId,
-                            PostsCount = postsCount,
-                            StartGeneral = new DateTime(2012, 1, 1)
-                        });
+
+                        int success = 0;
+
+
                         
-                        foreach (var res in Enumerable.Range(1, cnt2).Select(i =>
-                                                exp.Test()))
-                        {
-                            writer.WriteFields(res.Actual.Identity, res.Returned.Identity, res.IsSuccess);
-                            if (res.IsSuccess)
-                                success++;
-                        }
-                        _kernel.Unbind<IExperiment>();
+                            _kernel.Bind<IExperiment>().ToConstant(new Experiment.Experiment()
+                                {
+                                    TopAuthors = TopAuthors,
+                                    EndGeneral = new DateTime(2013, 3, 2),
+                                    ForumId = LorStorage.LorId,
+                                    PostsCount = postsCount,
+                                    StartGeneral = new DateTime(2012, 1, 1)
+                                });
+
+                            foreach (var res in Enumerable.Range(1, cnt2).Select(i =>
+                                                                                 exp.Test()))
+                            {
+                                writer.WriteFields(res.Actual.Identity, res.Returned.Identity, res.IsSuccess);
+                                if (res.IsSuccess)
+                                    success++;
+                            }
+                            _kernel.Unbind<IExperiment>();
+
+                        writerStat.WriteFields(success*100d/(cnt1*cnt2), postsCount);
+                        Console.WriteLine("{0}% - {1}", success*100d/(cnt1*cnt2), postsCount);
                     }
-                    Console.WriteLine("{0}% - {1}", success * 100d / (cnt1 * cnt2), postsCount);
                 }
             }
-            
         }
+
+    
 
         static void Main(string[] args)
         {
             _kernel = new StandardKernel(new CommonModule());
-            
-            Test(x => new GrammsMetricNeighboorClassifier<TrigrammsTrivialMetric>(x), "TrivialMetricGrammas");
-            Test(x => new MetricNeighboorClassifier<TrivialMetric>(x), "TrivialMetric");
+            StaticVars.Kernel = _kernel;
+            Test(x => new BayesClassifier(x, new SelectedMetricProvider()), "BayesClassifier");
+            Test(x => new NeighboorClassifier(x, new SelectedMetricProvider()), "NeighboorClassifier");
+            //Test(x => new MetricNeighboorClassifier<TrivialMetric>(x), "TrivialMetric");
 
         }
     }

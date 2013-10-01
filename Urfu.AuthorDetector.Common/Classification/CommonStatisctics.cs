@@ -24,6 +24,48 @@ namespace Urfu.AuthorDetector.Common.Classification
                                                                                                   .StandardDeviation())).OrderBy(x => x.Key);
         }
 
+        public static double[] CalculateVariance(this double[][] metrics)
+        {
+            if (metrics == null || metrics.Length == 0)
+                return new double[]{};
+            var m = metrics[0].Length;
+            return Enumerable.Range(0, m)
+                      .Select(j => Enumerable.Range(0, metrics.Length).Select(i => metrics[i][j]).StandardDeviation())
+                      .ToArray();
+        }
+
+        public static double[] CalculateAverage(this double[][] metrics)
+        {
+            if (metrics == null || metrics.Length == 0)
+                return new double[] { };
+            var m = metrics[0].Length;
+            return Enumerable.Range(0, m)
+                      .Select(j => Enumerable.Range(0, metrics.Length).Select(i => metrics[i][j]).Average())
+                      .ToArray();
+        }
+
+        public static double[] CalculateMedian(this double[][] metrics)
+        {
+            if (metrics == null || metrics.Length == 0)
+                return new double[] { };
+            var m = metrics[0].Length;
+            return Enumerable.Range(0, m)
+                      .Select(j => Enumerable.Range(0, metrics.Length).Select(i => metrics[i][j]).Median())
+                      .ToArray();
+        }
+
+        public static double[] Standardizate(this double[] metrics, double[] variance)
+        {
+            const double epsilon = 0.001d;
+            if (metrics == null || metrics.Length == 0)
+                return new double[] { };
+            var m = metrics.Length;
+            return Enumerable.Range(0, m)
+                      .Select(j => metrics[j]/(variance[j]+epsilon))
+                      .ToArray();
+        }
+
+
         public static IEnumerable<KeyValuePair<string, double>> Standardizate(this IMetric metric, IEnumerable<KeyValuePair<string, double>> variance)
         {
             const double epsilon = 0.001d;

@@ -15,7 +15,7 @@ namespace Urfu.AuthorDetector.Tests.Utils
             {
                 yield return new TestCaseData("Привет, всем Trololo",new []{"Привет","всем"});
                 yield return new TestCaseData("Trololo12 12 342? .dg  ", new string[] {});
-                yield return new TestCaseData("я &lt; Trololo12 12 342?  сделаю диплом  ", new string[] { "я", "сделаю", "диплом" });
+                yield return new TestCaseData("Иван &lt; Trololo12 12 342?  сделает диплом  ", new string[] { "Иван", "сделает", "диплом" });
                 yield break;
             }
         }

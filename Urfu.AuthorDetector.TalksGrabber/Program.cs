@@ -11,8 +11,8 @@ namespace Urfu.AuthorDetector.TalksGrabber
 {
     class Program
     {
-        private static readonly DateTime Start = new DateTime(2011, 1, 1);
-        private static readonly DateTime End = new DateTime(2013, 8, 1);
+        private static readonly DateTime Start = new DateTime(2012, 11, 1);
+        private static readonly DateTime End = new DateTime(2012, 12, 1);
 
         static void Main(string[] args)
         {
