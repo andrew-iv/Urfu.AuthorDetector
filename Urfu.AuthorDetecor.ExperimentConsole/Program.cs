@@ -29,18 +29,17 @@ namespace Urfu.AuthorDetecor.ExperimentConsole
 "Mystra_x64"}
 ;
 
-        private const int TopAuthors = 10;
 
         private static StandardKernel _kernel;
 
         private static void Test(Func<IDictionary<Author, IEnumerable<string>>, IClassifier> constructor,
-                                 string filePrefix)
+                                 string filePrefix,int topAuthors = 10)
         {
             const int cnt1 = 1;
             const int cnt2 = 1000;
             _kernel.Bind<IExperiment>().ToConstant(new Experiment.Experiment()
                 {
-                    TopAuthors = TopAuthors,
+                    TopAuthors = topAuthors,
                     ForumId = LorStorage.LorId,
                     EndGeneral = new DateTime(2013, 3, 1),
                     PostsCount = 1000,
@@ -55,7 +54,7 @@ namespace Urfu.AuthorDetecor.ExperimentConsole
             using (var writerStat = new CsvWriter(new StreamWriter(fileStat)))
             {
 
-                foreach (var postsCount in Enumerable.Range(1, 16).Select(i => i*25))
+                foreach (var postsCount in Enumerable.Range(1, 20).Select(i => i*5).Concat(Enumerable.Range(1, 20).Select(i => i*10+100)))
                 {
                     using (var file = File.Open(
                         string.Format("{2}_{1}_{0}.csv", postsCount, DateTime.Now.Ticks, filePrefix)
@@ -69,7 +68,7 @@ namespace Urfu.AuthorDetecor.ExperimentConsole
                         
                             _kernel.Bind<IExperiment>().ToConstant(new Experiment.Experiment()
                                 {
-                                    TopAuthors = TopAuthors,
+                                    TopAuthors = topAuthors,
                                     EndGeneral = new DateTime(2013, 3, 2),
                                     ForumId = LorStorage.LorId,
                                     PostsCount = postsCount,
@@ -100,6 +99,10 @@ namespace Urfu.AuthorDetecor.ExperimentConsole
             StaticVars.Kernel = _kernel;
             Test(x => new BayesClassifier(x, new SelectedMetricProvider()), "BayesClassifier");
             Test(x => new NeighboorClassifier(x, new SelectedMetricProvider()), "NeighboorClassifier");
+
+            Test(x => new BayesClassifier(x, new SelectedMetricProvider()), "BayesClassifier",50);
+            Test(x => new NeighboorClassifier(x, new SelectedMetricProvider()), "NeighboorClassifier",50);
+
             //Test(x => new MetricNeighboorClassifier<TrivialMetric>(x), "TrivialMetric");
 
         }

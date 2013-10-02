@@ -24,8 +24,8 @@ namespace Urfu.AuthorDetector.Common.Classification
             var authorMetrics = authors.ToDictionary(x => x.Key,
                                                      x => x.Value.Select(xx => _metricProvider.GetMetrics(xx).ToArray()).ToArray());
 
-            var minVals = Enumerable.Range(0,m).Select(i=>authorMetrics.Select(x=>x.Value.Select(xx=>xx[m]).Min()).Min()).ToArray();
-            var maxVals = Enumerable.Range(0,m).Select(i=>authorMetrics.Select(x=>x.Value.Select(xx=>xx[m]).Max()).Max()).ToArray();
+            var minVals = Enumerable.Range(0,m).Select(i=>authorMetrics.Select(x=>x.Value.Select(xx=>xx[i]).Min()).Min()).ToArray();
+            var maxVals = Enumerable.Range(0,m).Select(i=>authorMetrics.Select(x=>x.Value.Select(xx=>xx[i]).Max()).Max()).ToArray();
 
 
             _authorHistogramms = authorMetrics.ToDictionary(x => x.Key,
@@ -76,8 +76,12 @@ namespace Urfu.AuthorDetector.Common.Classification
                         resDict[author] = resDict[author] * GetProbability(hist[j], post[j]);
                     }
                 }
+                var mx = resDict.Max(x => x.Value);
+                foreach (var author in Authors)
+                {
+                    resDict[author] = resDict[author] /mx;
+                }
             }
-
             return resDict.OrderByDescending(x => x.Value).First().Key;
         }
 

@@ -32,7 +32,7 @@
 
         protected override string[] UseWords
         {
-            get { throw new System.NotImplementedException(); }
+            get { return _useWords; }
         }
     }
 }

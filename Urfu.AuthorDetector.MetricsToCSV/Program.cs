@@ -63,6 +63,9 @@ namespace Urfu.AuthorDetector.MetricsToCSV
                     authors.Select(x => x.Author.Post.Select(dataExtractor.GetText).ToArray() as IEnumerable<string>)
                            .ToArray();
 
+                Console.WriteLine("Average Length - {0}",
+                                  authorPosts.SelectMany(x => x.Select(xx => xx.Length)).ToArray().Average());
+
                 var metricSelector = new Chi2ForAuthorMetricSelector(authorPosts, SelectParams);
                 var topMetricIds = metricSelector.SelectMetrics(kernel.Get<IMetricProvider>());
                 

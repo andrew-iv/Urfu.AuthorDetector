@@ -58,7 +58,7 @@ namespace Urfu.AuthorDetector.Common
                 }
             }
 
-            if (StaticVars.Top3Gramms != null)
+            if (UseNgramms != null)
             {
                 foreach (var metrics in SubstringMetrics(UseNgramms, text, length))
                 {
@@ -66,7 +66,7 @@ namespace Urfu.AuthorDetector.Common
                 }
             }
 
-            if (StaticVars.TopRuWords != null)
+            if (UseWords != null)
             {
                 foreach (var metrics in SubstringMetrics(UseWords, text, length))
                 {
