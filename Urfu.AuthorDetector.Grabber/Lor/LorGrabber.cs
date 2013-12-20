@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using Urfu.AuthorDetector.Common;
 using System.Linq;
 
-namespace Urfu.AuthorDetector.Grabber
-{
+namespace Urfu.AuthorDetector.Grabber.Lor{
+    
+
     public class LorGrabber : ILorGrabber
     {
         private readonly ILorPostsParser _postsParser;
@@ -15,7 +16,7 @@ namespace Urfu.AuthorDetector.Grabber
             _postsParser = postsParser;
         }
 
-        public IEnumerable<LorPostInfo> LoadAllArchive(int year, int month, string category = "talks")
+        public IEnumerable<PostInfo> LoadAllArchive(int year, int month, string category = "talks")
         {
             const int perPageCount = 30;
             var offset = 0;
@@ -34,7 +35,7 @@ namespace Urfu.AuthorDetector.Grabber
                     }
                     catch (Exception)
                     {
-                        return Enumerable.Empty<LorPostInfo>();
+                        return Enumerable.Empty<PostInfo>();
                     }
                 });
         }

@@ -1,4 +1,8 @@
-﻿namespace Urfu.AuthorDetector.Common
+﻿using Ninject;
+using Opcorpora.Dictionary;
+using System.Linq;
+
+namespace Urfu.AuthorDetector.Common
 {
 
     public class AllMetricProvider : BaseMetricProvider
@@ -11,6 +15,11 @@
         protected override string[] UseWords
         {
             get { return StaticVars.TopRuWords; }
+        }
+
+        protected override string[] Grammemes
+        {
+            get { return StaticVars.Kernel.Get<IOpcorporaDictionary>().Grammemes.Select(x => x.name).Where(x=>x!=null).ToArray(); }
         }
     }
 
@@ -33,6 +42,11 @@
         protected override string[] UseWords
         {
             get { return _useWords; }
+        }
+
+        protected override string[] Grammemes
+        {
+            get { return new string[]{}; }
         }
     }
 }

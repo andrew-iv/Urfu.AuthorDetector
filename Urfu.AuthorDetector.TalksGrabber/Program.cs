@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Ninject;
 using Urfu.AuthorDetector.Common;
 using Urfu.AuthorDetector.Grabber;
+using Urfu.AuthorDetector.Grabber.Flamp;
 
 namespace Urfu.AuthorDetector.TalksGrabber
 {
@@ -17,16 +18,15 @@ namespace Urfu.AuthorDetector.TalksGrabber
         static void Main(string[] args)
         {
             var kernel = new StandardKernel(new RealModule());
-            var posts = new List<LorPostInfo>();
-            for (var date = Start;date<End;date= date.AddMonths(1))
+            var posts = new List<PostInfo>();
+            foreach (var city in new Dictionary<string, int>() { { "novosibirsk", 3 }, { "ekaterinburg", 2 }, { "moscow",1 } })
             {
-                using (var storage = kernel.Get<ILorStorage>())
+                using (var storage = kernel.Get<IForumStorage>())
                 {
-                    storage.SavePosts(kernel.Get<ILorGrabber>().LoadAllArchive(date.Year, date.Month));
+                    storage.SavePosts(kernel.Get<IFlampGrabber>().LoadAllArchive(city.Key, city.Value));
                 }
-                Console.WriteLine("{0:MMMM yyyy} - stored",date);
+                Console.WriteLine("{0} - stored",city);
             }
-            
         }
     }
 }

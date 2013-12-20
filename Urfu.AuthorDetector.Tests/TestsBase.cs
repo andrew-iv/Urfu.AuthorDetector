@@ -7,6 +7,8 @@ using Ninject.Modules;
 using Urfu.AuthorDetector.Common;
 using Urfu.AuthorDetector.DataLayer;
 using Urfu.AuthorDetector.Grabber;
+using Urfu.AuthorDetector.Grabber.Flamp;
+using Urfu.AuthorDetector.Grabber.Lor;
 using Urfu.AuthorDetector.Tests.Grabber;
 using Urfu.Utils;
 
@@ -59,6 +61,16 @@ namespace Urfu.AuthorDetector.Tests
     [TestFixture]
     public abstract class TestsBase
     {
+        [TestFixtureSetUp]
+        public void Init()
+        {
+            OnInit();
+        }
+
+        protected virtual void OnInit()
+        {
+        }
+
         [SetUp]
         public void SetUp()
         {
@@ -72,7 +84,12 @@ namespace Urfu.AuthorDetector.Tests
                                         Id = LorStorage.LorId,
                                         ForumUrl = LorGrabber.LorUrl,
                                         Description = "LOR",
-                                        
+                                    },
+                                new Forum()
+                                    {
+                                        Id = 2,
+                                        ForumUrl = FlampLoader.Site,
+                                        Description = "Flamp"
                                     }
                             })
                 };

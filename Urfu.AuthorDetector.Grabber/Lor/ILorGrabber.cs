@@ -5,6 +5,6 @@ namespace Urfu.AuthorDetector.Grabber
 {
     public interface ILorGrabber
     {
-        IEnumerable<LorPostInfo> LoadAllArchive(int year, int month, string category = "talks");
+        IEnumerable<PostInfo> LoadAllArchive(int year, int month, string category = "talks");
     }
 }

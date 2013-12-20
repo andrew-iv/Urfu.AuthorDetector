@@ -5,12 +5,12 @@ using Urfu.AuthorDetector.DataLayer;
 
 namespace Urfu.AuthorDetector.Common
 {
-    public interface ILorStorage : IDisposable
+    public interface IForumStorage : IDisposable
     {
         IQueryable<Post> GetPostsUser(string user);
-        void SavePosts(IEnumerable<LorPostInfo> posts);
-        void FillBriefs(IEnumerable<LorPostBrief> postsBriefs);
-        void SavePost(LorPostInfo posts);
+        void SavePosts(IEnumerable<PostInfo> posts);
+        void FillBriefs(IEnumerable<PostBrief> postsBriefs);
+        void SavePost(PostInfo posts);
     }
 
     public interface IPostsQueryFilter

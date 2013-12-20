@@ -1,9 +1,11 @@
 ﻿using System;
 using HtmlAgilityPack;
+using Urfu.AuthorDetector.Grabber.Common;
+using Urfu.AuthorDetector.Grabber.Lor;
 
 namespace Urfu.AuthorDetector.Grabber
 {
-    public class LorPageLoader:ILorPageLoader
+    public class LorPageLoader: BasePageLoader, ILorPageLoader
     {
         private static string GetPostsListUrl(string nick, int offset)
         {
@@ -17,31 +19,25 @@ namespace Urfu.AuthorDetector.Grabber
 
         public HtmlDocument LoadPostsList(string nick, int offset)
         {
-            return UrlRetriever.GetHtmlDocSync(GetPostsListUrl(nick, offset));
+            return Load(GetPostsListUrl(nick, offset));
         }
 
         public HtmlDocument LoadThemeByPostId(int themeId, int postId)
         {
-            return UrlRetriever.GetHtmlDocSync(GetThemeUrlByPostId(themeId, postId));
+            return Load(GetThemeUrlByPostId(themeId, postId));
         }
 
         public HtmlDocument LoadTheme(int themeId, int page)
         {
-            return UrlRetriever.GetHtmlDocSync(GetThemeUrl(themeId, page));
+            return Load(GetThemeUrl(themeId, page));
         }
 
         public HtmlDocument LoadArchive(int year, int month, int offset, string category)
         {
             //http://www.linux.org.ru/forum/talks/2012/3/
             return
-                UrlRetriever.GetHtmlDocSync(
+                Load(
                 String.Format(LorGrabber.LorUrl + "forum/{2}/{0}/{1}/?offset={3}", year, month, category,offset));
-        }
-
-        public HtmlDocument Load(string url)
-        {
-            return
-                UrlRetriever.GetHtmlDocSync(url);
         }
 
         private string GetThemeUrl(int themeId, int page,string category="talks")

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2014 sp1 (x64) (http://www.altova.com) by ууу (ууууу) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" elementFormDefault="qualified" attributeFormDefault="unqualified" vc:minVersion="1.1">
+	<xs:simpleType name="boolean01">
+		<xs:restriction base="xs:boolean">
+			<xs:pattern value="0|1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="restrPointType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="lemma"/>
+			<xs:enumeration value="form"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="dictionary">
+		<xs:annotation>
+			<xs:documentation>ff</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="grammemes">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="grammeme" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="name" type="xs:string"  minOccurs="1" maxOccurs="1"/>
+										<xs:element name="alias" type="xs:string"  minOccurs="1" maxOccurs="1"/>
+										<xs:element name="description" type="xs:string"  minOccurs="1" maxOccurs="1"/>
+									</xs:sequence>
+									<xs:attribute name="parent" type="xs:string"/>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="lemmata">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="lemma" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="l" type="lemmaItem" minOccurs="1" maxOccurs="1"/>
+										<xs:element name="f" type="lemmaItem" maxOccurs="unbounded"/>
+									</xs:sequence>
+									<xs:attribute name="id" type="xs:integer"/>
+									<xs:attribute name="rev" type="xs:integer"/>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="link_types">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="type" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:simpleContent>
+										<xs:extension base="xs:string">
+											<xs:attribute name="id" type="xs:integer"/>
+										</xs:extension>
+									</xs:simpleContent>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="links">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="link" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:attribute name="id" type="xs:integer" use="required"/>
+									<xs:attribute name="from" type="xs:integer" use="required"/>
+									<xs:attribute name="to" type="xs:integer" use="required"/>
+									<xs:attribute name="type" type="xs:integer" use="required"/>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="restrictions" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="restr" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="left" type="restPoint" minOccurs="1" maxOccurs="1"/>
+										<xs:element name="right" type="restPoint" minOccurs="1" maxOccurs="1"/>
+									</xs:sequence>
+									<xs:attribute name="type" use="required"/>
+									<xs:attribute name="auto" type="xs:boolean" use="required"/>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="version" type="xs:string"/>
+			<xs:attribute name="revision" type="xs:integer"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="lemmaItem">
+		<xs:sequence>
+			<xs:element name="g" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:attribute name="v" type="xs:string"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="t"/>
+	</xs:complexType>
+	<xs:complexType name="restPoint">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="type" type="restrPointType" use="required"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

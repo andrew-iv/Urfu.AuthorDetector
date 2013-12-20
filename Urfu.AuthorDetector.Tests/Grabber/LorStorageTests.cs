@@ -74,8 +74,8 @@ namespace Urfu.AuthorDetector.Tests.Grabber
         [Test]
         public void AddPosts1()
         {
-            var storage = Ninject.Get<ILorStorage>();
-            storage.SavePosts(Enumerable.Range(4, 5).Select(i => new LorPostInfo(new LorPostBrief()
+            var storage = Ninject.Get<IForumStorage>();
+            storage.SavePosts(Enumerable.Range(4, 5).Select(i => new PostInfo(new PostBrief()
                 {
                     Nick = "author2",
                     PostId = i,
@@ -99,8 +99,8 @@ namespace Urfu.AuthorDetector.Tests.Grabber
         [Test]
         public void AddPosts2()
         {
-            var storage = Ninject.Get<ILorStorage>();
-            storage.SavePosts(Enumerable.Range(4, 5).Select(i => new LorPostInfo(new LorPostBrief()
+            var storage = Ninject.Get<IForumStorage>();
+            storage.SavePosts(Enumerable.Range(4, 5).Select(i => new PostInfo(new PostBrief()
             {
                 Nick = "author3",
                 PostId = i,

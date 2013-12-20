@@ -86,7 +86,6 @@ namespace Urfu.AuthorDetector.Common
             const double eps = 0.00001;
             if (Math.Abs(a.LowerBound - b.LowerBound) > eps
                 ||
-
                 Math.Abs(a.UpperBound - b.UpperBound) > eps
                 ) throw new ArgumentOutOfRangeException("Границы гистограмм должны совпадать");
 

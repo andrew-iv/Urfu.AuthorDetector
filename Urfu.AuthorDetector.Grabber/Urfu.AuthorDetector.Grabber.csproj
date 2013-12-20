@@ -49,15 +49,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ILorGrabber.cs" />
-    <Compile Include="RealModule.cs" />
-    <Compile Include="ILorPostsParser.cs" />
+    <Compile Include="Common\BasePageLoader.cs" />
+    <Compile Include="Common\IPageLoader.cs" />
+    <Compile Include="Common\VBulletinPageLoader.cs" />
+    <Compile Include="Flamp\FlampGrabber.cs" />
+    <Compile Include="Flamp\FlampLoader.cs" />
+    <Compile Include="Flamp\FlampParser.cs" />
+    <Compile Include="Flamp\IFlampGrabber.cs" />
+    <Compile Include="Flamp\IFlampParser.cs" />
+    <Compile Include="LorModule.cs" />
+    <Compile Include="Lor\ILorGrabber.cs" />
+    <Compile Include="Lor\ILorPageLoader.cs" />
+    <Compile Include="Lor\ILorPostsParser.cs" />
+    <Compile Include="Lor\LorGrabber.cs" />
+    <Compile Include="Lor\LorPageLoader.cs" />
+    <Compile Include="Lor\LorPostsParser.cs" />
     <Compile Include="PostRetriever.cs" />
     <Compile Include="Dto\ForumPost.cs" />
-    <Compile Include="ILorPageLoader.cs" />
-    <Compile Include="LorGrabber.cs" />
-    <Compile Include="LorPageLoader.cs" />
-    <Compile Include="LorPostsParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UrlRetriever.cs" />
   </ItemGroup>

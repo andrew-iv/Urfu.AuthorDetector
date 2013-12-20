@@ -61,7 +61,7 @@
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="IdOnForum" Type="int" Nullable="false" />
+          <Property Name="IdOnForum" Type="bigint" Nullable="false" />
           <Property Name="Forum_Id" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_ForumAuthor">
@@ -157,7 +157,7 @@
           <Property Type="String" Name="Title" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Post" Relationship="Statistics.ThemePost" FromRole="Theme" ToRole="Post" />
           <NavigationProperty Name="Forum" Relationship="Statistics.ForumTheme" FromRole="Theme" ToRole="Forum" />
-          <Property Type="Int32" Name="IdOnForum" Nullable="false" />
+          <Property Type="Int64" Name="IdOnForum" Nullable="false" />
         </EntityType>
         <EntityType Name="Author">
           <Key>

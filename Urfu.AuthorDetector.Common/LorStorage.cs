@@ -6,26 +6,18 @@ using Urfu.Utils;
 
 namespace Urfu.AuthorDetector.Common
 {
-    public class LorStorage : ILorStorage
+    public abstract class ForumStorageBase : IForumStorage
     {
         private readonly IStatisticsContext _context;
-        public const int LorId = 1;
-        private Forum _lorForum;
+        private Forum _forum;
         private HashSet<int> _storedIds;
         private IDictionary<string, Author> _authors;
-        private IDictionary<int, Theme> _themes;
+        private IDictionary<long, Theme> _themes;
 
-        private void ReinitializeCache()
-        {
-
-            _lorForum = _context.ForumSet.First(x => x.Id == LorId);
-            _storedIds = new HashSet<int>(_context.Posts.Where(x => x.Theme.Forum.Id == LorId).Select(x => x.IdOnForum));
-            _authors = _context.Authors.Where(x => x.Forum.Id == LorId).ToDictionary(x => x.Identity);
-            _themes = _context.Themes.Where(x => x.Forum.Id == LorId).ToDictionary(x => x.IdOnForum);
-        }
+        protected abstract int ForumId { get; }
 
         [Inject]
-        public LorStorage(IStatisticsContext context)
+        protected ForumStorageBase(IStatisticsContext context)
         {
             _context = context;
             var realContext = _context as StatisticsContainer;
@@ -38,34 +30,43 @@ namespace Urfu.AuthorDetector.Common
             ReinitializeCache();
         }
 
-        public IQueryable<Post> GetPostsUser(string user)
+        private void ReinitializeCache()
         {
-            return _context.Posts.Where(x=>x.Author.Forum.Id == LorId);
+
+            _forum = _context.ForumSet.First(x => x.Id == ForumId);
+            _storedIds = new HashSet<int>(_context.Posts.Where(x => x.Theme.Forum.Id == ForumId).Select(x => x.IdOnForum));
+            _authors = _context.Authors.Where(x => x.Forum.Id == ForumId).ToDictionary(x => x.Identity);
+            _themes = _context.Themes.Where(x => x.Forum.Id == ForumId).ToDictionary(x => x.IdOnForum);
         }
 
-        private Post ToPost(LorPostInfo lorPostInfo, Author author, Theme theme)
+        public IQueryable<Post> GetPostsUser(string user)
+        {
+            return _context.Posts.Where(x => x.Author.Forum.Id == ForumId);
+        }
+
+        private Post ToPost(PostInfo postInfo, Author author, Theme theme)
         {
             return new Post()
                 {
                     Author = author,
-                    Text = lorPostInfo.HtmlText,
-                    DateTime = lorPostInfo.Time,
-                    IdOnForum = lorPostInfo.PostId,
+                    Text = postInfo.HtmlText,
+                    DateTime = postInfo.Time,
+                    IdOnForum = postInfo.PostId,
                     Theme = theme
                 };
         }
 
-        private Author CreateAuthor(LorPostInfo lorPostInfo)
+        private Author CreateAuthor(PostInfo postInfo)
         {
             return new Author()
                 {
-                    Identity = lorPostInfo.Nick.CutString(),
-                    DisplayName = lorPostInfo.Nick.CutString(),
-                    Forum = _lorForum
+                    Identity = postInfo.Nick.CutString(),
+                    DisplayName = postInfo.Nick.CutString(),
+                    Forum = _forum
                 };
         }
 
-        public void SavePosts(IEnumerable<LorPostInfo> posts)
+        public void SavePosts(IEnumerable<PostInfo> posts)
         {
             foreach (var lorPostInfo in posts.Where(x => !_storedIds.Contains(x.PostId)))
             {
@@ -98,29 +99,59 @@ namespace Urfu.AuthorDetector.Common
             _context.SaveChanges();
         }
 
-        private Theme CreateTheme(LorPostInfo lorPostInfo)
+        private Theme CreateTheme(PostInfo postInfo)
         {
             return new Theme
                 {
-                    Forum = _lorForum,
-                    Title = lorPostInfo.Theme.CutString(),
-                    IdOnForum = lorPostInfo.ThemeId
+                    Forum = _forum,
+                    Title = postInfo.Theme.CutString(),
+                    IdOnForum = postInfo.ThemeId
                 };
         }
 
-        public void FillBriefs(IEnumerable<LorPostBrief> postsBriefs)
+        public void FillBriefs(IEnumerable<PostBrief> postsBriefs)
         {
 
         }
 
-        public void SavePost(LorPostInfo posts)
+        public void SavePost(PostInfo posts)
         {
-            SavePosts(new LorPostInfo[] { posts });
+            SavePosts(new PostInfo[] { posts });
         }
 
         public void Dispose()
         {
             _context.Dispose();
+        }
+    }
+
+    public class LorStorage : ForumStorageBase, IForumStorage
+    {
+        public const int LorId = 1;
+
+        [Inject]
+        public LorStorage(IStatisticsContext context) : base(context)
+        {
+        }
+
+        protected override int ForumId
+        {
+            get { return LorId; }
+        }
+    }
+
+    public class FlampStorage : ForumStorageBase, IForumStorage
+    {
+        
+        [Inject]
+        public FlampStorage(IStatisticsContext context)
+            : base(context)
+        {
+        }
+
+        protected override int ForumId
+        {
+            get { return 2; }
         }
     }
 }

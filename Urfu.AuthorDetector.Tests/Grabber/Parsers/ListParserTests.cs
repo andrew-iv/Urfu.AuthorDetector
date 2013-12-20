@@ -1,27 +1,11 @@
 ﻿using System;
 using System.Linq;
-using Moq;
 using NUnit.Framework;
 using Urfu.AuthorDetector.Common;
 using Urfu.AuthorDetector.Grabber;
 
 namespace Urfu.AuthorDetector.Tests.Grabber.Parsers
 {
-    public class LorGrabberTests : TestsBase
-    {
-        protected override void OnSetup()
-        {
-            base.OnSetup();
-            FakeModule.LorPostsParserMock = new Mock<ILorPostsParser>(MockBehavior.Loose)
-                {
-                    CallBase = true,
-                    DefaultValue = DefaultValue.Empty,
-                };
-            FakeModule.LorPostsParserMock.SetReturnsDefault(new LorPostsParser(new FileLorPageLoader()));
-        }
-    }
-
-
     public class LorParserTests : TestsBase
     {
         private readonly FileLorPageLoader _pageLoader = new FileLorPageLoader();
@@ -72,7 +56,7 @@ namespace Urfu.AuthorDetector.Tests.Grabber.Parsers
         [Test]
         public void FillPost1()
         {
-            var post = Parser.FillPost(new LorPostBrief() { PostId = 9587173, ThemeId = 9586947 });
+            var post = Parser.FillPost(new PostBrief() { PostId = 9587173, ThemeId = 9586947 });
             Assert.That(post.HtmlText, Is.StringContaining("Лучше под J2ME"));
             Assert.That(post.HtmlText, Is.Not.StringContaining("<div"));
         }
@@ -113,7 +97,7 @@ namespace Urfu.AuthorDetector.Tests.Grabber.Parsers
         [Ignore("RealLor")]
         public void TestReal()
         {
-            var post = RealParser.FillPost(new LorPostBrief() { PostId = 9587173, ThemeId = 9587170 });
+            var post = RealParser.FillPost(new PostBrief() { PostId = 9587173, ThemeId = 9587170 });
             Assert.That(post.HtmlText, Is.StringContaining("Лучше под J2ME"));
             Assert.That(post.HtmlText, Is.Not.StringContaining("<div"));
         }

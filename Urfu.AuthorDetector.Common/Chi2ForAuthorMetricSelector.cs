@@ -55,7 +55,6 @@ namespace Urfu.AuthorDetector.Common
         {
             
             var histArray = new Histogram[_authorsArray.Length][];
-
             var authorMetrics = new double[_authorsArray.Length][][];
             var hashRes = new HashSet<int>();
             

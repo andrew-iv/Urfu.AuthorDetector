@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using Urfu.AuthorDetector.Grabber;
 using System.Linq;
+using Urfu.AuthorDetector.Grabber.Lor;
 
 namespace Urfu.AuthorDetector.Tests.Grabber
 {

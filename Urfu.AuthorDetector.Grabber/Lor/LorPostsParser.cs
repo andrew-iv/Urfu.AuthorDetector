@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using Urfu.AuthorDetector.Common;
+using Urfu.AuthorDetector.Grabber.Lor;
 
 namespace Urfu.AuthorDetector.Grabber
 {
@@ -23,14 +24,14 @@ namespace Urfu.AuthorDetector.Grabber
 
 
 
-        public IEnumerable<LorPostBrief> GetPostsList(string nick, int offset = 0)
+        public IEnumerable<PostBrief> GetPostsList(string nick, int offset = 0)
         {
             var str = new StringWriter();
             _pageLoader.LoadPostsList(nick, offset).Save(str);
             var page = str.ToString();
             var matches = _listItemRegex.Matches(page);
             return from Match match in matches
-                   select new LorPostBrief()
+                   select new PostBrief()
                        {
                            ThemeId = int.Parse(match.Groups[1].Value),
                            PostId = int.Parse(match.Groups[2].Value),
@@ -52,7 +53,7 @@ namespace Urfu.AuthorDetector.Grabber
 
 
 
-        public IEnumerable<LorPostInfo> ParseComments(string url)
+        public IEnumerable<PostInfo> ParseComments(string url)
         {
 
             var doc = _pageLoader.Load(url);
@@ -63,7 +64,7 @@ namespace Urfu.AuthorDetector.Grabber
         }
 
 
-        private IEnumerable<LorPostInfo> ParsePosts(HtmlDocument doc)
+        private IEnumerable<PostInfo> ParsePosts(HtmlDocument doc)
         {
             try
             {
@@ -93,7 +94,7 @@ namespace Urfu.AuthorDetector.Grabber
                         {
                             msgBody.RemoveChild(delDiv);
                         }
-                        return new LorPostInfo(new LorPostBrief()
+                        return new PostInfo(new PostBrief()
                         {
                             Nick = nick,
                             PostId = int.Parse(article.Attributes.First(x => x.Name == "id").Value.Substring(8)),
@@ -116,12 +117,12 @@ namespace Urfu.AuthorDetector.Grabber
             }
             catch (Exception)
             {
-                return Enumerable.Empty<LorPostInfo>();
+                return Enumerable.Empty<PostInfo>();
             }
         }
 
 
-        public IEnumerable<LorPostInfo> ParsePostsInTheme(int themeId, int page, out bool haveNextPage)
+        public IEnumerable<PostInfo> ParsePostsInTheme(int themeId, int page, out bool haveNextPage)
         {
             haveNextPage = false;
             var doc = _pageLoader.LoadTheme(themeId, page);
@@ -134,9 +135,9 @@ namespace Urfu.AuthorDetector.Grabber
         }
 
 
-        public LorPostInfo FillPost(LorPostBrief postBrief)
+        public PostInfo FillPost(PostBrief postBrief)
         {
-            var doc = _pageLoader.LoadThemeByPostId(postBrief.ThemeId, postBrief.PostId);
+            var doc = _pageLoader.LoadThemeByPostId(Convert.ToInt32(postBrief.ThemeId), postBrief.PostId);
             if (doc == null)
                 throw new Exception("Не удалось загрузить документ");
             var node = doc.DocumentNode.SelectSingleNode
@@ -147,7 +148,7 @@ namespace Urfu.AuthorDetector.Grabber
             {
                 node.RemoveChild(delDiv);
             }
-            return new LorPostInfo(postBrief) { HtmlText = node.InnerHtml };
+            return new PostInfo(postBrief) { HtmlText = node.InnerHtml };
         }
     }
 }

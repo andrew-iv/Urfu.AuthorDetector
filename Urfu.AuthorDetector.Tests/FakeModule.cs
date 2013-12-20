@@ -4,6 +4,7 @@ using Ninject.Modules;
 using Urfu.AuthorDetector.Common;
 using Urfu.AuthorDetector.DataLayer;
 using Urfu.AuthorDetector.Grabber;
+using Urfu.AuthorDetector.Grabber.Lor;
 using Urfu.AuthorDetector.Tests.Grabber.Parsers;
 
 namespace Urfu.AuthorDetector.Tests
@@ -20,7 +21,7 @@ namespace Urfu.AuthorDetector.Tests
 
         public Mock<ILorPageLoader> LorPageLoaderMock { get; set; }
         public Mock<ILorPostsParser> LorPostsParserMock { get; set; }
-        public Mock<ILorStorage> LorStorageMock { get; set; }
+        public Mock<IForumStorage> LorStorageMock { get; set; }
 
         private static void RegisterContext(IKernel kernel)
         {
@@ -58,7 +59,7 @@ namespace Urfu.AuthorDetector.Tests
             Kernel.Bind<IStatisticsContext>().ToMethod(context => _contextBuilder.BuildMockDbContext().Object).InTransientScope();
             BindInSingletonScope<ILorPageLoader,FileLorPageLoader>(LorPageLoaderMock);
             BindInSingletonScope<ILorPostsParser,LorPostsParser>(LorPostsParserMock);
-            BindInSingletonScope<ILorStorage, LorStorage>(LorStorageMock);
+            BindInSingletonScope<IForumStorage, LorStorage>(LorStorageMock);
         }
     }
 }

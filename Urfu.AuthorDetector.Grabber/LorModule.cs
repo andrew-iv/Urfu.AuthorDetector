@@ -1,5 +1,7 @@
 ﻿using Ninject;
 using Urfu.AuthorDetector.Common;
+using Urfu.AuthorDetector.Grabber.Flamp;
+using Urfu.AuthorDetector.Grabber.Lor;
 
 namespace Urfu.AuthorDetector.Grabber
 {
@@ -17,6 +19,10 @@ namespace Urfu.AuthorDetector.Grabber
             Kernel.Bind<ILorPageLoader>().To<LorPageLoader>().InSingletonScope();
             Kernel.Bind<ILorPostsParser>().To<LorPostsParser>().InSingletonScope();
             Kernel.Bind<ILorGrabber>().To<LorGrabber>().InSingletonScope();
+
+            Kernel.Bind<IFlampLoader>().To<FlampLoader>().InSingletonScope();
+            Kernel.Bind<IFlampParser>().To<FlampParser>().InSingletonScope();
+            Kernel.Bind<IFlampGrabber>().To<FlampGrabber>().InSingletonScope();
         }
     }
 }

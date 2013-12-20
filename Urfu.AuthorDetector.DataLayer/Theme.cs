@@ -21,7 +21,7 @@ namespace Urfu.AuthorDetector.DataLayer
     
         public int Id { get; set; }
         public string Title { get; set; }
-        public int IdOnForum { get; set; }
+        public long IdOnForum { get; set; }
     
         public virtual ICollection<Post> Post { get; set; }
         public virtual Forum Forum { get; set; }

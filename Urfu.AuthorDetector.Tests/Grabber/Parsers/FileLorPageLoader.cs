@@ -1,40 +1,51 @@
 using System;
-using System.IO;
 using HtmlAgilityPack;
 using Urfu.AuthorDetector.Grabber;
+using Urfu.AuthorDetector.Grabber.Flamp;
+using Urfu.AuthorDetector.Grabber.Lor;
 
 namespace Urfu.AuthorDetector.Tests.Grabber.Parsers
 {
-    public class FileLorPageLoader : ILorPageLoader
+    public class FlampFileLoader : BaseFilePageLoaderBase, IFlampLoader
     {
-        private readonly string _filesPath;
-        protected const string FilesPath = "Grabber\\Files\\";
+        protected const string FilesPath = "Grabber\\FilesFlamp\\";
 
-        public string LoadFormUrlPath { get; set; }
-
-        public FileLorPageLoader(string filesPath = FilesPath)
+        public FlampFileLoader(string filesPath = FilesPath)
+            : base(filesPath)
         {
-            _filesPath = filesPath;
         }
 
-        protected virtual HtmlDocument LoadDocument(params object[] args)
+        public HtmlDocument LoadUsers(string city, int page = 1)
         {
-            try
-            {
-                var doc = new HtmlDocument();
-                using (var stream = File.Open(
-                    Path.Combine(
-                        _filesPath, string.Format("{0}.html", string.Join("_", args))), FileMode.Open))
-                {
-                    doc.Load(stream);
-                }
-                return doc;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+            return LoadDocument("experts", city, page);
         }
+
+        public HtmlDocument LoadUser(string nick)
+        {
+            return LoadDocument("user", nick);
+        }
+
+        public HtmlDocument LoadUser(string nick, int first)
+        {
+            return LoadDocument("user", nick, first);
+        }
+    }
+
+    public class FileLorPageLoader : BaseFilePageLoaderBase, ILorPageLoader
+    {
+
+        protected const string FilesPath = "Grabber\\Files_Lor\\";
+
+        public FileLorPageLoader(string filesPath)
+            : base(filesPath)
+        {
+        }
+
+        public FileLorPageLoader()
+            : base(FilesPath)
+        {
+        }
+
 
         public virtual HtmlDocument LoadPostsList(string nick, int offset)
         {
@@ -55,12 +66,9 @@ namespace Urfu.AuthorDetector.Tests.Grabber.Parsers
 
         public HtmlDocument LoadArchive(int year, int month, int offset, string category)
         {
-            return LoadDocument("ar", category, year,month, offset);
+            return LoadDocument("ar", category, year, month, offset);
         }
 
-        public HtmlDocument Load(string url)
-        {
-            return LoadDocument(LoadFormUrlPath);
-        }
+
     }
 }

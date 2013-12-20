@@ -50,6 +50,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Numerics" />
@@ -76,12 +77,12 @@
     <Compile Include="DictionaryMetrics.cs" />
     <Compile Include="HistogramOperation.cs" />
     <Compile Include="IDataExtractor.cs" />
-    <Compile Include="ILorStorage.cs" />
+    <Compile Include="IForumStorage.cs" />
     <Compile Include="IMetricProvider.cs" />
     <Compile Include="IMetricSelector.cs" />
     <Compile Include="LorDataExtractor.cs" />
-    <Compile Include="LorPostBrief.cs" />
-    <Compile Include="LorPostInfo.cs" />
+    <Compile Include="PostBrief.cs" />
+    <Compile Include="PostInfo.cs" />
     <Compile Include="LorStorage.cs" />
     <Compile Include="MetricInfo.cs" />
     <Compile Include="PostMetrics.cs" />
@@ -94,6 +95,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Opcorpora.Dictionary\Opcorpora.Dictionary.csproj">
+      <Project>{4189CA23-94C7-46BF-B23E-12B30692E1F0}</Project>
+      <Name>Opcorpora.Dictionary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Urfu.AuthorDetector.DataLayer\Urfu.AuthorDetector.DataLayer.csproj">
       <Project>{CCDAF9B5-4BF7-41A9-9A7C-196A42949474}</Project>
       <Name>Urfu.AuthorDetector.DataLayer</Name>
@@ -102,6 +107,9 @@
       <Project>{c180f1b6-6740-4cb8-a806-0c5772b91b3a}</Project>
       <Name>Urfu.Utils</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="RuLang\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -2,14 +2,14 @@
 
 namespace Urfu.AuthorDetector.Common
 {
-    public class LorPostBrief
+    public class PostBrief
     {
-        public LorPostBrief()
+        public PostBrief()
         {
             
         }
 
-        protected LorPostBrief(LorPostBrief another)
+        protected PostBrief(PostBrief another)
         {
             Theme = another.Theme;
             Time = another.Time;
@@ -21,7 +21,7 @@ namespace Urfu.AuthorDetector.Common
         public string Nick { get; set; }
         public string Theme { get; set; }
         public DateTime? Time{ get; set; }
-        public int ThemeId { get; set; }
+        public long ThemeId { get; set; }
         public int PostId { get; set; }
     }
 }
