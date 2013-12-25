@@ -73,6 +73,7 @@
     <Compile Include="Grabber\LorStorageTests.cs" />
     <Compile Include="FakeModule.cs" />
     <Compile Include="Grabber\Parsers\LorGrabberTests.cs" />
+    <Compile Include="Grabber\Parsers\ParsePostTests.cs" />
     <Compile Include="LorDataExtractorTests.cs" />
     <Compile Include="Opencorpora\OpenCorporaTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -128,7 +129,9 @@
       <Name>Urfu.Utils</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Grabber\VBulletin\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,3 +1,4 @@
+using System.Text;
 using HtmlAgilityPack;
 using System.Linq;
 using Urfu.AuthorDetector.Grabber.Common;
@@ -6,7 +7,9 @@ namespace Urfu.AuthorDetector.Grabber.VBullitin
 {
     public interface IVBulletinPageLoader
     {
-        HtmlDocument Members(int count);
+        HtmlDocument Members(int count, int page);
+        HtmlDocument MorePosts(int searchId, int count, int page);
+
         HtmlDocument SearchUser(string userName, int[] forumchoice, bool childForums);
         HtmlDocument MemberPosts(int id);
         HtmlDocument ShowthreadPost(int id);
@@ -16,19 +19,37 @@ namespace Urfu.AuthorDetector.Grabber.VBullitin
     public class VBulletinPageLoader:BasePageLoader, IVBulletinPageLoader
     {
         private readonly string _prefix;
+        private readonly Encoding _encoding;
 
-        public VBulletinPageLoader(string prefix)
+        public VBulletinPageLoader(string prefix, Encoding encoding= null)
         {
             _prefix = prefix;
+            _encoding = encoding;
         }
 
-        public HtmlDocument Members(int count)
+        protected override ILoadDocumentParameters DefaultParameters
+        {
+            get
+            {
+                var def = new LoadDocumentParameters(base.DefaultParameters);
+                if (_encoding != null)
+                    def.Encoding = _encoding;
+                return def;
+            }
+        }
+
+        public HtmlDocument Members(int count, int page)
         {
             return
                 Load(
                     string.Format(
-                        "{0}/memberlist.php?postslower=0&postsupper=0&ausername=&homepage=&icq=&aim=&yahoo=&msn=&joindateafter=&joindatebefore=&lastpostafter=&lastpostbefore=&order=DESC&sort=posts&pp={1}&ltr=",
-                        _prefix, count));
+                        "{0}/memberlist.php?order=DESC&sort=posts&pp={1}&page={2}",
+                        _prefix, count,page));
+        }
+
+        public HtmlDocument MorePosts(int searchId, int count, int page)
+        {
+            return Load(string.Format("{0}/search.php?searchid={1}&pp={2}&page={3}",_prefix, searchId, count, page));
         }
 
 
@@ -36,7 +57,7 @@ namespace Urfu.AuthorDetector.Grabber.VBullitin
         {
             return Load(
                 string.Format(
-                "{0}/search.php?s=&do=process&query=&titleonly=0&searchuser={1}&starteronly=0&exactname=1&replyless=0&replylimit=0&searchdate=0&beforeafter=after&sortby=lastpost&order=descending&showposts=0&" +
+                "{0}/search.php?s=&do=process&query=&titleonly=0&searchuser={1}&starteronly=0&exactname=1&replyless=0&replylimit=0&searchdate=0&beforeafter=after&sortby=lastpost&order=descending&showposts=1&" +
                 "{2}&childforums={3}"
                 , _prefix, userName,
                 string.Join("&",

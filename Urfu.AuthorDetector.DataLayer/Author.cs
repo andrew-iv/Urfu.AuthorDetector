@@ -22,6 +22,7 @@ namespace Urfu.AuthorDetector.DataLayer
         public int Id { get; set; }
         public string Identity { get; set; }
         public string DisplayName { get; set; }
+        public Nullable<long> IdOnForum { get; set; }
     
         public virtual ICollection<Post> Post { get; set; }
         public virtual Forum Forum { get; set; }

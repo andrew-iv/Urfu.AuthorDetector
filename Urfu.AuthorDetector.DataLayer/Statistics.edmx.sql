@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 09/21/2013 00:04:57
--- Generated from EDMX file: C:\Users\andrew-iv\documents\visual studio 2012\Projects\Urfu.AuthorDetector\Urfu.AuthorDetector.DataLayer\Statistics.edmx
+-- Date Created: 12/24/2013 20:23:16
+-- Generated from EDMX file: C:\Users\andrew-iv\Documents\Visual Studio 2012\Projects\Urfu.AuthorDetector2\Urfu.AuthorDetector.DataLayer\Statistics.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -66,7 +66,7 @@ GO
 CREATE TABLE [dbo].[Themes] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Title] nvarchar(max)  NOT NULL,
-    [IdOnForum] int  NOT NULL,
+    [IdOnForum] bigint  NOT NULL,
     [Forum_Id] int  NOT NULL
 );
 GO
@@ -76,6 +76,7 @@ CREATE TABLE [dbo].[Authors] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Identity] nvarchar(max)  NOT NULL,
     [DisplayName] nvarchar(max)  NULL,
+    [IdOnForum] bigint  NULL,
     [Forum_Id] int  NOT NULL
 );
 GO

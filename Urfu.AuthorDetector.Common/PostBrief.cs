@@ -16,12 +16,14 @@ namespace Urfu.AuthorDetector.Common
             ThemeId = another.ThemeId;
             PostId = another.PostId;
             Nick = another.Nick;
+            UserId = another.UserId;
         }
 
         public string Nick { get; set; }
         public string Theme { get; set; }
         public DateTime? Time{ get; set; }
         public long ThemeId { get; set; }
+        public long? UserId { get; set; }
         public int PostId { get; set; }
     }
 }

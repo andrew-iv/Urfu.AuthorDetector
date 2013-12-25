@@ -13,16 +13,26 @@ namespace Urfu.AuthorDetector.Grabber.Common
         CookieContainer CookieContainer { get; }
     }
 
+
     class LoadDocumentParameters : ILoadDocumentParameters
     {
         public Encoding Encoding { get; set; }
         public CookieContainer CookieContainer{ get; set; }
 
+        public LoadDocumentParameters(ILoadDocumentParameters bs)
+        {
+            Encoding = bs.Encoding;
+            CookieContainer = bs.CookieContainer;
+        }
+
+        public LoadDocumentParameters()
+        {
+        }
     }
 
     public abstract class BasePageLoader:IPageLoader
     {
-        private LoadDocumentParameters DefaultParameters
+        protected virtual ILoadDocumentParameters DefaultParameters
         {
             get
             {

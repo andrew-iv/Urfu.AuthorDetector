@@ -13,13 +13,18 @@ namespace Urfu.AuthorDetector.Common
         private HashSet<int> _storedIds;
         private IDictionary<string, Author> _authors;
         private IDictionary<long, Theme> _themes;
+        private int _forumId;
 
-        protected abstract int ForumId { get; }
+        protected virtual int ForumId
+        {
+            get { return _forumId; }
+        }
 
         [Inject]
-        protected ForumStorageBase(IStatisticsContext context)
+        protected ForumStorageBase(IStatisticsContext context, int forumId)
         {
             _context = context;
+            _forumId = forumId;
             var realContext = _context as StatisticsContainer;
             if (realContext != null)
             {
@@ -29,6 +34,8 @@ namespace Urfu.AuthorDetector.Common
             }
             ReinitializeCache();
         }
+
+
 
         private void ReinitializeCache()
         {
@@ -62,7 +69,8 @@ namespace Urfu.AuthorDetector.Common
                 {
                     Identity = postInfo.Nick.CutString(),
                     DisplayName = postInfo.Nick.CutString(),
-                    Forum = _forum
+                    Forum = _forum,
+                    IdOnForum = postInfo.UserId
                 };
         }
 
@@ -130,7 +138,7 @@ namespace Urfu.AuthorDetector.Common
         public const int LorId = 1;
 
         [Inject]
-        public LorStorage(IStatisticsContext context) : base(context)
+        public LorStorage(IStatisticsContext context) : base(context,LorId)
         {
         }
 
@@ -144,8 +152,8 @@ namespace Urfu.AuthorDetector.Common
     {
         
         [Inject]
-        public FlampStorage(IStatisticsContext context)
-            : base(context)
+        public FlampStorage(IStatisticsContext context, int forumId)
+            : base(context, 2)
         {
         }
 
@@ -153,5 +161,19 @@ namespace Urfu.AuthorDetector.Common
         {
             get { return 2; }
         }
+    }
+
+    public class ForumIdStorage : ForumStorageBase, IForumStorage
+    {
+        private readonly int _forumId;
+
+        [Inject]
+        public ForumIdStorage(IStatisticsContext context, int forumId)
+            : base(context,forumId)
+        {
+            _forumId = forumId;
+        }
+
+
     }
 }
