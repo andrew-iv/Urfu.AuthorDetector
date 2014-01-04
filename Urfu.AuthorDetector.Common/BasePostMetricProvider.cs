@@ -9,7 +9,10 @@ using Urfu.Utils;
 
 namespace Urfu.AuthorDetector.Common
 {
-    public abstract class BaseMetricProvider : IMetricProvider
+
+
+
+    public abstract class BasePostMetricProvider : IPostMetricProvider
     {
         protected abstract string[] UseNgramms { get; }
         protected abstract string[] UseWords { get; }

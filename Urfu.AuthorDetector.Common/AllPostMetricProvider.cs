@@ -5,7 +5,7 @@ using System.Linq;
 namespace Urfu.AuthorDetector.Common
 {
 
-    public class AllMetricProvider : BaseMetricProvider
+    public class AllPostMetricProvider : BasePostMetricProvider
     {
         protected override string[] UseNgramms
         {
@@ -23,7 +23,7 @@ namespace Urfu.AuthorDetector.Common
         }
     }
 
-    public class SelectedMetricProvider : BaseMetricProvider
+    public class SelectedPostMetricProvider : BasePostMetricProvider
     {
         private readonly string[] _useNgramms = new [] { " не", " по", "то ", "не ", " пр", " на", "ть ", " и ", " в ", " то", 
             " чт", "ост", "это", " эт", "ли ", " та", "ак ", "ени", ", ч", " с ", " а ", ", н", " - ", "ты ", ", к", "е, ", " я ", 

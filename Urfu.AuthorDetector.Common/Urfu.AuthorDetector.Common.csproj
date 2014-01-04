@@ -62,8 +62,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AllMetricProvider.cs" />
-    <Compile Include="BaseMetricProvider.cs" />
+    <Compile Include="AllPostMetricProvider.cs" />
+    <Compile Include="BasePostMetricProvider.cs" />
     <Compile Include="BaseMetrics.cs" />
     <Compile Include="Chi2ForAuthorMetricSelector.cs" />
     <Compile Include="Classification\BayesClassifier.cs" />
@@ -78,7 +78,7 @@
     <Compile Include="HistogramOperation.cs" />
     <Compile Include="IDataExtractor.cs" />
     <Compile Include="IForumStorage.cs" />
-    <Compile Include="IMetricProvider.cs" />
+    <Compile Include="IPostMetricProvider.cs" />
     <Compile Include="IMetricSelector.cs" />
     <Compile Include="LorDataExtractor.cs" />
     <Compile Include="PostBrief.cs" />
@@ -87,6 +87,9 @@
     <Compile Include="MetricInfo.cs" />
     <Compile Include="PostMetrics.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sentance\ISentenceMetricProvider.cs" />
+    <Compile Include="Sentance\SentanceInfo.cs" />
+    <Compile Include="Sentance\SentenceMetricProvider.cs" />
     <Compile Include="StaticVars.cs" />
     <Compile Include="TrivialMetrics.cs" />
   </ItemGroup>

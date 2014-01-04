@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using HtmlAgilityPack;
 using NUnit.Framework;
 using Urfu.AuthorDetector.Common;
@@ -7,6 +8,17 @@ using Urfu.Utils;
 
 namespace Urfu.AuthorDetector.Tests
 {
+    [TestFixture]
+    public class StringTests
+    {
+        [TestCase("First sentence. Second sentence! Third sentence? Yes.", new[] { "First sentence.","Second sentence!","Third sentence?","Yes." })]
+        public void TestSentence(string text,string[] sentences)
+        {
+            CollectionAssert.AreEquivalent(sentences, text.Sentenses());
+        }
+    }
+
+
     [TestFixture]
     public class LorDataExtractorTests
     {
@@ -81,7 +93,25 @@ Reshape 1024x768
                         Text = @"<p>&gt;<i>Сталина и Гитлера нельзя уравнивать - слишком разные цели у них были.</i></p><p>Дано:
 </p><ul><li>Гитлер: немцы помнившие времена мощной империи и терпящие унизительные условия поражения предидущей войны.</li><li>Сталин: громадные территории бардака, быстро плодящееся безграмотное население, верящее в &#171;царя&#187;.
 </li></ul><p>Цель: Победить.</p>"
-                    }, new[] { "Дано", "немцы помнившие времена мощной империи и терпящие унизительные условия", "громадные территории бардака, быстро плодящееся безграмотное население",">Дано:\r\nГитлер","войны.Сталин:" }, new[] { "слишком разные цели у них были" }).SetName((++testId).ToString());
+                    }, new[] { "Дано", "немцы помнившие времена мощной империи и терпящие унизительные условия", "громадные территории бардака, быстро плодящееся безграмотное население", ">  Дано: Гитлер", "войны.Сталин:" }, new[] { "слишком разные цели у них были" }).SetName((++testId).ToString());
+
+                yield return  new TestCaseData(new Post
+                    {
+                        Text = @"<div style=""margin-left: 20px; margin-top:5px; "">
+<div class=""smallfont"">Цитата:</div>
+
+
+
+</div>
+<div style=""margin-right: 20px; margin-left: 20px; padding: 10px; background: #44474f; border: 1px solid #e3e3e5; border-left: 1px solid #808084; border-top: 1px solid #808084; margin-bottom: 10px;"">
+
+Сообщение от <strong>XHTTP</strong> &nbsp;
+<div style=""font-style:italic"">правила форума не я придумал</div>
+<else></else>
+
+</div><br>
+Разьясни мне свой ответй 1вый в топике<br>Тестирование"
+                    }, new[] { "Разьясни мне свой ответй 1вый в топике" + Environment.NewLine + "Тестирование" }, new string[] { "Сообщение от" }).SetName("4");
 
             }
         }

@@ -51,7 +51,7 @@ namespace Urfu.AuthorDetector.Common
         
 
 
-        public IEnumerable<int> SelectMetrics(IMetricProvider metricProvider)
+        public IEnumerable<int> SelectMetrics(IPostMetricProvider postMetricProvider)
         {
             
             var histArray = new Histogram[_authorsArray.Length][];
@@ -60,10 +60,10 @@ namespace Urfu.AuthorDetector.Common
             
             foreach (var i in Enumerable.Range(0,_authorsArray.Length))
             {
-                authorMetrics[i] = _authorsArray[i].Select(x => metricProvider.GetMetrics(x).ToArray()).ToArray();
+                authorMetrics[i] = _authorsArray[i].Select(x => postMetricProvider.GetMetrics(x).ToArray()).ToArray();
             }
 
-            foreach (var j in Enumerable.Range(0, metricProvider.Size))
+            foreach (var j in Enumerable.Range(0, postMetricProvider.Size))
             {
                 var lower = authorMetrics.Select(x =>x.Select(xx=>xx[j]).Min()).Min();
                 var upper = authorMetrics.Select(x => x.Select(xx => xx[j]).Max()).Max();
@@ -73,7 +73,7 @@ namespace Urfu.AuthorDetector.Common
                 {
                     if (histArray[i] == null)
                     {
-                        histArray[i] = new Histogram[metricProvider.Size];
+                        histArray[i] = new Histogram[postMetricProvider.Size];
                     }
                     histArray[i][j] =
                     authorMetrics[i].Select(x=>x[j]).ToHistogramm(Nbuckets, lower, upper);
@@ -86,7 +86,7 @@ namespace Urfu.AuthorDetector.Common
                 {
                     var a1 = histArray[i];
                     var a2 = histArray[j];
-                    foreach (var index in Enumerable.Range(0, metricProvider.Size).Where(ind => a1[ind] != null && a2[ind] != null).Select(index => new
+                    foreach (var index in Enumerable.Range(0, postMetricProvider.Size).Where(ind => a1[ind] != null && a2[ind] != null).Select(index => new
                         {
                             index,
                             distance = DistanceFunction(a1[index],a2[index])

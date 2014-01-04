@@ -9,6 +9,22 @@ namespace Urfu.AuthorDetector.Common
 {
     public class LorDataExtractor : IDataExtractor
     {
+
+        private string NodeText(HtmlNode node)
+        {
+            if (node.NodeType == HtmlNodeType.Comment) return "";
+            if (node.NodeType == HtmlNodeType.Text) return HttpUtility.HtmlDecode(node.InnerHtml.Replace(Environment.NewLine,""));
+            if (node.NodeType == HtmlNodeType.Element && node.Name == "br") return Environment.NewLine;
+
+            var res = string.Join("",
+                        node.ChildNodes.
+                        Select(NodeText));
+            if (node.Name == "p")
+                return " " + res + " ";
+            return res;
+
+        }
+
         public string GetText(Post post)
         {
             try
@@ -24,7 +40,16 @@ namespace Urfu.AuthorDetector.Common
                     delDiv.Remove();
                 }
 
-                return HttpUtility.HtmlDecode(htmlDoc.DocumentNode.InnerText);
+                /*
+                foreach (var delDiv in (htmlDoc.DocumentNode.SelectNodes("//br") ?? Enumerable.Empty<HtmlNode>()))
+                {
+                    delDiv.ParentNode.ReplaceChild(new HtmlNode(HtmlNodeType.Text,htmlDoc,0){InnerHtml = "&brrrrr;"},  delDiv)
+
+                    delDiv.Remove();
+                }
+                */
+
+                return NodeText(htmlDoc.DocumentNode);
             }
             catch (Exception)
             {

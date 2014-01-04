@@ -10,9 +10,9 @@ using Urfu.AuthorDetector.DataLayer;
 
 namespace Urfu.AuthorDetector.Tests.Common.Classification
 {
-    public class SplitMetricProvider : IMetricProvider
+    public class SplitPostMetricProvider : IPostMetricProvider
     {
-        public SplitMetricProvider(int size)
+        public SplitPostMetricProvider(int size)
         {
             Size = size;
         }
@@ -55,19 +55,19 @@ namespace Urfu.AuthorDetector.Tests.Common.Classification
                     Enumerable.Range(0, 1000).Select(i => string.Format("{0}_{1}_{2}_{3}", i*4.5, i*0.5, i*1.5, i*0)),
                 };
             var seector = metricSelector(authors, 1);
-            var res = seector.SelectMetrics(new SplitMetricProvider(4));
+            var res = seector.SelectMetrics(new SplitPostMetricProvider(4));
             CollectionAssert.AreEquivalent(new[]{0,3}, res);
 
             seector = metricSelector(authors, 2);
-            res = seector.SelectMetrics(new SplitMetricProvider(4));
+            res = seector.SelectMetrics(new SplitPostMetricProvider(4));
             CollectionAssert.AreEquivalent(new[] { 0, 2, 3 }, res);
 
             seector = metricSelector(authors, 3);
-            res = seector.SelectMetrics(new SplitMetricProvider(4));
+            res = seector.SelectMetrics(new SplitPostMetricProvider(4));
             CollectionAssert.AreEquivalent(new[] { 0, 2, 3,1 }, res);
 
             seector = metricSelector(authors, 4);
-            res = seector.SelectMetrics(new SplitMetricProvider(4));
+            res = seector.SelectMetrics(new SplitPostMetricProvider(4));
             CollectionAssert.AreEquivalent(new[] { 0, 2, 3, 1 }, res);
         }
 
@@ -157,7 +157,7 @@ namespace Urfu.AuthorDetector.Tests.Common.Classification
     [TestFixture]
     public class AllMetricProviderTests
     {
-        private AllMetricProvider _provider = new AllMetricProvider();
+        private AllPostMetricProvider _provider = new AllPostMetricProvider();
 
         [SetUp]
         public void SetUp()
@@ -235,10 +235,10 @@ namespace Urfu.AuthorDetector.Tests.Common.Classification
             return TestClassifier(example, (a, b) => new NeighboorClassifier(a, b));
         }
 
-        private string TestClassifier(IEnumerable<Post> example,  Func<Dictionary<Author, IEnumerable<string>>,IMetricProvider,IClassifier>  constructor)
+        private string TestClassifier(IEnumerable<Post> example,  Func<Dictionary<Author, IEnumerable<string>>,IPostMetricProvider,IClassifier>  constructor)
     {
         StaticVars.Kernel = new StandardKernel();
-            StaticVars.Kernel.Bind<IMetricProvider>().ToConstant(new SplitMetricProvider(2));
+            StaticVars.Kernel.Bind<IPostMetricProvider>().ToConstant(new SplitPostMetricProvider(2));
             StaticVars.Kernel.Bind<IDataExtractor>().ToConstant(new StraightDataExtractor());
 
             
@@ -251,7 +251,7 @@ namespace Urfu.AuthorDetector.Tests.Common.Classification
                     {new Author(){Identity = "author1"},author1 as IEnumerable<string>},
                     {new Author(){Identity = "author2"},author2 as IEnumerable<string>},
                     {new Author(){Identity = "author3"},author3 as IEnumerable<string> }
-                }, StaticVars.Kernel.Get<IMetricProvider>());
+                }, StaticVars.Kernel.Get<IPostMetricProvider>());
             return classifier.ClassificatePosts(example.Select(x=>x.Text)).Identity;
     }
 

@@ -97,11 +97,11 @@ namespace Urfu.AuthorDetecor.ExperimentConsole
         {
             _kernel = new StandardKernel(new CommonModule());
             StaticVars.Kernel = _kernel;
-            Test(x => new BayesClassifier(x, new SelectedMetricProvider()), "BayesClassifier");
-            Test(x => new NeighboorClassifier(x, new SelectedMetricProvider()), "NeighboorClassifier");
+            Test(x => new BayesClassifier(x, new SelectedPostMetricProvider()), "BayesClassifier");
+            Test(x => new NeighboorClassifier(x, new SelectedPostMetricProvider()), "NeighboorClassifier");
 
-            Test(x => new BayesClassifier(x, new SelectedMetricProvider()), "BayesClassifier",50);
-            Test(x => new NeighboorClassifier(x, new SelectedMetricProvider()), "NeighboorClassifier",50);
+            Test(x => new BayesClassifier(x, new SelectedPostMetricProvider()), "BayesClassifier",50);
+            Test(x => new NeighboorClassifier(x, new SelectedPostMetricProvider()), "NeighboorClassifier",50);
 
             //Test(x => new MetricNeighboorClassifier<TrivialMetric>(x), "TrivialMetric");
 

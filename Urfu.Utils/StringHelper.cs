@@ -6,7 +6,12 @@ namespace Urfu.Utils
 {
     public static class StringHelper
     {
-        private static readonly Regex _resWordRegex = new Regex("[а-я]{3}[а-я]+", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+        private static readonly Regex _resWordRegex = new Regex("[а-я]+", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+
+         public static IEnumerable<string> Sentenses(this string text )
+         {
+             return Regex.Split(text, @"(?<=[\.!\?])\s+").Select(x => x.Trim()).Where(x => !string.IsNullOrWhiteSpace(x)).ToArray();
+         }
 
         public static IEnumerable<string> RussianWords(this string @str)
         {

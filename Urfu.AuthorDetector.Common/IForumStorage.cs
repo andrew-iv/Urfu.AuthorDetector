@@ -15,10 +15,13 @@ namespace Urfu.AuthorDetector.Common
 
     public interface IPostsQueryFilter
     {
-        IQueryable<Post> OnlyLor(IQueryable<Post> posts);
+        IQueryable<Post> OnlyForum(IQueryable<Post> posts, int id = LorStorage.LorId);
+
+
         IQueryable<Post> OnlyAuthors(IQueryable<Post> posts, string[] authorIds);
         IQueryable<Post> FilterDate(IQueryable<Post> posts, DateTime? start, DateTime? end);
         IOrderedQueryable<AuthorMinPosts> TopAuthorsMinimum(IQueryable<Post> posts, int needInMonth = 50);
+        IOrderedQueryable<AuthorMinPosts> TopAuthors(IQueryable<Post> posts, int needInMonth = 10);
     }
 
     public class AuthorMinPosts
@@ -30,9 +33,9 @@ namespace Urfu.AuthorDetector.Common
 
     class PostsQueryFilter : IPostsQueryFilter
     {
-        public IQueryable<Post> OnlyLor(IQueryable<Post> posts)
+        public IQueryable<Post> OnlyForum(IQueryable<Post> posts, int id = LorStorage.LorId)
         {
-            return posts.Where(x => x.Author.Forum.Id == LorStorage.LorId);
+            return posts.Where(x => x.Author.Forum.Id == id);
         }
 
         public IQueryable<Post> OnlyAuthors(IQueryable<Post> posts, string[] authorIds)
@@ -72,5 +75,30 @@ namespace Urfu.AuthorDetector.Common
                         }
                 ).OrderByDescending(x=>x.PostCount);*/
         }
+
+
+        public IOrderedQueryable<AuthorMinPosts> TopAuthors(IQueryable<Post> posts, int needInMonth = 10)
+        {
+            return posts.GroupBy(x => x.Author).Select(
+                psts =>
+                    new AuthorMinPosts()
+                    {
+                        PostCount = psts.Count(),
+                        MonthsParticipaiting = psts.GroupBy(x => new { x.DateTime.Value.Year, x.DateTime.Value.Month }).Count(x => x.Count() >= needInMonth),
+                        Author = psts.Key
+                    }
+                ).OrderByDescending(x => x.PostCount);
+
+
+            /* return posts.GroupBy(x => x.Author).Select(
+                 psts =>
+                     new AuthorMinPosts()
+                         {
+                             PostCount = psts.GroupBy(x => new {x.DateTime.Value.Year, x.DateTime.Value.Month}).Min(x=>x.Count()),
+                             Author = psts.Key
+                         }
+                 ).OrderByDescending(x=>x.PostCount);*/
+        }
+
     }
 }

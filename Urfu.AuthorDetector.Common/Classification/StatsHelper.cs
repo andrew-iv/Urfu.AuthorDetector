@@ -2,11 +2,15 @@
 using System.Linq;
 using Urfu.AuthorDetector.DataLayer;
 using Urfu.Utils;
+using MathNet.Numerics.Statistics;
 
 namespace Urfu.AuthorDetector.Common.Classification
 {
     public static class StatsHelper
     {
+
+
+
         public static string[] GetTopRuWords(this IEnumerable<string> posts, int useFirst = 500)
         {
             var words = new Dictionary<string, int>();

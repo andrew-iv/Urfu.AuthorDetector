@@ -9,20 +9,20 @@ namespace Urfu.AuthorDetector.Common.Classification
 {
     public class BayesClassifier: IClassifier
     {
-        private readonly IMetricProvider _metricProvider;
+        private readonly IPostMetricProvider _postMetricProvider;
         private Dictionary<Author, Histogram[]> _authorHistogramms;
 
         private const int BucketCounts = 33;
 
-        public BayesClassifier(IDictionary<Author, IEnumerable<string>> authors, IMetricProvider metricProvider)
+        public BayesClassifier(IDictionary<Author, IEnumerable<string>> authors, IPostMetricProvider postMetricProvider)
         {
             Authors = authors.Keys;
             var dataExtractor = StaticVars.Kernel.Get<IDataExtractor>();
-            _metricProvider = metricProvider;
-            _metricProvider = metricProvider;
-            var m = _metricProvider.Size;
+            _postMetricProvider = postMetricProvider;
+            _postMetricProvider = postMetricProvider;
+            var m = _postMetricProvider.Size;
             var authorMetrics = authors.ToDictionary(x => x.Key,
-                                                     x => x.Value.Select(xx => _metricProvider.GetMetrics(xx).ToArray()).ToArray());
+                                                     x => x.Value.Select(xx => _postMetricProvider.GetMetrics(xx).ToArray()).ToArray());
 
             var minVals = Enumerable.Range(0,m).Select(i=>authorMetrics.Select(x=>x.Value.Select(xx=>xx[i]).Min()).Min()).ToArray();
             var maxVals = Enumerable.Range(0,m).Select(i=>authorMetrics.Select(x=>x.Value.Select(xx=>xx[i]).Max()).Max()).ToArray();
@@ -64,10 +64,10 @@ namespace Urfu.AuthorDetector.Common.Classification
         public Author ClassificatePosts(IEnumerable<string> posts)
         {
             var resDict = Authors.ToDictionary(x => x, x => 1d);
-            var postsMetrics = posts.Select(x => _metricProvider.GetMetrics(x).ToArray()).ToArray();
+            var postsMetrics = posts.Select(x => _postMetricProvider.GetMetrics(x).ToArray()).ToArray();
             foreach (var post in postsMetrics)
             {
-                foreach (var j in Enumerable.Range(0,_metricProvider.Size))
+                foreach (var j in Enumerable.Range(0,_postMetricProvider.Size))
                 {
                     foreach (var author in Authors)
                     {

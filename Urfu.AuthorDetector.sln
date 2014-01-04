@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urfu.AuthorDetecor.Experime
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Opcorpora.Dictionary", "Opcorpora.Dictionary\Opcorpora.Dictionary.csproj", "{4189CA23-94C7-46BF-B23E-12B30692E1F0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urfu.AuthorDetector.Statistics", "Urfu.AuthorDetector.Statistics\Urfu.AuthorDetector.Statistics.csproj", "{B93CA54A-0542-4458-9417-B937010AC434}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{4189CA23-94C7-46BF-B23E-12B30692E1F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4189CA23-94C7-46BF-B23E-12B30692E1F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4189CA23-94C7-46BF-B23E-12B30692E1F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B93CA54A-0542-4458-9417-B937010AC434}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B93CA54A-0542-4458-9417-B937010AC434}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B93CA54A-0542-4458-9417-B937010AC434}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B93CA54A-0542-4458-9417-B937010AC434}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

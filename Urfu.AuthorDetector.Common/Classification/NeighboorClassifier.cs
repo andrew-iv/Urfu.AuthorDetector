@@ -7,7 +7,7 @@ namespace Urfu.AuthorDetector.Common.Classification
 {
     public class NeighboorClassifier : IClassifier
     {
-        private readonly IMetricProvider _metricProvider;
+        private readonly IPostMetricProvider _postMetricProvider;
         private readonly Dictionary<Author, double[]> _authorMetrics;
         private double[][] _allMetrics;
         private double[] _variance;
@@ -20,9 +20,9 @@ namespace Urfu.AuthorDetector.Common.Classification
 
         }
 
-        public NeighboorClassifier(IDictionary<Author, IEnumerable<string>> authors, IMetricProvider metricProvider)
+        public NeighboorClassifier(IDictionary<Author, IEnumerable<string>> authors, IPostMetricProvider postMetricProvider)
         {
-            _metricProvider = metricProvider;
+            _postMetricProvider = postMetricProvider;
             AdditionalInitialization(authors);
             _allMetrics = authors.SelectMany(x => x.Value.Select(CallculateMetric)).ToArray();
             _variance = _allMetrics.CalculateVariance();
@@ -38,7 +38,7 @@ namespace Urfu.AuthorDetector.Common.Classification
 
         protected virtual double[] CallculateMetric(string post)
         {
-            return _metricProvider.GetMetrics(post).ToArray();
+            return _postMetricProvider.GetMetrics(post).ToArray();
         }
 
 

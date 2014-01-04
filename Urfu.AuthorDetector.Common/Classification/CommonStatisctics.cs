@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MathNet.Numerics.Statistics;
 
@@ -14,6 +15,33 @@ namespace Urfu.AuthorDetector.Common.Classification
             {"WhitespacesShare",0.338911d},
             {"OtherNodesShare",6.2875d},
         };*/
+
+        public static double[,] CorrelationTableSpearman(this IEnumerable<double[]> metrics, int dim)
+        {
+            return  CorrelationTableWithFunc(metrics, dim, Correlation.Spearman);
+        }
+
+        public static double[,] CorrelationTablePearson(this IEnumerable<double[]> metrics, int dim)
+        {
+            return CorrelationTableWithFunc(metrics, dim, Correlation.Pearson);
+        }
+
+        public static double[,] CorrelationTableWithFunc(this IEnumerable<double[]> metrics, int dim,Func<IEnumerable<double>,IEnumerable<double>,double> func)
+        {
+            var res = new double[dim, dim];
+            foreach (var i in Enumerable.Range(0, dim))
+            {
+                for (var j = i + 1; j < dim; j++)
+                {
+
+                    var coffCor = func(metrics.Select(x => x[i]), metrics.Select(x => x[j]));
+                    res[i, j] = coffCor;
+                    res[j, i] = coffCor;
+                }
+            }
+            return res;
+        }
+
 
         public static IEnumerable<KeyValuePair<string, double>> CalculateVariance(this IEnumerable<IMetric> metrics)
         {
