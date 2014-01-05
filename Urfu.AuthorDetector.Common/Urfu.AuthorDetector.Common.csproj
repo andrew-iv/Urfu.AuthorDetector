@@ -30,12 +30,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="alglibnet2">
+      <HintPath>..\Lib\alglibnet2.dll</HintPath>
+    </Reference>
     <Reference Include="EeekSoft.Text">
       <HintPath>..\Lib\EeekSoft.Text.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Extreme.Generic.Net40, Version=5.0.12317.0, Culture=neutral, PublicKeyToken=9e513770f58567b2, processorArchitecture=MSIL" />
+    <Reference Include="Extreme.Numerics.Net40, Version=5.0.13017.0, Culture=neutral, PublicKeyToken=9e513770f58567b2, processorArchitecture=MSIL" />
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
