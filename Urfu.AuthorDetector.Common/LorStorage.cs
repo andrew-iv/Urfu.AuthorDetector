@@ -20,6 +20,11 @@ namespace Urfu.AuthorDetector.Common
             get { return _forumId; }
         }
 
+        public Forum Forum {
+            get { return _context.ForumSet.FirstOrDefault(x => x.Id == ForumId); }
+
+        }
+
         [Inject]
         protected ForumStorageBase(IStatisticsContext context, int forumId)
         {

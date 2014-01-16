@@ -14,6 +14,8 @@ namespace Urfu.AuthorDetector.Grabber.VBullitin
         HtmlDocument MemberPosts(int id);
         HtmlDocument ShowthreadPost(int id);
         HtmlDocument Load(string url, ILoadDocumentParameters parameters = null);
+        HtmlDocument Forumdisplay(int forumId,int page);
+        HtmlDocument Showthread(long id, int page = 1);
     }
 
     public class VBulletinPageLoader:BasePageLoader, IVBulletinPageLoader
@@ -26,6 +28,25 @@ namespace Urfu.AuthorDetector.Grabber.VBullitin
             _prefix = prefix;
             _encoding = encoding;
         }
+
+        public HtmlDocument Forumdisplay(int forumId,int page)
+        {
+            return
+                Load(
+                    string.Format(
+                        "{0}/forumdisplay.php?f={1}&order=desc&page={2}&daysprune=-1",
+                        _prefix, forumId, page));
+        }
+
+        public HtmlDocument Showthread(long id,int page =1)
+        {
+            return
+                Load(
+                    string.Format(
+                        "{0}/showthread.php?t={1}&pp=40&page={2}",
+                        _prefix, id,page));
+        }
+
 
         protected override ILoadDocumentParameters DefaultParameters
         {

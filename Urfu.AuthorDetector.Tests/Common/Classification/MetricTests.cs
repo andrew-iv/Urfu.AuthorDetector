@@ -258,7 +258,7 @@ namespace Urfu.AuthorDetector.Tests.Common.Classification
         [TestCaseSource("TestClassifier1Source")]
         public string TestBayesClassifier(IEnumerable<Post> example)
         {
-            return TestClassifier(example, (a, b) => new BayesClassifier(a, b));
+            return TestClassifier(example, (a, b) => new StupidBayesClassifier(a, b));
         }
 
     }

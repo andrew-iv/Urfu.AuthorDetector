@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using Urfu.AuthorDetector.Common;
@@ -9,13 +10,57 @@ namespace Urfu.AuthorDetector.Tests.Grabber.Parsers
     [TestFixture]
     public class VBParserTests : TestsBase
     {
-        private VBulletinParser _parser;
+        private AchatBulletinParser _parser;
         
 
         protected override void OnSetup()
         {
             base.OnSetup();
-            _parser = new VBulletinParser(new VBulletinPageLoader("http://forum.antichat.ru",Encoding.GetEncoding(1251)));
+            _parser = new AchatBulletinParser(new VBulletinPageLoader("http://forum.antichat.ru",Encoding.GetEncoding(1251)));
+        }
+
+        [Test]
+        public void ForumDisplay()
+        {
+            for (int i = 1; i < 3; i++)
+            {
+                int pageCount;
+                var res = _parser.ForumDisplay(46, 1, out pageCount).ToArray();
+                Assert.Greater(pageCount, 100);
+                Assert.IsEmpty(res.Where(x => string.IsNullOrWhiteSpace(x.Title)));
+                Assert.IsEmpty(res.Where(x => string.IsNullOrWhiteSpace(x.Owner)));
+                Assert.IsEmpty(res.Where(x => x.Id == 0));
+                Assert.IsNotEmpty(res.Where(x => x.Title.Contains("Весёлые картинки")));
+            }
+            
+
+
+        }
+        
+        [Test]
+        [Ignore("Dohera")]
+        public void TestLoadForum()
+        {
+            var moq = new Moq.Mock<IVBulletinLog>();
+            var grabber = new VBulletinGrabber(_parser, moq.Object);
+            var res = grabber.LoadForum(46, maxPage: 2).ToArray();
+            Assert.IsEmpty(res.Where(x => string.IsNullOrWhiteSpace(x.Nick)));
+            Assert.IsEmpty(res.Where(x => string.IsNullOrWhiteSpace(x.Theme)));
+            Assert.IsEmpty(res.Where(x => string.IsNullOrWhiteSpace(x.HtmlText)).Select(x=>x.HtmlText));
+            Assert.IsEmpty(res.Where(x => x.PostId == 0));
+            Assert.IsEmpty(res.Where(x => x.ThemeId == 0));
+            Assert.IsEmpty(res.Where(x => x.Time == default(DateTime)));
+            CollectionAssert.AllItemsAreUnique(res.Select(x=>x.PostId));
+        }
+
+        [Test]
+        public void ShowThread()
+        {
+            int pageCount;
+            var res = _parser.Showthread(new ThemeInfo() { Id = 65993 }, 1, out pageCount).ToArray();
+            Assert.Greater(pageCount, 20);
+            Assert.IsNotEmpty(res.Where(x => x.HtmlText.Contains("Alekzzzander")));
+            Assert.That(res.Select(x=>x.Time),Is.All.GreaterThan(new DateTime(1990,1,1)));
         }
 
 

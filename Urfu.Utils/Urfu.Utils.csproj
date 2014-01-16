@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="CsvWriterExtensions.cs" />
     <Compile Include="DoubleComparer.cs" />
+    <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="HtmlExtractor.cs" />
     <Compile Include="SqlStringHelper.cs" />
     <Compile Include="StreamHelper.cs" />

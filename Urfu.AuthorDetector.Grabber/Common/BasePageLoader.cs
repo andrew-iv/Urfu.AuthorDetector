@@ -32,12 +32,15 @@ namespace Urfu.AuthorDetector.Grabber.Common
 
     public abstract class BasePageLoader:IPageLoader
     {
+
+        private readonly CookieContainer _cookieContainer = new CookieContainer();
+
         protected virtual ILoadDocumentParameters DefaultParameters
         {
             get
             {
                 return
-                    new LoadDocumentParameters() {Encoding = Encoding.UTF8, CookieContainer = new CookieContainer()};
+                    new LoadDocumentParameters() { Encoding = Encoding.UTF8, CookieContainer = _cookieContainer };
             }}
 
         private HtmlDocument GetHtmlDocSyncuExc(string url, ILoadDocumentParameters parameters)

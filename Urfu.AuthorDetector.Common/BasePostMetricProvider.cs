@@ -11,6 +11,20 @@ namespace Urfu.AuthorDetector.Common
 {
 
 
+    /*public class SimplePostMetricProvider:IPostMetricProvider
+    {
+        public IEnumerable<string> Names { get
+        {
+            return new string[] { "Length", "Punctuations", "Whitespaces", 
+                    "UpperShare", "DigitShare","VovelShare","NewLinesShare" }
+
+        } }
+        public int Size { get; private set; }
+        public IEnumerable<double> GetMetrics(string text)
+        {
+            throw new NotImplementedException();
+        }
+    }*/
 
     public abstract class BasePostMetricProvider : IPostMetricProvider
     {
@@ -26,7 +40,7 @@ namespace Urfu.AuthorDetector.Common
                 return new string[] { "Length", "PunctuationShare", "WhitespacesShare", 
                     "UpperShare", "DigitShare","VovelShare","NewLinesShare" }.Concat((UseNgramms ?? new string[] { }).Select(x => "Top3Gramms_" + x))
                                                                              .Concat((UseWords ?? new string[] { }).Select(x => "TopRuWords_" + x))
-                                                                             .Concat((Grammemes ?? new string[] { }).Select(x=>"Grammeme_"+x));
+                                                                             .Concat((Grammemes ?? new string[] { }).Select(x => "Grammeme_" + x));
             }
         }
         public int Size
@@ -52,12 +66,12 @@ namespace Urfu.AuthorDetector.Common
             yield return length;
             if (Math.Abs(length - 0d) > 0.1d)
             {
-                yield return Convert.ToDouble(text.Count(Char.IsPunctuation)) / length;
-                yield return Convert.ToDouble(text.Count(Char.IsWhiteSpace)) / length;
-                yield return Convert.ToDouble(text.Count(Char.IsUpper)) / length;
-                yield return Convert.ToDouble(text.Count(Char.IsDigit)) / length;
-                yield return Convert.ToDouble(text.VowelCount()) / length;
-                yield return Convert.ToDouble(text.Count(x => x == '\n')) / length;
+                yield return Convert.ToDouble(text.Count(Char.IsPunctuation));
+                yield return Convert.ToDouble(text.Count(Char.IsWhiteSpace));
+                yield return Convert.ToDouble(text.Count(Char.IsUpper));
+                yield return Convert.ToDouble(text.Count(Char.IsDigit));
+                yield return Convert.ToDouble(text.VowelCount());
+                yield return Convert.ToDouble(text.Count(x => x == '\n'));
             }
             else
             {
@@ -104,7 +118,7 @@ namespace Urfu.AuthorDetector.Common
             var counts = new Dictionary<string, int>();
             foreach (var lemma in ruWords.SelectMany(dictionary.GetLemma))
             {
-                foreach (var gr in lemma.Parent.l.g.Union(lemma.g??new lemmaItemG[]{}))
+                foreach (var gr in lemma.Parent.l.g.Union(lemma.g ?? new lemmaItemG[] { }))
                 {
                     if (counts.ContainsKey(gr.v))
                         counts[gr.v]++;
@@ -126,7 +140,7 @@ namespace Urfu.AuthorDetector.Common
                 {
                     int val;
                     allRes.TryGetValue(x, out val);
-                    yield return Convert.ToDouble(val) / length;
+                    yield return Convert.ToDouble(val);
                 }
             }
             else

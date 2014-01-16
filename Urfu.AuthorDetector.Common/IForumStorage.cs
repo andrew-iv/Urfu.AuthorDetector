@@ -11,6 +11,7 @@ namespace Urfu.AuthorDetector.Common
         void SavePosts(IEnumerable<PostInfo> posts);
         void FillBriefs(IEnumerable<PostBrief> postsBriefs);
         void SavePost(PostInfo posts);
+        Forum Forum { get; }
     }
 
     public interface IPostsQueryFilter

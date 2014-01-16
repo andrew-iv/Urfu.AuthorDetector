@@ -48,11 +48,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppSettingsExperiment.cs" />
-    <Compile Include="Experiment.cs" />
-    <Compile Include="Experimentator.cs" />
-    <Compile Include="ExperimentHeper.cs" />
-    <Compile Include="IExperiment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

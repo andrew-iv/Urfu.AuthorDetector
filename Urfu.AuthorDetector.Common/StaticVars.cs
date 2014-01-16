@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Ninject;
+using Opcorpora.Dictionary;
 using Urfu.AuthorDetector.Common.Classification;
 
 namespace Urfu.AuthorDetector.Common
@@ -10,6 +11,7 @@ namespace Urfu.AuthorDetector.Common
         public static string[] TopRuWords { get; set; }
         public static string[] Top3Gramms { get; set; }
         public static IKernel Kernel;
+        public static OpcorporaDictionary Opcorpora { get; set; }
 
         public static void InitializeTops(IEnumerable<string> tops,int topCount = 500)
         {

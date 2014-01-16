@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Common\BasePageLoader.cs" />
     <Compile Include="Common\IPageLoader.cs" />
+    <Compile Include="VBullitin\IVBulletinParser.cs" />
     <Compile Include="VBullitin\VBulletinGrabber.cs" />
     <Compile Include="VBullitin\VBulletinPageLoader.cs" />
     <Compile Include="Flamp\FlampGrabber.cs" />
@@ -69,7 +70,7 @@
     <Compile Include="Dto\ForumPost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UrlRetriever.cs" />
-    <Compile Include="VBullitin\VBulletinParser.cs" />
+    <Compile Include="VBullitin\AchatBulletinParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Urfu.AuthorDetector.Common\Urfu.AuthorDetector.Common.csproj">

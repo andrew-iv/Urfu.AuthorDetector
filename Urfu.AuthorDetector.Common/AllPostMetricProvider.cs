@@ -23,6 +23,8 @@ namespace Urfu.AuthorDetector.Common
         }
     }
 
+
+
     public class SelectedPostMetricProvider : BasePostMetricProvider
     {
         private readonly string[] _useNgramms = new [] { " не", " по", "то ", "не ", " пр", " на", "ть ", " и ", " в ", " то", 
@@ -46,7 +48,7 @@ namespace Urfu.AuthorDetector.Common
 
         protected override string[] Grammemes
         {
-            get { return new string[]{}; }
+            get { return null; }
         }
     }
 }

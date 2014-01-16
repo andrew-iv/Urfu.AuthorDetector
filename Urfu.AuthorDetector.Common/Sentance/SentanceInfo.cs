@@ -9,6 +9,7 @@ namespace Urfu.AuthorDetector.Common.Sentance
 {
     public class SentanceInfo
     {
+        public string Sentence { get; private set; }
         public int Length { get { return Words.Length; } }
         public lemmaItemG[][] Grammemes { get; private set; }
         public string[] Words { get; private set; }
@@ -16,7 +17,8 @@ namespace Urfu.AuthorDetector.Common.Sentance
 
         public SentanceInfo(string sentence)
         {
-            var dict = StaticVars.Kernel.Get<Opcorpora.Dictionary.IOpcorporaDictionary>();
+            Sentence = sentence;
+            var dict = StaticVars.Kernel.Get<IOpcorporaDictionary>();
             Words = sentence.RussianWords().ToArray();
             Grammemes = Words.Select(word => dict.GetLemma(word).
                                                   SelectMany(x => x.

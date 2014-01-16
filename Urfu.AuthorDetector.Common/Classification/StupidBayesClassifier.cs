@@ -7,14 +7,14 @@ using Urfu.AuthorDetector.DataLayer;
 
 namespace Urfu.AuthorDetector.Common.Classification
 {
-    public class BayesClassifier: IClassifier
+    public class StupidBayesClassifier : IClassifier
     {
         private readonly IPostMetricProvider _postMetricProvider;
         private Dictionary<Author, Histogram[]> _authorHistogramms;
 
         private const int BucketCounts = 33;
 
-        public BayesClassifier(IDictionary<Author, IEnumerable<string>> authors, IPostMetricProvider postMetricProvider)
+        public StupidBayesClassifier(IDictionary<Author, IEnumerable<string>> authors, IPostMetricProvider postMetricProvider)
         {
             Authors = authors.Keys;
             var dataExtractor = StaticVars.Kernel.Get<IDataExtractor>();
@@ -24,8 +24,8 @@ namespace Urfu.AuthorDetector.Common.Classification
             var authorMetrics = authors.ToDictionary(x => x.Key,
                                                      x => x.Value.Select(xx => _postMetricProvider.GetMetrics(xx).ToArray()).ToArray());
 
-            var minVals = Enumerable.Range(0,m).Select(i=>authorMetrics.Select(x=>x.Value.Select(xx=>xx[i]).Min()).Min()).ToArray();
-            var maxVals = Enumerable.Range(0,m).Select(i=>authorMetrics.Select(x=>x.Value.Select(xx=>xx[i]).Max()).Max()).ToArray();
+            var minVals = Enumerable.Range(0, m).Select(i => authorMetrics.Select(x => x.Value.Select(xx => xx[i]).Min()).Min()).ToArray();
+            var maxVals = Enumerable.Range(0, m).Select(i => authorMetrics.Select(x => x.Value.Select(xx => xx[i]).Max()).Max()).ToArray();
 
 
             _authorHistogramms = authorMetrics.ToDictionary(x => x.Key,
@@ -34,15 +34,15 @@ namespace Urfu.AuthorDetector.Common.Classification
                                                                       .Select(
                                                                           j =>
                                                                           x.Value.Select(val => val[j])
-                                                                           .ToHistogramm(BucketCounts,minVals[j],maxVals[j])).ToArray());
+                                                                           .ToHistogramm(BucketCounts, minVals[j], maxVals[j])).ToArray());
         }
 
         protected virtual double GetProbability(Histogram histogram, double value, double eps = 0.00025)
         {
-            if(eps <= 0 )
+            if (eps <= 0)
                 throw new ArgumentOutOfRangeException("eps");
 
-            if (histogram.UpperBound < value + eps*eps*eps)
+            if (histogram.UpperBound < value + eps * eps * eps)
             {
                 return eps;
             }
@@ -52,10 +52,10 @@ namespace Urfu.AuthorDetector.Common.Classification
                 return eps;
             }
 
-            var val = Convert.ToDouble(histogram.GetBucketOf(value).Count)/histogram.DataCount;
+            var val = Convert.ToDouble(histogram.GetBucketOf(value).Count) / histogram.DataCount;
 
 
-            return (val + eps)/(1 + eps*histogram.BucketCount);
+            return (val + eps) / (1 + eps * histogram.BucketCount);
 
         }
 
@@ -67,7 +67,7 @@ namespace Urfu.AuthorDetector.Common.Classification
             var postsMetrics = posts.Select(x => _postMetricProvider.GetMetrics(x).ToArray()).ToArray();
             foreach (var post in postsMetrics)
             {
-                foreach (var j in Enumerable.Range(0,_postMetricProvider.Size))
+                foreach (var j in Enumerable.Range(0, _postMetricProvider.Size))
                 {
                     foreach (var author in Authors)
                     {
@@ -79,14 +79,15 @@ namespace Urfu.AuthorDetector.Common.Classification
                 var mx = resDict.Max(x => x.Value);
                 foreach (var author in Authors)
                 {
-                    resDict[author] = resDict[author] /mx;
+                    resDict[author] = resDict[author] / mx;
                 }
             }
             return resDict.OrderByDescending(x => x.Value).First().Key;
         }
 
         public string Description { get; private set; }
-        public string Name {
+        public string Name
+        {
             get { return "Байсовский классификатор."; }
         }
     }

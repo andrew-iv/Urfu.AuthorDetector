@@ -11,6 +11,7 @@ using Ninject.Modules;
 using Urfu.AuthorDetector.Common;
 using Urfu.AuthorDetector.Common.Classification;
 using Urfu.AuthorDetector.Common.Sentance;
+using Urfu.AuthorDetector.Common.StatMethods;
 using Urfu.AuthorDetector.DataLayer;
 using Urfu.Utils;
 
@@ -20,7 +21,7 @@ namespace Urfu.AuthorDetector.MetricsToCSV
     {
         private static IStatisticsContext _context;
         private static List<AuthorMinPosts> _authors;
-        private static IEnumerable<string>[] _authorPosts;
+        private static Dictionary<string, string[]> _authorPosts;
         private static StandardKernel _kernel;
         private static IDataExtractor _dataExtractor;
 
@@ -34,6 +35,8 @@ namespace Urfu.AuthorDetector.MetricsToCSV
             public override void Load()
             {
                 Kernel.Bind<IPostMetricProvider>().To<AllPostMetricProvider>().InThreadScope();
+
+
                 /*Kernel.Bind<IMetricSelector>().ToConstructor(x=>new Chi2ForAuthorMetricSelector(x.Context.Request.Parameters))
                     (x=>new Chi2ForAuthorMetricSelector(x.Context.Parameters.,) ).InTransientScope();
                 //Kernel.Bind<>().To<Chi2ForAuthorMetricSelector>().InThreadScope();*/
@@ -51,7 +54,7 @@ namespace Urfu.AuthorDetector.MetricsToCSV
             var topCount = int.Parse(appSettings.Get("TopAuthors"));
             var startYear = int.Parse(appSettings.Get("StartYear"));
             var endYear = int.Parse(appSettings.Get("EndYear"));
-            _kernel = new StandardKernel(new CommonModule(), new MetricModule());
+            _kernel = new StandardKernel(new CommonModule(), new LorModule(), new MetricModule());
             StaticVars.Kernel = _kernel;
 
             _dataExtractor = _kernel.Get<IDataExtractor>();
@@ -67,8 +70,8 @@ namespace Urfu.AuthorDetector.MetricsToCSV
             var posts =
                 postsQuery.Where(x => authorIds.Contains(x.Author.Id)).Select(_dataExtractor.GetText).ToArray();
             StaticVars.InitializeTops(posts, TopsCount);
-            _authorPosts = _authors.Select(x => x.Author.Post.Select(_dataExtractor.GetText).ToArray() as IEnumerable<string>)
-                                 .ToArray();
+            _authorPosts = 
+                _authors.ToDictionary(x=>x.Author.Identity,x=>  x.Author.Post.Select(_dataExtractor.GetText).ToArray());
         }
 
         private static void Main(string[] args)
@@ -81,24 +84,24 @@ namespace Urfu.AuthorDetector.MetricsToCSV
             GC.Collect();
 
             Console.WriteLine("Average Length - {0}",
-                              _authorPosts.SelectMany(x => x.Select(xx => xx.Length)).ToArray().Average());
+                              _authorPosts.SelectMany(x => x.Value.Select(xx => xx.Length)).ToArray().Average());
+            /*
+                        var metricSelector = new Chi2ForAuthorMetricSelector(_authorPosts, SelectParams);
+                        var topMetricIds = metricSelector.SelectMetrics(_kernel.Get<IPostMetricProvider>());
 
-            var metricSelector = new Chi2ForAuthorMetricSelector(_authorPosts, SelectParams);
-            var topMetricIds = metricSelector.SelectMetrics(_kernel.Get<IPostMetricProvider>());
+                        using (var file = File.Open(metricsFile, FileMode.Create, FileAccess.Write))
+                        {
+                            using (var writer = new CsvWriter(new StreamWriter(file)))
+                            {
+                                var names = _kernel.Get<IPostMetricProvider>().Names.ToArray();
+                                ConfigureWriter(writer);
+                                foreach (var id in topMetricIds)
+                                {
+                                    writer.WriteFields(names[id]);
 
-            using (var file = File.Open(metricsFile, FileMode.Create, FileAccess.Write))
-            {
-                using (var writer = new CsvWriter(new StreamWriter(file)))
-                {
-                    var names = _kernel.Get<IPostMetricProvider>().Names.ToArray();
-                    ConfigureWriter(writer);
-                    foreach (var id in topMetricIds)
-                    {
-                        writer.WriteFields(names[id]);
-
-                    }
-                }
-            }
+                                }
+                            }
+                        }*/
 
 
             using (var file = File.Open(topAuthorsFile, FileMode.Create, FileAccess.Write))
@@ -117,7 +120,7 @@ namespace Urfu.AuthorDetector.MetricsToCSV
             WriteSentenceStats();
         }
 
-        private static void WriteMetricsToFile(string fileName, IEnumerable<IEnumerable<int>> metrics, ISentenceMetricProvider setprovider = null)
+        private static void WriteMetricsToFile(string fileName, IEnumerable<double[]> metrics, ICommonMetricProvider setprovider = null)
         {
             var provider = setprovider?? _kernel.Get<ISentenceMetricProvider>();
             using (var file = File.Open(fileName, FileMode.Create, FileAccess.Write))
@@ -135,24 +138,34 @@ namespace Urfu.AuthorDetector.MetricsToCSV
 
         }
 
+        
+
         private static void WriteSentenceStats()
         {
             
             var provider = _kernel.Get<ISentenceMetricProvider>();
-            var allMetrics = new List<IEnumerable<int>>();
+            //var allMetrics = new List<double[]>();
+
+            var allMetrics = _authorPosts.ToDictionary(x=>x.Key,x=>x.Value.SelectMany( provider.GetMetrics) .ToArray());
+                                      
+
+            var trans = new PcaMetricTransformer(allMetrics.SelectMany(x=>x.Value));
+            //trans.ApplyFilter(allMetrics,new );
+            trans.ApplyFilter(allMetrics.Select(x=>x.Value),new KSTwoSampleTestMetricValuenceFilterImpl());
 
 
-            foreach (var author in _authors)
+            foreach (var author in allMetrics)
             {
-                IEnumerable<int>[] metrics = _context.Posts.Where(x => x.Author.Id == author.Author.Id)
-                                      .ToList().SelectMany(x => provider.GetMetrics(_dataExtractor.GetText(x)).ToArray()).ToArray();
-                allMetrics.AddRange(metrics);
+                
+                
+                
+
+                //var correlationTable = metrics.Select(x => x.Select(xx => (double)xx).ToArray()).ToArray().CorrelationTablePearson(provider.Size);
 
 
-                var correlationTable = metrics.Select(x => x.Select(xx => (double)xx).ToArray()).ToArray().CorrelationTablePearson(provider.Size);
+                WriteMetricsToFile(author.Key + "-sent-stat.csv", author.Value,provider);
 
-
-                WriteMetricsToFile(author.Author.Identity + "-sent-stat.csv", metrics);
+                WriteMetricsToFile(author.Key + "-sent-stat-comp.csv",  author.Value.Select(trans.GetMetric) , trans);
 
               
 
@@ -170,16 +183,16 @@ namespace Urfu.AuthorDetector.MetricsToCSV
                 }*/
             }
 
-            WriteMetricsToFile("all-stat.csv", allMetrics);
+            WriteMetricsToFile("all-stat.csv", allMetrics.SelectMany(x=>x.Value));
 
-            var newProvider = new SelectedSentenceMetricProvider(Enumerable.Range(0, provider.Size).Where(i => allMetrics.Select(x => x.ElementAt(i)).Distinct().Count() > 2).ToArray(),provider);
+           /*var newProvider = new SelectedSentenceMetricProvider(Enumerable.Range(0, provider.Size).Where(i => allMetrics.Select(x => x.ElementAt(i)).Distinct().Count() > 2).ToArray(),provider);
 
             var cutMetrics = _authors.SelectMany(author => _context.Posts.Where(x => x.Author.Id == author.Author.Id))
                     .ToList()
-                    .SelectMany(x => newProvider.GetMetrics(_dataExtractor.GetText(x)).ToArray())
+                    .SelectMany(x => newProvider.GetMetrics(_dataExtractor.GetText(x)).Select(xx=>xx.Select(xxx=>(double)xxx).ToArray()).ToArray())
                     .ToArray();
 
-            WriteMetricsToFile("all-cut-stat.csv", cutMetrics,newProvider);
+            WriteMetricsToFile("all-cut-stat.csv", cutMetrics,newProvider);*/
         }
     }
 }

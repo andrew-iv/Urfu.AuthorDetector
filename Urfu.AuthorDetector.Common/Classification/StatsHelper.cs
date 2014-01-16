@@ -8,6 +8,32 @@ namespace Urfu.AuthorDetector.Common.Classification
 {
     public static class StatsHelper
     {
+        public static List<int> GetNotNullDeviationIndexes(this double[][] doubles)
+        {
+            var indexes = new List<int>();
+            if (doubles.Length == 0)
+            {
+                return indexes;
+            }
+            var frst = doubles[0];
+
+            indexes.AddRange(Enumerable.Range(0, frst.Length)
+                .Where(i => 
+                    doubles.Where(x => x.Length > i).Select(x => x[i]).Distinct().Count() 
+                    > 1)
+                    );
+            return indexes;
+        }
+
+        public static double[] GetOnIndexes(this double[] doubles, IEnumerable<int> indexes)
+        {
+            return indexes.Select(x => doubles[x]).ToArray();
+        }
+
+        public static double[][] GetOnIndexes(this double[][] doubles, IEnumerable<int> indexes)
+        {
+            return doubles.Select(x => x.GetOnIndexes(indexes)).ToArray();
+        }
 
 
 

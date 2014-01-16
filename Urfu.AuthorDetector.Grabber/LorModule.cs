@@ -7,10 +7,13 @@ namespace Urfu.AuthorDetector.Grabber
 {
     public class RealModule : CommonModule
     {
+        public RealModule()
+        {
+            NeedCreateDictionary = false;
+        }
 
         private static void RegisterContext(IKernel kernel)
         {
-            
         }
 
         public override void Load()

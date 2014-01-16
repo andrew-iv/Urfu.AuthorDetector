@@ -2,8 +2,14 @@
 
 namespace Urfu.AuthorDetector.Common.Sentance
 {
-    public interface ISentenceMetricProvider :ICommonMetricProvider
+    public interface IMultiplyMetricsProvider:ICommonMetricProvider
     {
-        IEnumerable<IEnumerable<int>> GetMetrics(string text);
+        IEnumerable<double[]> GetMetrics(string text);
+    }
+
+    public interface ISentenceMetricProvider : IMultiplyMetricsProvider
+    {
+        
+        IEnumerable<double> GetSentenceMetrics(SentanceInfo text);
     }
 }

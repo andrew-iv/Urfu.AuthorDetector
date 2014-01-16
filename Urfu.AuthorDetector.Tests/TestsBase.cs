@@ -14,6 +14,9 @@ using Urfu.Utils;
 
 namespace Urfu.AuthorDetector.Tests
 {
+
+
+
     [TestFixture]
     public class HtmlExtractorTests
     {
