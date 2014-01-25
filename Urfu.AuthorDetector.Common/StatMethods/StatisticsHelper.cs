@@ -55,11 +55,8 @@ namespace Urfu.AuthorDetector.Common.StatMethods
 
         public static PrincipalComponentAnalysis GetPcas(this double[][] matr)
         {
-            var anal = new PrincipalComponentAnalysis(matr,AnalysisMethod.Standardize)
-                {
-                    
-                };
-            anal.Compute();
+            var anal = new PrincipalComponentAnalysis(matr, AnalysisMethod.Standardize);
+                
             return anal;
         }
     }

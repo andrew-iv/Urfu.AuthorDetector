@@ -34,6 +34,9 @@
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Accord.Statistics">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Accord.NET\Framework\Release\Accord.Statistics.dll</HintPath>
+    </Reference>
     <Reference Include="CsvHelper">
       <HintPath>..\packages\CsvHelper.2.2.2\lib\net20\CsvHelper.dll</HintPath>
     </Reference>

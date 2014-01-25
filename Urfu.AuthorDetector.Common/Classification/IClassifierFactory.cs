@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Urfu.AuthorDetector.Common.MetricProvider;
+using Urfu.AuthorDetector.Common.MetricProvider.Sentance;
 using Urfu.AuthorDetector.Common.Sentance;
 using Urfu.AuthorDetector.DataLayer;
 
@@ -11,14 +13,16 @@ namespace Urfu.AuthorDetector.Common.Classification
         IClassifier Create(IDictionary<Author, IEnumerable<string>> authors);
     }
 
-    abstract class BaseClassifierFactory: IClassifierFactory
+    public abstract class BaseClassifierFactory : IClassifierFactory
     {
+
+        public ICommonMetricProvider CommonMetricProvider { get; set; }
         public IPostMetricProvider PostMetricProvider { get; set; }
         public IMultiplyMetricsProvider MultiplyMetricsProvider { get; set; }
         public abstract IClassifier Create(IDictionary<Author, IEnumerable<string>> authors);
     }
 
-    class PerecentileBayesClassifierFactory : BaseClassifierFactory
+    public class PerecentileBayesClassifierFactory : BaseClassifierFactory
     {
         public override IClassifier Create(IDictionary<Author, IEnumerable<string>> authors)
         {
@@ -26,11 +30,19 @@ namespace Urfu.AuthorDetector.Common.Classification
         }
     }
 
-    class StupidPerecentileBayesClassifierFactory : BaseClassifierFactory
+    public class StupidPerecentileBayesClassifierFactory : BaseClassifierFactory
     {
         public override IClassifier Create(IDictionary<Author, IEnumerable<string>> authors)
         {
             return new StupidPerecentileBayesClassifier(authors, PostMetricProvider, MultiplyMetricsProvider);
+        }
+    }
+
+    public class MSvmClassifierClassifierFactory : BaseClassifierFactory
+    {
+        public override IClassifier Create(IDictionary<Author, IEnumerable<string>> authors)
+        {
+            return new MSvmClassifier(authors, CommonMetricProvider);
         }
     }
 }

@@ -7,7 +7,7 @@ using Opcorpora.Dictionary;
 using Opcorpora.Dictionary.Xsd;
 using Urfu.Utils;
 
-namespace Urfu.AuthorDetector.Common
+namespace Urfu.AuthorDetector.Common.MetricProvider
 {
 
 
@@ -26,8 +26,57 @@ namespace Urfu.AuthorDetector.Common
         }
     }*/
 
-    public abstract class BasePostMetricProvider : IPostMetricProvider
+    public abstract class SubstringMetricProviderBase : BasePostMetricProvider
     {
+        protected abstract string[] UseWord { get; }
+        protected abstract string NamesPrefix { get; }
+
+        public override IEnumerable<string> Names { get { return (UseWord ?? new string[] {}).Select(x => NamesPrefix + x).ToArray(); } }
+
+        public override double[] GetMetrics(string text)
+        {
+            return MetricsHeper.SubstringMetrics(UseWord, text, text.Length).ToArray();
+
+        }
+    }
+
+    public class UseNgramsMetricProvider: SubstringMetricProviderBase, IPostMetricProvider
+    {
+        protected override string[] UseWord { get { return StaticVars.Top3Gramms; } }
+
+        protected override string NamesPrefix
+        {
+            get { return "Top3Gramms_"; }
+        }
+    }
+
+    
+    public class UseWordsMetricProvider: SubstringMetricProviderBase, IPostMetricProvider
+    {
+        protected override string[] UseWord { get { return StaticVars.TopRuWords; } }
+
+        protected override string NamesPrefix
+        {
+            get { return "TopRuWords_"; }
+        }
+    }
+
+    public abstract class BasePostMetricProvider:IPostMetricProvider
+    {
+        public abstract IEnumerable<string> Names { get; }
+        public virtual int Size {
+            get { return Names.Count(); }
+        }
+        public virtual double[][] GetMetrics(IEnumerable<string> text)
+        {
+            return text.Select(GetMetrics).ToArray();
+        }
+        public abstract double[] GetMetrics(string text);
+    }
+
+    public abstract class BaseAllPostMetricProvider : IPostMetricProvider
+    {
+        private readonly MetricsHeper _metricsHeper = new MetricsHeper();
         protected abstract string[] UseNgramms { get; }
         protected abstract string[] UseWords { get; }
         protected abstract string[] Grammemes { get; }
@@ -55,10 +104,19 @@ namespace Urfu.AuthorDetector.Common
             }
         }
 
+        public double[][] GetMetrics(IEnumerable<string> text)
+        {
+            return text.Select(GetMetrics).ToArray();
+        }
+
+        public double[] GetMetrics(string text)
+        {
+            return GetMetricsEnum(text).ToArray();
+        }
 
 
         private const int TrivialCount = 7;
-        public IEnumerable<double> GetMetrics(string text)
+        private IEnumerable<double> GetMetricsEnum(string text)
         {
 
             //Trivial
@@ -66,12 +124,12 @@ namespace Urfu.AuthorDetector.Common
             yield return length;
             if (Math.Abs(length - 0d) > 0.1d)
             {
-                yield return Convert.ToDouble(text.Count(Char.IsPunctuation));
-                yield return Convert.ToDouble(text.Count(Char.IsWhiteSpace));
-                yield return Convert.ToDouble(text.Count(Char.IsUpper));
-                yield return Convert.ToDouble(text.Count(Char.IsDigit));
-                yield return Convert.ToDouble(text.VowelCount());
-                yield return Convert.ToDouble(text.Count(x => x == '\n'));
+                yield return Convert.ToDouble(text.Count(Char.IsPunctuation))/length;
+                yield return Convert.ToDouble(text.Count(Char.IsWhiteSpace)) / length;
+                yield return Convert.ToDouble(text.Count(Char.IsUpper)) / length;
+                yield return Convert.ToDouble(text.Count(Char.IsDigit)) / length;
+                yield return Convert.ToDouble(text.VowelCount()) / length;
+                yield return Convert.ToDouble(text.Count(x => x == '\n')) / length;
             }
             else
             {
@@ -83,7 +141,7 @@ namespace Urfu.AuthorDetector.Common
 
             if (UseNgramms != null)
             {
-                foreach (var metrics in SubstringMetrics(UseNgramms, text, length))
+                foreach (var metrics in MetricsHeper.SubstringMetrics(UseNgramms, text, length))
                 {
                     yield return metrics;
                 }
@@ -91,7 +149,7 @@ namespace Urfu.AuthorDetector.Common
 
             if (UseWords != null)
             {
-                foreach (var metrics in SubstringMetrics(UseWords, text, length))
+                foreach (var metrics in MetricsHeper.SubstringMetrics(UseWords, text, length))
                 {
                     yield return metrics;
                 }
@@ -127,29 +185,6 @@ namespace Urfu.AuthorDetector.Common
                 }
             }
             return grammemes.Select(x => counts.ContainsKey(x) ? ((double)counts[x] / ruWords.Length) : 0d).ToArray();
-        }
-
-        private IEnumerable<double> SubstringMetrics(string[] keywords, string text, int length)
-        {
-            if (length > 0)
-            {
-                var ss = new StringSearch(keywords);
-                var dictCount = new Dictionary<string, int>(keywords.Count());
-                var allRes = ss.FindAll(text.ToLower()).GroupBy(x => x.Keyword).ToDictionary(x => x.Key, x => x.Count());
-                foreach (var x in keywords)
-                {
-                    int val;
-                    allRes.TryGetValue(x, out val);
-                    yield return Convert.ToDouble(val);
-                }
-            }
-            else
-            {
-                foreach (var i in Enumerable.Range(0, keywords.Length))
-                {
-                    yield return 0d;
-                }
-            }
         }
     }
 }

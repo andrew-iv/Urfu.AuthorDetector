@@ -6,6 +6,7 @@ using NUnit.Framework;
 using Ninject;
 using Urfu.AuthorDetector.Common;
 using Urfu.AuthorDetector.Common.Classification;
+using Urfu.AuthorDetector.Common.MetricProvider;
 using Urfu.AuthorDetector.DataLayer;
 
 namespace Urfu.AuthorDetector.Tests.Common.Classification
@@ -19,7 +20,12 @@ namespace Urfu.AuthorDetector.Tests.Common.Classification
 
         public IEnumerable<string> Names { get { return Enumerable.Range(1, Size).Select(x => "Name_" + x); } }
         public int Size { get; private set; }
-        public IEnumerable<double> GetMetrics(string text)
+        public double[][] GetMetrics(IEnumerable<string> text)
+        {
+            throw new NotImplementedException();
+        }
+
+        public double[] GetMetrics(string text)
         {
             return text.Split('_').Select(double.Parse).ToArray();
         }
@@ -157,7 +163,7 @@ namespace Urfu.AuthorDetector.Tests.Common.Classification
     [TestFixture]
     public class AllMetricProviderTests
     {
-        private AllPostMetricProvider _provider = new AllPostMetricProvider();
+        private AllAllPostMetricProvider _provider = new AllAllPostMetricProvider();
 
         [SetUp]
         public void SetUp()
@@ -232,10 +238,10 @@ namespace Urfu.AuthorDetector.Tests.Common.Classification
         [TestCaseSource("TestClassifier1Source")]
         public string NeighboorClassifier1(IEnumerable<Post> example)
         {
-            return TestClassifier(example, (a, b) => new NeighboorClassifier(a, b));
+            return TestClassifier(example, (a, b) => new NeighboorClassifier(a, (IPostMetricProvider) b));
         }
 
-        private string TestClassifier(IEnumerable<Post> example,  Func<Dictionary<Author, IEnumerable<string>>,IPostMetricProvider,IClassifier>  constructor)
+        private string TestClassifier(IEnumerable<Post> example,  Func<Dictionary<Author, IEnumerable<string>>,ICommonMetricProvider,IClassifier>  constructor)
     {
         StaticVars.Kernel = new StandardKernel();
             StaticVars.Kernel.Bind<IPostMetricProvider>().ToConstant(new SplitPostMetricProvider(2));
@@ -258,7 +264,7 @@ namespace Urfu.AuthorDetector.Tests.Common.Classification
         [TestCaseSource("TestClassifier1Source")]
         public string TestBayesClassifier(IEnumerable<Post> example)
         {
-            return TestClassifier(example, (a, b) => new StupidBayesClassifier(a, b));
+            return TestClassifier(example, (a, b) => new StupidBayesClassifier(a, (IPostMetricProvider) b));
         }
 
     }

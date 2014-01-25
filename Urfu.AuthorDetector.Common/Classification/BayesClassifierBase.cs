@@ -1,10 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Accord.Statistics.Filters;
+using Accord.Statistics.Kernels;
+using Urfu.AuthorDetector.Common.MetricProvider;
+using Urfu.AuthorDetector.Common.MetricProvider.Sentance;
 using Urfu.AuthorDetector.Common.Sentance;
 using Urfu.AuthorDetector.DataLayer;
 
 namespace Urfu.AuthorDetector.Common.Classification
 {
+
+
+
+
     public abstract class BayesClassifierBase : IClassifier
     {
         private readonly IDictionary<Author, IEnumerable<string>> _authors;

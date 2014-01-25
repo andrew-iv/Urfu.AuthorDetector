@@ -27,6 +27,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Opcorpora.Dictionary", "Opc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urfu.AuthorDetector.Statistics", "Urfu.AuthorDetector.Statistics\Urfu.AuthorDetector.Statistics.csproj", "{B93CA54A-0542-4458-9417-B937010AC434}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GraphicsUtils", "GraphicsUtils", "{230B5486-446F-46DE-95C6-00A201960455}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urfu.AuthorRecognizer.MetricSelector", "Urfu.AuthorRecognizer.MetricSelector\Urfu.AuthorRecognizer.MetricSelector.csproj", "{0733E61F-C5BA-4D6C-A5F9-9BE9248C9FDA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +81,10 @@ Global
 		{B93CA54A-0542-4458-9417-B937010AC434}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B93CA54A-0542-4458-9417-B937010AC434}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B93CA54A-0542-4458-9417-B937010AC434}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0733E61F-C5BA-4D6C-A5F9-9BE9248C9FDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0733E61F-C5BA-4D6C-A5F9-9BE9248C9FDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0733E61F-C5BA-4D6C-A5F9-9BE9248C9FDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0733E61F-C5BA-4D6C-A5F9-9BE9248C9FDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,6 +94,7 @@ Global
 		{B2DEA941-E8F4-4E30-8FFE-18D29DF9251A} = {1BD0FFC2-DD7E-4B77-BFE2-47BCE0E2E8EB}
 		{E6778475-27E4-4EE9-B72E-8463348A77AF} = {1BD0FFC2-DD7E-4B77-BFE2-47BCE0E2E8EB}
 		{39FB2945-0C7E-4845-AC24-6C7DF30AD1A2} = {B372B2BF-B7E1-4AA7-BBBD-F2D184E613A9}
+		{0733E61F-C5BA-4D6C-A5F9-9BE9248C9FDA} = {230B5486-446F-46DE-95C6-00A201960455}
 	EndGlobalSection
 	GlobalSection(Performance) = preSolution
 		HasPerformanceSessions = true

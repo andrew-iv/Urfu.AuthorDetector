@@ -2,6 +2,7 @@
 using System.Linq;
 using NUnit.Framework;
 using Urfu.AuthorDetector.Grabber;
+using Urfu.AuthorDetector.Grabber.Lor;
 
 namespace Urfu.AuthorDetector.Tests.Grabber.Parsers
 {

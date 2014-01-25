@@ -1,5 +1,6 @@
 ﻿using Moq;
 using Urfu.AuthorDetector.Grabber;
+using Urfu.AuthorDetector.Grabber.Lor;
 
 namespace Urfu.AuthorDetector.Tests.Grabber.Parsers
 {

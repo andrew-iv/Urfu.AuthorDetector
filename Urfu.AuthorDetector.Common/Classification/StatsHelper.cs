@@ -25,12 +25,12 @@ namespace Urfu.AuthorDetector.Common.Classification
             return indexes;
         }
 
-        public static double[] GetOnIndexes(this double[] doubles, IEnumerable<int> indexes)
+        public static T[] GetOnIndexes<T>(this T[] doubles, IEnumerable<int> indexes)
         {
             return indexes.Select(x => doubles[x]).ToArray();
         }
 
-        public static double[][] GetOnIndexes(this double[][] doubles, IEnumerable<int> indexes)
+        public static T[][] GetOnIndexes<T>(this T[][] doubles, IEnumerable<int> indexes)
         {
             return doubles.Select(x => x.GetOnIndexes(indexes)).ToArray();
         }

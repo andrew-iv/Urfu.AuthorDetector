@@ -1,13 +1,19 @@
 ﻿using System.Collections.Generic;
+using System.Web.UI;
 using Accord.Math;
 using Accord.Statistics.Analysis;
 using System.Linq;
+using Ninject;
+using Urfu.AuthorDetector.Common.MetricProvider;
+using Urfu.AuthorDetector.Common.MetricProvider.Sentance;
 using Urfu.AuthorDetector.Common.Sentance;
 using Urfu.AuthorDetector.Common.Classification;
+using Urfu.AuthorDetector.DataLayer;
+using IDataSource = Urfu.AuthorDetector.Common.Experiment.IDataSource;
 
 namespace Urfu.AuthorDetector.Common.StatMethods
 {
-    public interface IMetricTransformer : ICommonMetricProvider
+    public interface IMetricTransformer : IMetricProviderInfo
     {
         IEnumerable<IEnumerable<double[]>> MetricByAuthor { get; }
 
@@ -33,6 +39,11 @@ namespace Urfu.AuthorDetector.Common.StatMethods
         {
             return _provider.GetMetrics(text).Select(_transformer.GetMetric);
         }
+
+        public double[][] GetMetrics(IEnumerable<string> text)
+        {
+            return text.SelectMany(GetMetrics).ToArray();
+        }
     }
 
     public class SimpleMetricProviderAndTransformer : IPostMetricProvider
@@ -48,9 +59,14 @@ namespace Urfu.AuthorDetector.Common.StatMethods
 
         public IEnumerable<string> Names { get { return _transformer.Names; } }
         public int Size { get { return _transformer.Size; } }
-        public IEnumerable<double> GetMetrics(string text)
+        public double[] GetMetrics(string text)
         {
             return Enumerable.ToArray(_transformer.GetMetric(_provider.GetMetrics(text)));
+        }
+
+        public double[][] GetMetrics(IEnumerable<string> text)
+        {
+            return text.Select(GetMetrics).ToArray();
         }
     }
 
@@ -58,7 +74,34 @@ namespace Urfu.AuthorDetector.Common.StatMethods
 
     public class PcaMetricTransformer : IMetricTransformer
     {
-        
+
+        public static MultiplyMetricProviderAndTransformer CreateMultiplyMetricProvider(float treshold, out PcaMetricTransformer pca, AnalysisMethod? method = AnalysisMethod.Center)
+        {
+            var ds = StaticVars.Kernel.Get<IDataSource>();
+            
+            var mp = StaticVars.Kernel.Get<IMultiplyMetricsProvider>();
+            var posts = ds.GetPosts(10).SelectMany(x => x.Value.Take(200).SelectMany(mp.GetMetrics));
+            pca = method.HasValue ? new PcaMetricTransformer(posts, 3, method.Value) : new PcaMetricTransformer(posts, 20);
+            pca.SetComponents(treshold);
+            return new MultiplyMetricProviderAndTransformer(mp
+                        , pca);
+        }
+
+        public static SimpleMetricProviderAndTransformer CreateSimpeMetricProvider(float treshold,out PcaMetricTransformer pca,AnalysisMethod? method = AnalysisMethod.Center)
+        {
+            var ds = StaticVars.Kernel.Get<IDataSource>();
+            
+            var mp = StaticVars.Kernel.Get<IPostMetricProvider>();
+            var posts = ds.GetPosts(10).SelectMany(x => x.Value.Take(400).Select(
+                mp.GetMetrics));
+            pca = method.HasValue ? new PcaMetricTransformer(posts, 20, method.Value) : new PcaMetricTransformer(posts, 20);
+            pca.SetComponents(treshold);
+            return new SimpleMetricProviderAndTransformer(mp
+                        , pca);
+        }
+
+
+
         /*private class PCAMetric:BaseMetric
         {
             private IEnumerable<KeyValuePair<string, double>> _metricValues;
@@ -92,14 +135,15 @@ namespace Urfu.AuthorDetector.Common.StatMethods
         private List<PrincipalComponent> _components;
         private readonly List<int> _indexes;
 
-        public PcaMetricTransformer(IEnumerable<double[]> metrics, int topComponents = 5)
+        public PcaMetricTransformer(IEnumerable<double[]> metrics, int topComponents = 5, AnalysisMethod method = AnalysisMethod.Standardize)
         {
             var metricsArray = metrics.ToArray();
             _topComponents = topComponents;
             _indexes = metricsArray.GetNotNullDeviationIndexes();
             _metrics = metricsArray.GetOnIndexes(_indexes);
-            _pca = _metrics.GetPcas();
+            _pca = new PrincipalComponentAnalysis(_metrics, method);
             _pca.Compute();
+
         }
 
         public IEnumerable<IEnumerable<double[]>> MetricByAuthor { get; private set; }
@@ -118,7 +162,6 @@ namespace Urfu.AuthorDetector.Common.StatMethods
         {
             return _topComponents = _pca.GetNumberOfComponents(threshold);
         }
-
 
 
         /*

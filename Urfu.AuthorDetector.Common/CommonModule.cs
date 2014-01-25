@@ -2,6 +2,8 @@
 using System.Configuration;
 using Ninject.Modules;
 using Opcorpora.Dictionary;
+using Urfu.AuthorDetector.Common.MetricProvider;
+using Urfu.AuthorDetector.Common.MetricProvider.Sentance;
 using Urfu.AuthorDetector.Common.Sentance;
 using Urfu.AuthorDetector.DataLayer;
 
@@ -45,14 +47,14 @@ namespace Urfu.AuthorDetector.Common
                 Kernel.Bind<IOpcorporaDictionary>().ToConstant(CreateDictionary()).InSingletonScope();
             }
 
-            Kernel.Bind<IMultiplyMetricsProvider>().ToConstructor(x => new CombinedMetricProvider(
+            Kernel.Bind<IMultiplyMetricsProvider>().ToConstructor(x => new CombinedMultyMetricProvider(
                     new LengthMetricProvider(),
                     new GramemmeMetricProvider(),
                     new PunctuationMetricProvider()
                     )).InSingletonScope();
 
 
-            Kernel.Bind<IPostMetricProvider>().To<SelectedPostMetricProvider>().InSingletonScope();
+            Kernel.Bind<IPostMetricProvider>().To<SomeWordsAndGrammsMetricProvider>().InSingletonScope();
 
         }
     }

@@ -5,9 +5,8 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using Urfu.AuthorDetector.Common;
-using Urfu.AuthorDetector.Grabber.Lor;
 
-namespace Urfu.AuthorDetector.Grabber
+namespace Urfu.AuthorDetector.Grabber.Lor
 {
     public class LorPostsParser : ILorPostsParser
     {

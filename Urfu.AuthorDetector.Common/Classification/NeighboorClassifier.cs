@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Urfu.AuthorDetector.Common.MetricProvider;
 using Urfu.AuthorDetector.DataLayer;
 
 namespace Urfu.AuthorDetector.Common.Classification

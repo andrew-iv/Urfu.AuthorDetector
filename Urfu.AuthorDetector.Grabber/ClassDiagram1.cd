@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access">
+  <Class Name="Urfu.AuthorDetector.Grabber.Common.LoadDocumentParameters" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Common\BasePageLoader.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Grabber.Common.BasePageLoader">
+    <Position X="2.75" Y="0.5" Width="5.75" />
+    <TypeIdentifier>
+      <HashCode>AACAgAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Common\BasePageLoader.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Grabber.Dto.ForumPost" Collapsed="true">
+    <Position X="21.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Dto\ForumPost.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Grabber.Flamp.FlampGrabber" BaseTypeListCollapsed="true">
+    <Position X="15" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAACAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Flamp\FlampGrabber.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Grabber.Flamp.FlampLoader">
+    <Position X="1.75" Y="3.25" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Flamp\FlampLoader.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Grabber.Flamp.FlampParser" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="19.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAABAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Flamp\FlampParser.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Grabber.Lor.LorPageLoader">
+    <Position X="7" Y="3.25" Width="5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAEIAAAAAAAAgAAEAAgAQAA=</HashCode>
+      <FileName>Lor\LorPageLoader.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Grabber.Lor.LorPostsParser" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="19.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAEAQACBAAAAAAAACAAAAAAAAEAAAAAAAAAAAABA=</HashCode>
+      <FileName>Lor\LorPostsParser.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Grabber.RealModule" Collapsed="true">
+    <Position X="23" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LorModule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Grabber.PostRetriever" Collapsed="true">
+    <Position X="21.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>PostRetriever.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Grabber.UrlRetriever" Collapsed="true">
+    <Position X="19.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>UrlRetriever.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Grabber.Lor.LorGrabber" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAACAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Lor\LorGrabber.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Grabber.VBullitin.UserInfo" Collapsed="true">
+    <Position X="21.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VBullitin\AchatBulletinParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Grabber.VBullitin.AchatBulletinParser" Collapsed="true">
+    <Position X="4.75" Y="10.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAABAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VBullitin\AchatBulletinParser.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Bottom" Position="0.807" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Grabber.VBullitin.ThemeInfo" Collapsed="true">
+    <Position X="17.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAACAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VBullitin\AchatBulletinParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Grabber.VBullitin.VBulletinLog" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VBullitin\VBulletinGrabber.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Grabber.VBullitin.VBulletinGrabber" Collapsed="true">
+    <Position X="23" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAEAAAAAAABAAAAEAAAAAAEAgEAAAAAA=</HashCode>
+      <FileName>VBullitin\VBulletinGrabber.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Grabber.VBullitin.VBulletinPageLoader">
+    <Position X="1.5" Y="5.5" Width="5.25" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAABAAAAAAAAAAAoAAAQAAAQQAAkAAgAAAA=</HashCode>
+      <FileName>VBullitin\VBulletinPageLoader.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Grabber.VBullitin.VBulletinParserBase" Collapsed="true">
+    <Position X="3" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAECAAACBAQBAIBAAAAAAIAAEAAgAQAAAIAAgAAAA=</HashCode>
+      <FileName>VBullitin\VBulletinParserBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Grabber.VBullitin.XakeNameBulletinParser" Collapsed="true">
+    <Position X="0.75" Y="11" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAABAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VBullitin\XakeNameBulletinParser.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Urfu.AuthorDetector.Grabber.Common.ILoadDocumentParameters" Collapsed="true">
+    <Position X="23" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Common\BasePageLoader.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Grabber.Common.IPageLoader" Collapsed="true">
+    <Position X="10" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Common\IPageLoader.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Grabber.Flamp.IFlampLoader" Collapsed="true">
+    <Position X="19.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Flamp\FlampLoader.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Grabber.Flamp.IFlampGrabber">
+    <Position X="15.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Flamp\IFlampGrabber.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Grabber.Flamp.IFlampParser" Collapsed="true">
+    <Position X="21.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Flamp\IFlampParser.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Grabber.ILorGrabber" Collapsed="true">
+    <Position X="17.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Lor\ILorGrabber.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Grabber.ILorPostsParser" Collapsed="true">
+    <Position X="19.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAEAQAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Lor\ILorPostsParser.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Grabber.Lor.ILorPageLoader" Collapsed="true">
+    <Position X="10" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAgAAAAAgAQAA=</HashCode>
+      <FileName>Lor\ILorPageLoader.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Grabber.VBullitin.IVBulletinParser" Collapsed="true">
+    <Position X="17.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAECAAAAAAAAAABAAAAAAAAAEAAAAQAAAAAAgAAAA=</HashCode>
+      <FileName>VBullitin\IVBulletinParser.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Grabber.VBullitin.IVBulletinLog" Collapsed="true">
+    <Position X="21.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VBullitin\VBulletinGrabber.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Grabber.VBullitin.IVBulletinPageLoader" Collapsed="true">
+    <Position X="23" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAkAAAAAAAAAAAAAAAAAAoAAAQAAAQAAAEAAgAAAA=</HashCode>
+      <FileName>VBullitin\VBulletinPageLoader.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

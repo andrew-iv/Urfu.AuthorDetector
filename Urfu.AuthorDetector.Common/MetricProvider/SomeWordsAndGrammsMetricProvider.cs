@@ -1,31 +1,6 @@
-﻿using Ninject;
-using Opcorpora.Dictionary;
-using System.Linq;
-
-namespace Urfu.AuthorDetector.Common
+﻿namespace Urfu.AuthorDetector.Common.MetricProvider
 {
-
-    public class AllPostMetricProvider : BasePostMetricProvider
-    {
-        protected override string[] UseNgramms
-        {
-            get { return StaticVars.Top3Gramms; }
-        }
-
-        protected override string[] UseWords
-        {
-            get { return StaticVars.TopRuWords; }
-        }
-
-        protected override string[] Grammemes
-        {
-            get { return StaticVars.Kernel.Get<IOpcorporaDictionary>().Grammemes.Select(x => x.name).Where(x=>x!=null).ToArray(); }
-        }
-    }
-
-
-
-    public class SelectedPostMetricProvider : BasePostMetricProvider
+    public class SomeWordsAndGrammsMetricProvider : BaseAllPostMetricProvider
     {
         private readonly string[] _useNgramms = new [] { " не", " по", "то ", "не ", " пр", " на", "ть ", " и ", " в ", " то", 
             " чт", "ост", "это", " эт", "ли ", " та", "ак ", "ени", ", ч", " с ", " а ", ", н", " - ", "ты ", ", к", "е, ", " я ", 

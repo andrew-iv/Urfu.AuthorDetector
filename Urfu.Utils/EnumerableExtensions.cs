@@ -6,6 +6,8 @@ namespace Urfu.Utils
 {
     public static class EnumerableExtensions
     {
+
+        
         public static T[] RandomSubArray<T>(this IEnumerable<T> array, int k, Random rand)
         {
             var asArray = array as T[] ?? array.ToArray();

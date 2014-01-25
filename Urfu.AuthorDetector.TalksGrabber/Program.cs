@@ -16,20 +16,20 @@ namespace Urfu.AuthorDetector.TalksGrabber
     {
         private static readonly DateTime Start = new DateTime(2012, 11, 1);
         private static readonly DateTime End = new DateTime(2012, 12, 1);
-        //private static readonly string forum = "http://hpc.name/";
 
         static void Main(string[] args)
         {
             var kernel = new StandardKernel(new RealModule());
+            //kernel.Rebind<IVBulletinParser>().To<XakeNameBulletinParser>();
 
-            
-                using (var storage = new ForumIdStorage(kernel.Get<IStatisticsContext>(), 3))
+
+            using (var storage = new ForumIdStorage(kernel.Get<IStatisticsContext>(), 1004))
                 {
                     var grabber =
-                        new VBulletinGrabber(new AchatBulletinParser(new VBulletinPageLoader(storage.Forum.ForumUrl, Encoding.GetEncoding(1251))), new VBulletinLog());
-                    storage.SavePosts(grabber.LoadForum(46,maxPage:300,ignoreThemes:
+                        new VBulletinGrabber(new XakeNameBulletinParser(new VBulletinPageLoader(storage.Forum.ForumUrl, Encoding.GetEncoding(1251))), new VBulletinLog());
+                    storage.SavePosts(grabber.LoadForum(41, maxPage: 300, ignoreThemes:
                         new SortedSet<long>(
-                            new long[]{104005,139152 }
+                            new long[] { 44825 }
                         )));
                 }
         }

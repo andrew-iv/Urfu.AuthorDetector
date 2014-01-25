@@ -5,11 +5,14 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Accord.Statistics.Analysis;
 using CsvHelper;
 using Ninject;
 using Ninject.Modules;
 using Urfu.AuthorDetector.Common;
 using Urfu.AuthorDetector.Common.Classification;
+using Urfu.AuthorDetector.Common.MetricProvider;
+using Urfu.AuthorDetector.Common.MetricProvider.Sentance;
 using Urfu.AuthorDetector.Common.Sentance;
 using Urfu.AuthorDetector.Common.StatMethods;
 using Urfu.AuthorDetector.DataLayer;
@@ -34,7 +37,10 @@ namespace Urfu.AuthorDetector.MetricsToCSV
         {
             public override void Load()
             {
-                Kernel.Bind<IPostMetricProvider>().To<AllPostMetricProvider>().InThreadScope();
+                Kernel.Unbind<IPostMetricProvider>();
+                Kernel.Bind<IPostMetricProvider>().To<AllAllPostMetricProvider>().InThreadScope();
+                //Kernel.Bind<IMultiplyMetricsProvider>().To<ISentenceMetricProvider>().InSingletonScope();
+
 
 
                 /*Kernel.Bind<IMetricSelector>().ToConstructor(x=>new Chi2ForAuthorMetricSelector(x.Context.Request.Parameters))
@@ -54,14 +60,14 @@ namespace Urfu.AuthorDetector.MetricsToCSV
             var topCount = int.Parse(appSettings.Get("TopAuthors"));
             var startYear = int.Parse(appSettings.Get("StartYear"));
             var endYear = int.Parse(appSettings.Get("EndYear"));
-            _kernel = new StandardKernel(new CommonModule(), new LorModule(), new MetricModule());
+            _kernel = new StandardKernel(new CommonModule(), new LorModule() /*, new MetricModule()*/);
             StaticVars.Kernel = _kernel;
 
             _dataExtractor = _kernel.Get<IDataExtractor>();
             _context = _kernel.Get<IStatisticsContext>();
 
             var filter = _kernel.Get<IPostsQueryFilter>();
-            var postsQuery = filter.FilterDate(filter.OnlyForum(_context.Posts, 3),
+            var postsQuery = filter.FilterDate(filter.OnlyForum(_context.Posts, 2),
                                                new DateTime(startYear, int.Parse(appSettings.Get("StartMonth")), 1),
                                                new DateTime(endYear, 1, 1));
             _authors = filter.TopAuthors(postsQuery, 0
@@ -122,7 +128,7 @@ namespace Urfu.AuthorDetector.MetricsToCSV
 
         private static void WriteMetricsToFile(string fileName, IEnumerable<double[]> metrics, ICommonMetricProvider setprovider = null)
         {
-            var provider = setprovider?? _kernel.Get<ISentenceMetricProvider>();
+            var provider = setprovider?? _kernel.Get<IMultiplyMetricsProvider>();
             using (var file = File.Open(fileName, FileMode.Create, FileAccess.Write))
             using (var writer = new CsvWriter(new StreamWriter(file)))
             {
@@ -143,15 +149,15 @@ namespace Urfu.AuthorDetector.MetricsToCSV
         private static void WriteSentenceStats()
         {
             
-            var provider = _kernel.Get<ISentenceMetricProvider>();
+            var provider = _kernel.Get<IMultiplyMetricsProvider>();
             //var allMetrics = new List<double[]>();
 
             var allMetrics = _authorPosts.ToDictionary(x=>x.Key,x=>x.Value.SelectMany( provider.GetMetrics) .ToArray());
                                       
 
-            var trans = new PcaMetricTransformer(allMetrics.SelectMany(x=>x.Value));
+            var trans = new PcaMetricTransformer(allMetrics.SelectMany(x=>x.Value),method:AnalysisMethod.Standardize);
             //trans.ApplyFilter(allMetrics,new );
-            trans.ApplyFilter(allMetrics.Select(x=>x.Value),new KSTwoSampleTestMetricValuenceFilterImpl());
+            //trans.ApplyFilter(allMetrics.Select(x=>x.Value),new KSTwoSampleTestMetricValuenceFilterImpl());
 
 
             foreach (var author in allMetrics)
@@ -165,7 +171,7 @@ namespace Urfu.AuthorDetector.MetricsToCSV
 
                 WriteMetricsToFile(author.Key + "-sent-stat.csv", author.Value,provider);
 
-                WriteMetricsToFile(author.Key + "-sent-stat-comp.csv",  author.Value.Select(trans.GetMetric) , trans);
+                //WriteMetricsToFile(author.Key + "-sent-stat-comp.csv",  author.Value.Select(trans.GetMetric) , trans);
 
               
 

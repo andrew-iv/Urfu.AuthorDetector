@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Urfu.AuthorDetector.Common.Sentance;
 
-namespace Urfu.AuthorDetector.Common.Sentance
+namespace Urfu.AuthorDetector.Common.MetricProvider.Sentance
 {
     public class PunctuationMetricProvider : BaseSentenceMetricProvider
     {

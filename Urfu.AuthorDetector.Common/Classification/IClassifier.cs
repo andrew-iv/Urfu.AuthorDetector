@@ -10,4 +10,6 @@ namespace Urfu.AuthorDetector.Common.Classification
         string Description { get; }
         string Name { get; }
     }
+
+    
 }

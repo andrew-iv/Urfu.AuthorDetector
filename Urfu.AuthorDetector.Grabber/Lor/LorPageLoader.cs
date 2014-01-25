@@ -1,9 +1,8 @@
 ﻿using System;
 using HtmlAgilityPack;
 using Urfu.AuthorDetector.Grabber.Common;
-using Urfu.AuthorDetector.Grabber.Lor;
 
-namespace Urfu.AuthorDetector.Grabber
+namespace Urfu.AuthorDetector.Grabber.Lor
 {
     public class LorPageLoader: BasePageLoader, ILorPageLoader
     {

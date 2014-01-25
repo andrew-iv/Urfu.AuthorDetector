@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Urfu.AuthorDetector.Common.Sentance;
 using Urfu.Utils;
 
-namespace Urfu.AuthorDetector.Common.Sentance
+namespace Urfu.AuthorDetector.Common.MetricProvider.Sentance
 {
     public abstract class BaseSentenceMetricProvider : ISentenceMetricProvider
     {
@@ -19,6 +20,11 @@ namespace Urfu.AuthorDetector.Common.Sentance
 
         public int Size {
             get { return Names.Count(); }
+        }
+
+        public double[][] GetMetrics(IEnumerable<string> text)
+        {
+            return text.SelectMany(GetMetrics).ToArray();
         }
     }
 }

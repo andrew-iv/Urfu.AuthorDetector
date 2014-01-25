@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using Urfu.AuthorDetector.Common.Sentance;
 
-namespace Urfu.AuthorDetector.Common.Sentance
+namespace Urfu.AuthorDetector.Common.MetricProvider.Sentance
 {
     public class LengthMetricProvider : BaseSentenceMetricProvider
     {

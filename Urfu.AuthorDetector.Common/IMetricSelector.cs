@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Urfu.AuthorDetector.Common.MetricProvider;
 
 namespace Urfu.AuthorDetector.Common
 {
