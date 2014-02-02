@@ -7,4 +7,10 @@ namespace Urfu.AuthorDetector.Common.MetricProvider
 
         double[] GetMetrics(string text);
     }
+
+    public interface ICommonMetricProvider : IMetricProviderInfo
+    {
+
+        double[][] GetMetrics(IEnumerable<string> text);
+    }
 }

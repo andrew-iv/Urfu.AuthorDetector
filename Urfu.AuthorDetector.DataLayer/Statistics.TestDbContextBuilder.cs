@@ -38,6 +38,18 @@ namespace Urfu.AuthorDetector.DataLayer
     
     		public InMemoryDbSet<Forum> ForumSet = new InMemoryDbSet<Forum>();
     
+    	   
+    
+    		public InMemoryDbSet<ClassifierVersion> ClassifierVersionSet = new InMemoryDbSet<ClassifierVersion>();
+    
+    	   
+    
+    		public InMemoryDbSet<ClassifierResult> ClassifierResultSet = new InMemoryDbSet<ClassifierResult>();
+    
+    	   
+    
+    		public InMemoryDbSet<ClassifierParams> ClassifierParamsSet = new InMemoryDbSet<ClassifierParams>();
+    
     	
     	    public virtual Mock<IStatisticsContext>  BuildMockDbContext(MockBehavior mockBehavior)
     	    {
@@ -74,6 +86,30 @@ namespace Urfu.AuthorDetector.DataLayer
         		mockDbContext
                     .Setup(context => context.Add(It.IsAny<Forum>()))
                     .Callback((Forum dataRow) => ForumSet.Add(dataRow));		
+    	   	
+    			mockDbContext
+    				.Setup(context => context.ClassifierVersionSet)
+    				.Returns(ClassifierVersionSet);
+    
+        		mockDbContext
+                    .Setup(context => context.Add(It.IsAny<ClassifierVersion>()))
+                    .Callback((ClassifierVersion dataRow) => ClassifierVersionSet.Add(dataRow));		
+    	   	
+    			mockDbContext
+    				.Setup(context => context.ClassifierResultSet)
+    				.Returns(ClassifierResultSet);
+    
+        		mockDbContext
+                    .Setup(context => context.Add(It.IsAny<ClassifierResult>()))
+                    .Callback((ClassifierResult dataRow) => ClassifierResultSet.Add(dataRow));		
+    	   	
+    			mockDbContext
+    				.Setup(context => context.ClassifierParamsSet)
+    				.Returns(ClassifierParamsSet);
+    
+        		mockDbContext
+                    .Setup(context => context.Add(It.IsAny<ClassifierParams>()))
+                    .Callback((ClassifierParams dataRow) => ClassifierParamsSet.Add(dataRow));		
     		
     			return mockDbContext;	
     		}
@@ -95,6 +131,12 @@ namespace Urfu.AuthorDetector.DataLayer
     			&& context.Authors == Authors.AsQueryable()	
     	   
     			&& context.ForumSet == ForumSet.AsQueryable()	
+    	   
+    			&& context.ClassifierVersionSet == ClassifierVersionSet.AsQueryable()	
+    	   
+    			&& context.ClassifierResultSet == ClassifierResultSet.AsQueryable()	
+    	   
+    			&& context.ClassifierParamsSet == ClassifierParamsSet.AsQueryable()	
     				);
     		return dbContext;
     		}

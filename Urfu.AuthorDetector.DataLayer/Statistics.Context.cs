@@ -40,5 +40,8 @@ namespace Urfu.AuthorDetector.DataLayer
         public IDbSet<Theme> Themes { get; set; }
         public IDbSet<Author> Authors { get; set; }
         public IDbSet<Forum> ForumSet { get; set; }
+        public IDbSet<ClassifierVersion> ClassifierVersionSet { get; set; }
+        public IDbSet<ClassifierResult> ClassifierResultSet { get; set; }
+        public IDbSet<ClassifierParams> ClassifierParamsSet { get; set; }
     }
 }

@@ -19,6 +19,9 @@ namespace Urfu.AuthorDetector.Common.ParameterSelection
         /// Количество тестов одного и тогоже классификатора
         /// </summary>
         int TestsInRoundCount { get; set; }
+
+        int LearningCount { get; set; }
+        int MessageCount { get; set; }
         double Score(IClassifierFactory factory, int seed=0);
     }
 }

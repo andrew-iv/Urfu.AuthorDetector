@@ -7,6 +7,6 @@ namespace Urfu.AuthorDetector.Common
     {
 
 
-        IEnumerable<int> SelectMetrics(IPostMetricProvider postMetricProvider);
+        IEnumerable<int> SelectMetrics(ICommonMetricProvider postMetricProvider);
     }
 }

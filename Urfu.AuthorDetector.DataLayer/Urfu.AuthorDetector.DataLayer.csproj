@@ -52,6 +52,15 @@
     <Compile Include="Author.cs">
       <DependentUpon>Statistics.tt</DependentUpon>
     </Compile>
+    <Compile Include="ClassifierParams.cs">
+      <DependentUpon>Statistics.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ClassifierResult.cs">
+      <DependentUpon>Statistics.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ClassifierVersion.cs">
+      <DependentUpon>Statistics.tt</DependentUpon>
+    </Compile>
     <Compile Include="Forum.cs">
       <DependentUpon>Statistics.tt</DependentUpon>
     </Compile>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Accord.MachineLearning.VectorMachines;
 using Accord.MachineLearning.VectorMachines.Learning;
@@ -10,121 +11,161 @@ using Urfu.AuthorDetector.DataLayer;
 namespace Urfu.AuthorDetector.Common.Classification
 {
 
-
-
-    public class MSvmClassifier : IClassifier
+    class MultyKSvmStatistics
     {
-        private readonly IDictionary<Author, IEnumerable<string>> _authors;
-        private readonly ICommonMetricProvider _commonProvider;
-        private string[] _allPosts;
-        private Author[] _keys;
-        private KeyValuePair<int, double[]>[] _authorsMetrics;
-        private KeyValuePair<int, double[]> _stdDevs; 
-
-        private MultyKSvmStatistics _stat;
-
-        public MSvmClassifier(IDictionary<Author, IEnumerable<string>> authors, ICommonMetricProvider commonProvider = null)
-        {
-            _authors = authors;
-            _keys = authors.Keys.ToArray();
-
-
-            _commonProvider = commonProvider;
-
-            _allPosts = authors.SelectMany(x => x.Value).ToArray();
-            if (_commonProvider != null)
-                InitPostProvider();
-
-        }
-
-        private void InitPostProvider()
-        {
-            _authorsMetrics = _authors.Select(x=>new{x.Key, Value = _commonProvider.GetMetrics(x.Value)}) .SelectMany(aut =>
-                {
-                    var ind = Enumerable.Range(0, _keys.Length).First(i => _keys[i] == aut.Key);
-                    return aut.Value.Select(x =>
-                                            new KeyValuePair<int, double[]>(ind, x));
-                }).ToArray();
-
-            var kernel =  new Polynomial(4,1); //Laplacian.Estimate(_authorsMetrics.Select(x => x.Value).ToArray());
-            _stat = new MultyKSvmStatistics(_commonProvider.Size, _authors.Count, kernel);
-            _stat.Study(_authorsMetrics);
-
-        }
-
-        public IEnumerable<Author> Authors { get { return _keys; } }
-        public Author ClassificatePosts(IEnumerable<string> posts)
-        {
-            return _keys[
-                _commonProvider.GetMetrics(posts).Select(x => _stat.Classify(x)).ToArray().GroupBy(x => x)
-                    .Select(x
-                     => new { cnt = x.Count(), id = x.Key }
-                    )
-                    .OrderByDescending(x => x.cnt).First().id];
-        }
-
-        public string Description { get { return "SvmClassifier"; } }
-        public string Name { get { return "SvmClassifier"; } }
-    }
-
-    public class MultyKSvmStatistics
-    {
+        private readonly MSvmClassifierParams _prms;
         private readonly int _dimension;
-        private readonly IKernel _kernel;
+
         private readonly int _classes;
-        private readonly MulticlassSupportVectorMachine _svm;
+        private MulticlassSupportVectorMachine _svm;
         private SelectionStrategy _strategy = SelectionStrategy.Sequential;
-        private double _complexity = 1d;
-        private double _tolerance = 0.25;
+        private double _complexity = 10d;
+        private double _tolerance = 0.0001;
+        private IDictionary<Author, IEnumerable<string>> _authors;
+        private Author[] _keys;
+        private ICommonMetricProvider _provider;
+        private string[] _allPosts;
+        private double[] _variance;
+        private int[] _allIndex;
+        private double[][] _allMetrics;
+        private IKernel _kernel = new Polynomial(3);
 
-        public MultyKSvmStatistics(int dimension, int classes, IKernel kernel = null)
+        public IKernel Kernel
         {
+            get { return _kernel; }
+            set { _kernel = value; }
+        }
+
+
+        public MultyKSvmStatistics(MSvmClassifierParams prms, IDictionary<Author, IEnumerable<string>> authors)
+        {
+            _prms = prms;
+
+            _dimension = _prms.CommonProvider.Size;
+            //_authors = authors;
+
+            _keys = authors.Keys.ToArray();
+            var authorsDict = Enumerable.Range(0, _keys.Length).ToDictionary(x => _keys[x], x => x);
+            _provider = _prms.CommonProvider;
+            var authorMetricsRow = authors.ToDictionary(x => authorsDict[x.Key],
+                                                        x => _prms.Transform(_provider.GetMetrics(x.Value))
+                                                            .ToArray()
+                );
+            _variance =
+                authorMetricsRow.Select(x => x.Value.CalculateVariance()).ToArray().CalculateAverage();
+
+            _allIndex = authorMetricsRow.SelectMany(x => x.Value.Select(xx =>
+                                                                 x.Key)).ToArray();
+            _allMetrics = authorMetricsRow.SelectMany(x => x.Value.Select(DevideByVariance)).ToArray();
+        }
+
+        public IKernel EstimateGaussian
+        {
+            get { return Gaussian.Estimate(_allMetrics); }
+        }
+
+        public bool StudyProbalistic { get; set; }
+
+        public SupportVectorMachineLearningConfigurationFunction LearningAlgorithm
+        {
+            get
+            {
+                if (_prms.Algorithm == MSvmClassifierParams.LearningAlgorithm.LS_SVM)
+                {
+                    return (svm, classInputs, classOutputs, i, j) =>
+                    {
+                        var comp = SequentialMinimalOptimization.EstimateComplexity(svm.Kernel, classInputs);
+                        return new LeastSquaresLearning(svm, classInputs, classOutputs)
+                        {
+                            Complexity = comp
+                        };
+                    };
+
+                }
+                else
+                {
+                    return (svm, classInputs, classOutputs, i, j) =>
+                        {
+                            var comp = SequentialMinimalOptimization.EstimateComplexity(svm.Kernel, classInputs);
+                            // Use Platt's Sequential Minimal Optimization algorithm
+                            return new SequentialMinimalOptimization(svm, classInputs, classOutputs)
+                                {
+                                    Complexity = comp
+                                };
+                        };
+                }
+            }
+        }
+
+
+        public void Study()
+        {
+
             
-            _dimension = dimension;
-            _kernel = kernel;
-            _classes = classes;
-            _svm = _kernel == null
-                       ? new MulticlassSupportVectorMachine(dimension, classes)
-                       : new MulticlassSupportVectorMachine(dimension, kernel, classes);
-        }
-
-        public void Study(IEnumerable<KeyValuePair<int, double[]>> data)
-        {
-            var keyValuePairs = data as KeyValuePair<int, double[]>[] ?? data.ToArray();
-            var input = keyValuePairs.Select(x => x.Value).ToArray();
-            var output = keyValuePairs.Select(x => x.Key).ToArray();
-            var ml = new MulticlassSupportVectorLearning(_svm, input, output)
-                {
-                    // Configure the learning algorithm
-                    Algorithm = (svm, classInputs, classOutputs, i, j) =>
-
-                                // Use Platt's Sequential Minimal Optimization algorithm
-                                new SequentialMinimalOptimization(svm, classInputs, classOutputs)
-                                    {
-                                        //Complexity = Complexity,
-                                        Tolerance = Tolerance,
-                                        PositiveWeight = 1d,
-                                        NegativeWeight = 1d,
-                                        UseClassProportions = true,
-                                        //Strategy = Strategy,
-                                        //Compact = (_kernel is Linear)
-
-                                    }
-                };
+            _svm = new MulticlassSupportVectorMachine(_dimension, Kernel, _keys.Length);
+            ISupportVectorMachineLearning ml = new MulticlassSupportVectorLearning(_svm, _allMetrics, _allIndex)
+            {
+                // Configure the learning algorithm
+                Algorithm = LearningAlgorithm
+            };
             ml.Run(true);
-            new MulticlassSupportVectorLearning(_svm, input, output)
-                {
-                    Algorithm = (svm, classInputs, classOutputs, i, j) =>
-                                new ProbabilisticOutputLearning(svm, classInputs, classOutputs)
-                }.Run();
+            if (StudyProbalistic)
+            {
+                new MulticlassSupportVectorLearning(_svm, _allMetrics, _allIndex)
+                    {
+                        Algorithm = (svm, classInputs, classOutputs, i, j) =>
+                                    new ProbabilisticOutputLearning(svm, classInputs, classOutputs)
+                                        {
 
+                                        }
+                    }.Run();
+            }
         }
+
+        private double[] DevideByVariance(IEnumerable<double> actual)
+        {
+            return actual.Zip(_variance, (d, d1) => d / d1).ToArray();
+        }
+
+        public IDictionary<Author, double> GetProbabilities(IEnumerable<string> posts)
+        {
+            int i = 0;
+            return _provider.GetMetrics(posts).Select(DevideByVariance).Select(x =>
+                {
+                    double[] result;
+                    _svm.Compute(x, out result);
+                    return result;
+                }).Aggregate((acc, add) =>
+                    {
+                        acc = acc == null ? add : add.Zip(acc, (d, d1) => d*d1).ToArray();
+                        var max = acc.Max();
+                        return acc.Select(x => x/max).ToArray();
+                    }).ToDictionary(item => _keys[i++]);
+        }
+
+        public IDictionary<Author, int> GetTops(IEnumerable<string> posts)
+        {
+            int i = 0;
+            var cnts =
+                _provider.GetMetrics(posts)
+                         .Select(DevideByVariance)
+                         .Select(x => _svm.Compute(x))
+                         .GroupBy(x => x)
+                         .ToDictionary(x => _keys[x.Key], x => x.Count());
+            foreach (var k in _keys.Where(x=>!cnts.Keys.Contains(x)))
+            {
+                cnts.Add(k,0);
+            }
+
+            return cnts;
+        }
+
 
         public int Classify(double[] vec,
                              out double res,
                              MulticlassComputeMethod method = MulticlassComputeMethod.Elimination)
         {
-            return _svm.Compute(vec,method, out res);
+            return _svm.Compute(vec, method, out res);
         }
 
         public int Classify(double[] vec,
@@ -137,7 +178,7 @@ namespace Urfu.AuthorDetector.Common.Classification
         public int Classify(double[] vec,
                              MulticlassComputeMethod method = MulticlassComputeMethod.Elimination)
         {
-            return _svm.Compute(vec,method);
+            return _svm.Compute(vec, method);
         }
 
         public double Tolerance
@@ -157,5 +198,7 @@ namespace Urfu.AuthorDetector.Common.Classification
             get { return _strategy; }
             set { _strategy = value; }
         }
+
+        
     }
 }

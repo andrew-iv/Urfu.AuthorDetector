@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Accord;
 using Urfu.AuthorDetector.Common.Classification;
 using Urfu.AuthorDetector.DataLayer;
 using Urfu.Utils;
@@ -47,7 +48,7 @@ namespace Urfu.AuthorDetector.Common.ParameterSelection
         }
 
         public int MessageCount
-        {
+        {   
             get
             {
                 lock (this)
@@ -115,6 +116,10 @@ namespace Urfu.AuthorDetector.Common.ParameterSelection
         {
             lock (this)
             {
+                try
+                {
+
+                
                 int success = 0;
                 _random = new Random(seed);
                 for (int i = 0; i < RoundCount; i++)
@@ -130,6 +135,17 @@ namespace Urfu.AuthorDetector.Common.ParameterSelection
                     }
                 }
                 return ((double) success)/TestsInRoundCount/RoundCount;
+                }
+                catch (ConvergenceException exc)
+                {
+
+                    return -1d;
+                }
+                catch (Exception exc)
+                {
+
+                    return -2d;
+                }
             }
         }
     }

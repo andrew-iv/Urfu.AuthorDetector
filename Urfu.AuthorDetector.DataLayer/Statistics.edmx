@@ -10,6 +10,9 @@
     <EntitySet Name="Themes" EntityType="Statistics.Store.Themes" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Authors" EntityType="Statistics.Store.Authors" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ForumSet" EntityType="Statistics.Store.ForumSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ClassifierVersionSet" EntityType="Statistics.Store.ClassifierVersionSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ClassifierResultSet" EntityType="Statistics.Store.ClassifierResultSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ClassifierParamsSet" EntityType="Statistics.Store.ClassifierParamsSet" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="PostAuthor" Association="Statistics.Store.PostAuthor">
       <End Role="Post" EntitySet="Posts" />
       <End Role="Author" EntitySet="Authors" />
@@ -25,6 +28,14 @@
     <AssociationSet Name="ForumAuthor" Association="Statistics.Store.ForumAuthor">
       <End Role="Forum" EntitySet="ForumSet" />
       <End Role="Author" EntitySet="Authors" />
+    </AssociationSet>
+    <AssociationSet Name="ClassifierVersionClassifierResult" Association="Statistics.Store.ClassifierVersionClassifierResult">
+      <End Role="ClassifierVersion" EntitySet="ClassifierVersionSet" />
+      <End Role="ClassifierResult" EntitySet="ClassifierResultSet" />
+    </AssociationSet>
+    <AssociationSet Name="ClassifierResultClassifierParams" Association="Statistics.Store.ClassifierResultClassifierParams">
+      <End Role="ClassifierResult" EntitySet="ClassifierResultSet" />
+      <End Role="ClassifierParams" EntitySet="ClassifierParamsSet" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Posts">
@@ -64,6 +75,35 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ForumUrl" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="ClassifierVersionSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ClassifierResultSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoundCount" Type="int" Nullable="false" />
+    <Property Name="TestsPerRound" Type="int" Nullable="false" />
+    <Property Name="MessageCount" Type="int" Nullable="false" />
+    <Property Name="LearningCount" Type="int" Nullable="false" />
+    <Property Name="DateTime" Type="datetime" Nullable="false" />
+    <Property Name="Result" Type="float" Nullable="false" />
+    <Property Name="ClassifierVersion_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ClassifierParamsSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Key" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ClassifierResult_Id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="PostAuthor">
     <End Role="Post" Type="Statistics.Store.Posts" Multiplicity="*" />
@@ -113,6 +153,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="ClassifierVersionClassifierResult">
+    <End Role="ClassifierVersion" Type="Statistics.Store.ClassifierVersionSet" Multiplicity="1" />
+    <End Role="ClassifierResult" Type="Statistics.Store.ClassifierResultSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ClassifierVersion">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ClassifierResult">
+        <PropertyRef Name="ClassifierVersion_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ClassifierResultClassifierParams">
+    <End Role="ClassifierResult" Type="Statistics.Store.ClassifierResultSet" Multiplicity="1" />
+    <End Role="ClassifierParams" Type="Statistics.Store.ClassifierParamsSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ClassifierResult">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ClassifierParams">
+        <PropertyRef Name="ClassifierResult_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -137,6 +201,17 @@
           <AssociationSet Name="ForumAuthor" Association="Statistics.ForumAuthor">
             <End Role="Forum" EntitySet="ForumSet" />
             <End Role="Author" EntitySet="Authors" />
+          </AssociationSet>
+          <EntitySet Name="ClassifierVersionSet" EntityType="Statistics.ClassifierVersion" />
+          <EntitySet Name="ClassifierResultSet" EntityType="Statistics.ClassifierResult" />
+          <EntitySet Name="ClassifierParamsSet" EntityType="Statistics.ClassifierParams" />
+          <AssociationSet Name="ClassifierVersionClassifierResult" Association="Statistics.ClassifierVersionClassifierResult">
+            <End Role="ClassifierVersion" EntitySet="ClassifierVersionSet" />
+            <End Role="ClassifierResult" EntitySet="ClassifierResultSet" />
+          </AssociationSet>
+          <AssociationSet Name="ClassifierResultClassifierParams" Association="Statistics.ClassifierResultClassifierParams">
+            <End Role="ClassifierResult" EntitySet="ClassifierResultSet" />
+            <End Role="ClassifierParams" EntitySet="ClassifierParamsSet" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Post">
@@ -197,6 +272,45 @@
           <End Type="Statistics.Forum" Role="Forum" Multiplicity="1" />
           <End Type="Statistics.Author" Role="Author" Multiplicity="*" />
         </Association>
+        <EntityType Name="ClassifierVersion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <NavigationProperty Name="ClassifierResult" Relationship="Statistics.ClassifierVersionClassifierResult" FromRole="ClassifierVersion" ToRole="ClassifierResult" />
+        </EntityType>
+        <EntityType Name="ClassifierResult">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="RoundCount" Nullable="false" />
+          <Property Type="Int32" Name="TestsPerRound" Nullable="false" />
+          <Property Type="Int32" Name="MessageCount" Nullable="false" />
+          <Property Type="Int32" Name="LearningCount" Nullable="false" />
+          <NavigationProperty Name="ClassifierVersion" Relationship="Statistics.ClassifierVersionClassifierResult" FromRole="ClassifierResult" ToRole="ClassifierVersion" />
+          <NavigationProperty Name="ClassifierParams" Relationship="Statistics.ClassifierResultClassifierParams" FromRole="ClassifierResult" ToRole="ClassifierParams" />
+          <Property Type="DateTime" Name="DateTime" Nullable="false" />
+          <Property Type="Double" Name="Result" Nullable="false" cg:SetterAccess="Public" />
+        </EntityType>
+        <EntityType Name="ClassifierParams">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Key" Nullable="false" />
+          <Property Type="String" Name="Value" Nullable="false" />
+          <NavigationProperty Name="ClassifierResult" Relationship="Statistics.ClassifierResultClassifierParams" FromRole="ClassifierParams" ToRole="ClassifierResult" />
+        </EntityType>
+        <Association Name="ClassifierVersionClassifierResult">
+          <End Type="Statistics.ClassifierVersion" Role="ClassifierVersion" Multiplicity="1" />
+          <End Type="Statistics.ClassifierResult" Role="ClassifierResult" Multiplicity="*" />
+        </Association>
+        <Association Name="ClassifierResultClassifierParams">
+          <End Type="Statistics.ClassifierResult" Role="ClassifierResult" Multiplicity="1" />
+          <End Type="Statistics.ClassifierParams" Role="ClassifierParams" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -241,6 +355,36 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ClassifierVersionSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Statistics.ClassifierVersion)">
+        <MappingFragment StoreEntitySet="ClassifierVersionSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ClassifierResultSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Statistics.ClassifierResult)">
+        <MappingFragment StoreEntitySet="ClassifierResultSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RoundCount" ColumnName="RoundCount" />
+          <ScalarProperty Name="TestsPerRound" ColumnName="TestsPerRound" />
+          <ScalarProperty Name="MessageCount" ColumnName="MessageCount" />
+          <ScalarProperty Name="LearningCount" ColumnName="LearningCount" />
+          <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+          <ScalarProperty Name="Result" ColumnName="Result" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ClassifierParamsSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Statistics.ClassifierParams)">
+        <MappingFragment StoreEntitySet="ClassifierParamsSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="PostAuthor" TypeName="Statistics.PostAuthor" StoreEntitySet="Posts">
       <EndProperty Name="Author">
         <ScalarProperty Name="Id" ColumnName="Author_Id" />
@@ -271,6 +415,22 @@
         <ScalarProperty Name="Id" ColumnName="Forum_Id" />
       </EndProperty>
       <EndProperty Name="Author">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ClassifierVersionClassifierResult" TypeName="Statistics.ClassifierVersionClassifierResult" StoreEntitySet="ClassifierResultSet">
+      <EndProperty Name="ClassifierVersion">
+        <ScalarProperty Name="Id" ColumnName="ClassifierVersion_Id" />
+      </EndProperty>
+      <EndProperty Name="ClassifierResult">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ClassifierResultClassifierParams" TypeName="Statistics.ClassifierResultClassifierParams" StoreEntitySet="ClassifierParamsSet">
+      <EndProperty Name="ClassifierResult">
+        <ScalarProperty Name="Id" ColumnName="ClassifierResult_Id" />
+      </EndProperty>
+      <EndProperty Name="ClassifierParams">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>

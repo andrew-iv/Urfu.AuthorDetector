@@ -93,6 +93,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AverageSingleMetricProvider.cs" />
+    <Compile Include="Classification\MSvmClassifier.cs" />
+    <Compile Include="Classification\MSvmClassifierParams.cs" />
     <Compile Include="Classification\MultyKSvmStatistics.cs" />
     <Compile Include="GroupByNMetricProvider.cs" />
     <Compile Include="IGroupMetricProvider.cs" />
@@ -128,6 +130,7 @@
     <Compile Include="ICommonMetricProvider.cs" />
     <Compile Include="IDataExtractor.cs" />
     <Compile Include="IForumStorage.cs" />
+    <Compile Include="MetricProvider\GrammemesPostMetricProvider.cs" />
     <Compile Include="MetricProvider\IPostMetricProvider.cs" />
     <Compile Include="IMetricSelector.cs" />
     <Compile Include="LorDataExtractor.cs" />
@@ -140,6 +143,7 @@
     <Compile Include="ParameterSelection\IndexSelectionStrategy.cs" />
     <Compile Include="ParameterSelection\IPostMetricProviderStrategyProxy.cs" />
     <Compile Include="ParameterSelection\StrategyProxyBase.cs" />
+    <Compile Include="Pars.cs" />
     <Compile Include="PostBrief.cs" />
     <Compile Include="PostInfo.cs" />
     <Compile Include="LorStorage.cs" />

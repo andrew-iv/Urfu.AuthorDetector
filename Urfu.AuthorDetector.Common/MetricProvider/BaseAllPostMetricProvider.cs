@@ -74,6 +74,24 @@ namespace Urfu.AuthorDetector.Common.MetricProvider
         public abstract double[] GetMetrics(string text);
     }
 
+    public class SimpleStatMetricProvider:BaseAllPostMetricProvider
+    {
+        protected override string[] UseNgramms
+        {
+            get { return null; }
+        }
+
+        protected override string[] UseWords
+        {
+            get { return null; }
+        }
+
+        protected override string[] Grammemes
+        {
+            get { return null; }
+        }
+    }
+
     public abstract class BaseAllPostMetricProvider : IPostMetricProvider
     {
         private readonly MetricsHeper _metricsHeper = new MetricsHeper();

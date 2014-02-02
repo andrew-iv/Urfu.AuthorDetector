@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 12/24/2013 20:23:16
+-- Date Created: 01/31/2014 01:05:00
 -- Generated from EDMX file: C:\Users\andrew-iv\Documents\Visual Studio 2012\Projects\Urfu.AuthorDetector2\Urfu.AuthorDetector.DataLayer\Statistics.edmx
 -- --------------------------------------------------
 
@@ -29,6 +29,12 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ForumAuthor]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Authors] DROP CONSTRAINT [FK_ForumAuthor];
 GO
+IF OBJECT_ID(N'[dbo].[FK_ClassifierVersionClassifierResult]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ClassifierResultSet] DROP CONSTRAINT [FK_ClassifierVersionClassifierResult];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ClassifierResultClassifierParams]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ClassifierParamsSet] DROP CONSTRAINT [FK_ClassifierResultClassifierParams];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -45,6 +51,15 @@ IF OBJECT_ID(N'[dbo].[Authors]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[ForumSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ForumSet];
+GO
+IF OBJECT_ID(N'[dbo].[ClassifierVersionSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ClassifierVersionSet];
+GO
+IF OBJECT_ID(N'[dbo].[ClassifierResultSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ClassifierResultSet];
+GO
+IF OBJECT_ID(N'[dbo].[ClassifierParamsSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ClassifierParamsSet];
 GO
 
 -- --------------------------------------------------
@@ -89,6 +104,35 @@ CREATE TABLE [dbo].[ForumSet] (
 );
 GO
 
+-- Creating table 'ClassifierVersionSet'
+CREATE TABLE [dbo].[ClassifierVersionSet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(max)  NOT NULL
+);
+GO
+
+-- Creating table 'ClassifierResultSet'
+CREATE TABLE [dbo].[ClassifierResultSet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [RoundCount] int  NOT NULL,
+    [TestsPerRound] int  NOT NULL,
+    [MessageCount] int  NOT NULL,
+    [LearningCount] int  NOT NULL,
+    [DateTime] datetime  NOT NULL,
+    [Result] float  NOT NULL,
+    [ClassifierVersion_Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'ClassifierParamsSet'
+CREATE TABLE [dbo].[ClassifierParamsSet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Key] nvarchar(max)  NOT NULL,
+    [Value] nvarchar(max)  NOT NULL,
+    [ClassifierResult_Id] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -114,6 +158,24 @@ GO
 -- Creating primary key on [Id] in table 'ForumSet'
 ALTER TABLE [dbo].[ForumSet]
 ADD CONSTRAINT [PK_ForumSet]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'ClassifierVersionSet'
+ALTER TABLE [dbo].[ClassifierVersionSet]
+ADD CONSTRAINT [PK_ClassifierVersionSet]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'ClassifierResultSet'
+ALTER TABLE [dbo].[ClassifierResultSet]
+ADD CONSTRAINT [PK_ClassifierResultSet]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'ClassifierParamsSet'
+ALTER TABLE [dbo].[ClassifierParamsSet]
+ADD CONSTRAINT [PK_ClassifierParamsSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -175,6 +237,34 @@ ADD CONSTRAINT [FK_ForumAuthor]
 CREATE INDEX [IX_FK_ForumAuthor]
 ON [dbo].[Authors]
     ([Forum_Id]);
+GO
+
+-- Creating foreign key on [ClassifierVersion_Id] in table 'ClassifierResultSet'
+ALTER TABLE [dbo].[ClassifierResultSet]
+ADD CONSTRAINT [FK_ClassifierVersionClassifierResult]
+    FOREIGN KEY ([ClassifierVersion_Id])
+    REFERENCES [dbo].[ClassifierVersionSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ClassifierVersionClassifierResult'
+CREATE INDEX [IX_FK_ClassifierVersionClassifierResult]
+ON [dbo].[ClassifierResultSet]
+    ([ClassifierVersion_Id]);
+GO
+
+-- Creating foreign key on [ClassifierResult_Id] in table 'ClassifierParamsSet'
+ALTER TABLE [dbo].[ClassifierParamsSet]
+ADD CONSTRAINT [FK_ClassifierResultClassifierParams]
+    FOREIGN KEY ([ClassifierResult_Id])
+    REFERENCES [dbo].[ClassifierResultSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ClassifierResultClassifierParams'
+CREATE INDEX [IX_FK_ClassifierResultClassifierParams]
+ON [dbo].[ClassifierParamsSet]
+    ([ClassifierResult_Id]);
 GO
 
 -- --------------------------------------------------

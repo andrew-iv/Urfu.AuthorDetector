@@ -37,5 +37,17 @@ namespace Urfu.AuthorDetector.DataLayer
     
     	IDbSet<Forum> ForumSet	{ get; }
     
+       
+    
+    	IDbSet<ClassifierVersion> ClassifierVersionSet	{ get; }
+    
+       
+    
+    	IDbSet<ClassifierResult> ClassifierResultSet	{ get; }
+    
+       
+    
+    	IDbSet<ClassifierParams> ClassifierParamsSet	{ get; }
+    
     }
 }

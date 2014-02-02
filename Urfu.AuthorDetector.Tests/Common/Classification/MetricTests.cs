@@ -41,11 +41,11 @@ namespace Urfu.AuthorDetector.Tests.Common.Classification
             get
             {
                 yield return new TestCaseData(new Func<IEnumerable<IEnumerable<string>>,int,IMetricSelector>
-                    ((authors, topMetricsCount) => new Chi2ForAuthorMetricSelector(authors, topMetricsCount)))
+                    ((authors, topMetricsCount) => new Chi2HistogramTopMetricSelector(authors, topMetricsCount)))
                     .SetName("Chi2ForAuthorMetricSelector");
 
                 yield return new TestCaseData(new Func<IEnumerable<IEnumerable<string>>, int, IMetricSelector>
-                    ((authors, topMetricsCount) => new IntersectionForAuthorMetricSelector(authors, topMetricsCount)))
+                    ((authors, topMetricsCount) => new IntersectionHistogramTopMetricSelector(authors, topMetricsCount)))
                     .SetName("IntersectionForAuthorMetricSelector");
             }
         }

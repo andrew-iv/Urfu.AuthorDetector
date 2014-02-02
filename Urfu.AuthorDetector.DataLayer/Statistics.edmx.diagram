@@ -13,6 +13,11 @@
         <EntityTypeShape EntityType="Statistics.Forum" Width="1.5" PointX="9" PointY="2.5" />
         <AssociationConnector Association="Statistics.ForumTheme" />
         <AssociationConnector Association="Statistics.ForumAuthor" />
+        <EntityTypeShape EntityType="Statistics.ClassifierVersion" Width="1.5" PointX="0.875" PointY="5" />
+        <EntityTypeShape EntityType="Statistics.ClassifierResult" Width="1.5" PointX="1.75" PointY="7.25" />
+        <EntityTypeShape EntityType="Statistics.ClassifierParams" Width="2.125" PointX="2.75" PointY="5" />
+        <AssociationConnector Association="Statistics.ClassifierVersionClassifierResult" />
+        <AssociationConnector Association="Statistics.ClassifierResultClassifierParams" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -38,7 +38,7 @@ namespace Urfu.AuthorDetecor.ExperimentConsole
 ;
 
 
-        private static StandardKernel _kernel;
+        private static IKernel _kernel;
 
         private static void Test2(IClassifierFactory factory, string filePrefix, int authorsCount = 10)
         {
@@ -53,10 +53,11 @@ namespace Urfu.AuthorDetecor.ExperimentConsole
                         AuthorsCount = authorsCount,
                         LearningCount = 300,
                         RoundCount = 3,
-                        TestsInRoundCount = 2000
+                        TestsInRoundCount = 1000
 
                     };
-                foreach (var msgCount in Enumerable.Range(1, 2).Select(i => i * 25)/*.Concat(Enumerable.Range(1, 6).Select(i => i * 5 + 20))*/)
+                foreach (var msgCount in Enumerable.Range(1, 5).Select(i => i * 2)
+                    .Concat(Enumerable.Range(1, 4).Select(i => i * 5 + 10)))
                 {
                     benchmark.MessageCount = msgCount;
                     var score = benchmark.Score(factory, new Random().Next());
@@ -142,28 +143,28 @@ namespace Urfu.AuthorDetecor.ExperimentConsole
 
         static void Main(string[] args)
         {
-            _kernel = new StandardKernel(new CommonModule() { NeedCreateDictionary = false }, new LorModule(), new ExperimentModule());
-            StaticVars.Kernel = _kernel;
+            StaticVars.Kernel = new StandardKernel(new CommonModule() { NeedCreateDictionary = false }, new LorModule(), new ExperimentModule());
             StaticVars.InitializeTops(StaticVars.Kernel.Get<IDataSource>().GetPosts(30).SelectMany(x=>x.Value));
+            _kernel = StaticVars.Kernel;
 
             PcaMetricTransformer smpTrans = null;
-            var smp = PcaMetricTransformer.CreateSimpeMetricProvider(0.99f, out smpTrans, AnalysisMethod.Standardize);
-            /* PcaMetricTransformer mmpTrans = null;
-             var mmp = PcaMetricTransformer.CreateMultiplyMetricProvider(0.99f, out mmpTrans);
+            /*var smp = PcaMetricTransformer.CreateSimpeMetricProvider(0.99f, out smpTrans, AnalysisMethod.Standardize);
+           PcaMetricTransformer mmpTrans = null;
+            var mmp = PcaMetricTransformer.CreateMultiplyMetricProvider(0.99f, out mmpTrans);
 
 
-             Test2(new StupidPerecentileBayesClassifierFactory()
-                 {
-                     PostMetricProvider = smp,
-                     MultiplyMetricsProvider = mmp
-                 },"BC1",10);
+            Test2(new StupidPerecentileBayesClassifierFactory()
+                {
+                    PostMetricProvider = smp,
+                    MultiplyMetricsProvider = mmp
+                },"BC1",10);
 
-             Test2(new StupidPerecentileBayesClassifierFactory()
-             {
-                 //PostMetricProvider = smp,
-                 MultiplyMetricsProvider = mmp
-             }, "BC2", 10);
-             * */
+            Test2(new StupidPerecentileBayesClassifierFactory()
+            {
+                //PostMetricProvider = smp,
+                MultiplyMetricsProvider = mmp
+            }, "BC2", 10);
+            * */
 
             /*Test2(new StupidPerecentileBayesClassifierFactory()
             {
@@ -210,17 +211,42 @@ namespace Urfu.AuthorDetecor.ExperimentConsole
                             //MultiplyMetricsProvider = StaticVars.Kernel.Get<IMultiplyMetricsProvider>()
                         }, "BC5-2-" + auCount, auCount);
                 }
+               
+
 
                 Test2(new MSvmClassifierClassifierFactory()
                 {
+                    Params = new MSvmClassifierParams()
+                        {
+                            CommonProvider =
+                            new CombinedCommonMetricProvider(
+                            new UseNgramsMetricProvider(),
+                            new UseWordsMetricProvider())
+                        }
+                    /*//Probalistic = true,
                     CommonMetricProvider = new GroupByNMetricProvider(new AverageSingleMetricProvider(
-                        new CombinedCommonMetricProvider(
-                        new UseNgramsMetricProvider() /*, new UseWordsMetricProvider()*/)), 25),
+                        ), 5),*/
+                    /*MultiplyMetricsProvider = new SelectedMultiMetricProvider(PcaMetricTransformer.CreateMultiplyMetricProvider(0.995f, out smpTrans, AnalysisMethod.Standardize))
+                        {
+                            Indexes = new int[] { 0, 7, 28, 31, 33, 35, 40, 66, 72, 75, 77 }
+                        }*/ 
+                }, "BC5-3-" + auCount, auCount);
+
+                Test2(new MSvmClassifierClassifierFactory()
+                {
+                    Params = new MSvmClassifierParams()
+                    {
+                        CommonProvider =
+                        new UseWordsMetricProvider()
+                    }
+                    /*//Probalistic = true,
+                    CommonMetricProvider = new GroupByNMetricProvider(new AverageSingleMetricProvider(
+                        ), 5),*/
                     /*MultiplyMetricsProvider = new SelectedMultiMetricProvider(PcaMetricTransformer.CreateMultiplyMetricProvider(0.995f, out smpTrans, AnalysisMethod.Standardize))
                         {
                             Indexes = new int[] { 0, 7, 28, 31, 33, 35, 40, 66, 72, 75, 77 }
                         }*/
-                }, "BC5-3-" + auCount, auCount);
+                }, "BC5-4-" + auCount, auCount);
             }
 
 

@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Ninject;
 using Urfu.AuthorDetector.Common.Sentance;
 
-namespace Urfu.AuthorDetector.Common.MetricProvider.Sentance
+namespace Urfu.AuthorDetector.Common.MetricProvider
 {
-    public class GramemmeMetricProvider : BaseSentenceMetricProvider
+    public class GrammemesPostMetricProvider : BasePostMetricProvider
     {
-        public GramemmeMetricProvider()
+        public GrammemesPostMetricProvider():base()
         {
             var dict = StaticVars.Kernel.Get<Opcorpora.Dictionary.IOpcorporaDictionary>();
             _grammemes = dict.Grammemes.Select(x => x.name).ToArray();
@@ -24,22 +25,26 @@ namespace Urfu.AuthorDetector.Common.MetricProvider.Sentance
             }
         }
 
+        public override double[] GetMetrics(string text)
+        {
+            return GetSentenceMetrics(new SentanceInfo(text)).ToArray();
+        }
 
-        public override IEnumerable<double> GetSentenceMetrics(SentanceInfo si)
+        private IEnumerable<double> GetSentenceMetrics(SentanceInfo si)
         {
             var allG = si.Grammemes.SelectMany(x => x.Select(xx => xx.v)).GroupBy(x => x).ToDictionary(x => x.Key);
             foreach (var grammeme in _grammemes)
             {
                 if (allG.ContainsKey(grammeme))
                 {
-                    yield return allG[grammeme].Count();
+                    yield return allG[grammeme].Count()/(double) si.Length;
                 }
                 else
                 {
                     yield return 0;
                 }
             }
-            yield return si.UnknownWords.Length;
+            yield return si.UnknownWords.Length /(double) si.Length;
         }
     }
 }

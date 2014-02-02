@@ -49,8 +49,8 @@ namespace Urfu.AuthorDetector.MetricsToCSV
             }
         }
 
-        private const int TopsCount = 400;
-        private const int SelectParams = 1;
+        private const int TopsCount = 500;
+        private const int SelectParams = 5;
 
 
         private static void Init()
@@ -60,14 +60,15 @@ namespace Urfu.AuthorDetector.MetricsToCSV
             var topCount = int.Parse(appSettings.Get("TopAuthors"));
             var startYear = int.Parse(appSettings.Get("StartYear"));
             var endYear = int.Parse(appSettings.Get("EndYear"));
-            _kernel = new StandardKernel(new CommonModule(), new LorModule() /*, new MetricModule()*/);
+            _kernel = new StandardKernel(new CommonModule(){NeedCreateDictionary = true}, new LorModule() /*, new MetricModule()*/);
+            
             StaticVars.Kernel = _kernel;
 
             _dataExtractor = _kernel.Get<IDataExtractor>();
             _context = _kernel.Get<IStatisticsContext>();
 
             var filter = _kernel.Get<IPostsQueryFilter>();
-            var postsQuery = filter.FilterDate(filter.OnlyForum(_context.Posts, 2),
+            var postsQuery = filter.FilterDate(filter.OnlyForum(_context.Posts, 3),
                                                new DateTime(startYear, int.Parse(appSettings.Get("StartMonth")), 1),
                                                new DateTime(endYear, 1, 1));
             _authors = filter.TopAuthors(postsQuery, 0
@@ -83,23 +84,29 @@ namespace Urfu.AuthorDetector.MetricsToCSV
         private static void Main(string[] args)
         {
             const string topAuthorsFile = "TopAuthors.csv";
-            const string metricsFile = "BestMetrics.csv";
+            string metricsFile = DateTime.Now.Ticks+"_BestMetrics.csv";
 
             Init();
 
             GC.Collect();
-
+            var provider = new CombinedCommonMetricProvider(
+                            new SimpleStatMetricProvider() ,
+                            new UseNgramsMetricProvider(),
+                            new UseWordsMetricProvider(),
+                            new GrammemesPostMetricProvider()
+                );
             Console.WriteLine("Average Length - {0}",
                               _authorPosts.SelectMany(x => x.Value.Select(xx => xx.Length)).ToArray().Average());
-            /*
-                        var metricSelector = new Chi2ForAuthorMetricSelector(_authorPosts, SelectParams);
-                        var topMetricIds = metricSelector.SelectMetrics(_kernel.Get<IPostMetricProvider>());
 
-                        using (var file = File.Open(metricsFile, FileMode.Create, FileAccess.Write))
+                        var metricSelector = new KolmogorovSmirnovMetricSelector(_authorPosts.Select(x => x.Value).ToArray(), SelectParams);
+                        var topMetricIds = metricSelector.SelectMetrics(provider
+                            ) ;
+
+                      using (var file = File.Open(metricsFile, FileMode.Create, FileAccess.Write))
                         {
                             using (var writer = new CsvWriter(new StreamWriter(file)))
                             {
-                                var names = _kernel.Get<IPostMetricProvider>().Names.ToArray();
+                                var names = provider.Names.ToArray();
                                 ConfigureWriter(writer);
                                 foreach (var id in topMetricIds)
                                 {
@@ -107,9 +114,9 @@ namespace Urfu.AuthorDetector.MetricsToCSV
 
                                 }
                             }
-                        }*/
-
-
+                        }
+            
+            /*
             using (var file = File.Open(topAuthorsFile, FileMode.Create, FileAccess.Write))
             {
                 using (var writer = new CsvWriter(new StreamWriter(file)))
@@ -121,9 +128,9 @@ namespace Urfu.AuthorDetector.MetricsToCSV
 
                     }
                 }
-            }
+            }*/
 
-            WriteSentenceStats();
+            //WriteSentenceStats();
         }
 
         private static void WriteMetricsToFile(string fileName, IEnumerable<double[]> metrics, ICommonMetricProvider setprovider = null)
@@ -148,7 +155,7 @@ namespace Urfu.AuthorDetector.MetricsToCSV
 
         private static void WriteSentenceStats()
         {
-            
+            var statTime = DateTime.Now.Ticks;
             var provider = _kernel.Get<IMultiplyMetricsProvider>();
             //var allMetrics = new List<double[]>();
 
@@ -169,7 +176,7 @@ namespace Urfu.AuthorDetector.MetricsToCSV
                 //var correlationTable = metrics.Select(x => x.Select(xx => (double)xx).ToArray()).ToArray().CorrelationTablePearson(provider.Size);
 
 
-                WriteMetricsToFile(author.Key + "-sent-stat.csv", author.Value,provider);
+                WriteMetricsToFile(author.Key + " " + statTime + "-sent-stat.csv", author.Value, provider);
 
                 //WriteMetricsToFile(author.Key + "-sent-stat-comp.csv",  author.Value.Select(trans.GetMetric) , trans);
 
@@ -189,7 +196,7 @@ namespace Urfu.AuthorDetector.MetricsToCSV
                 }*/
             }
 
-            WriteMetricsToFile("all-stat.csv", allMetrics.SelectMany(x=>x.Value));
+            WriteMetricsToFile("all-stat_"+statTime+".csv", allMetrics.SelectMany(x=>x.Value));
 
            /*var newProvider = new SelectedSentenceMetricProvider(Enumerable.Range(0, provider.Size).Where(i => allMetrics.Select(x => x.ElementAt(i)).Distinct().Count() > 2).ToArray(),provider);
 

@@ -12,7 +12,7 @@ namespace Urfu.AuthorDetector.Tests.Common.Classification
     [TestFixture]
     public class KVMStatTests
     {
-        [TestCaseSource("DataSource")]
+       /* [TestCaseSource("DataSource")]
         public void Test1(Dictionary<int, double[][]> data)
         {
             var stud = data.SelectMany(x => x.Value.Select(val => new KeyValuePair<int, double[]>(x.Key, val))).ToArray();
@@ -29,7 +29,7 @@ namespace Urfu.AuthorDetector.Tests.Common.Classification
             Assert.AreEqual(2, res);
             
         }
-
+        */
         [TestCaseSource("DataSource")]
         public void Test2(Dictionary<int, double[][]> data)
         {
