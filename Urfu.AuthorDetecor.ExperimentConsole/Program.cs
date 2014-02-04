@@ -51,13 +51,13 @@ namespace Urfu.AuthorDetecor.ExperimentConsole
                 var benchmark = new ForumClassifierBenchmark(ds)
                     {
                         AuthorsCount = authorsCount,
-                        LearningCount = 300,
+                        LearningCount = 500,
                         RoundCount = 3,
-                        TestsInRoundCount = 1000
+                        TestsInRoundCount = 300
 
                     };
-                foreach (var msgCount in Enumerable.Range(1, 5).Select(i => i * 2)
-                    .Concat(Enumerable.Range(1, 4).Select(i => i * 5 + 10)))
+                foreach (var msgCount in Enumerable.Range(1, 10).Select(i => i * 5+20)
+                    /*.Concat(Enumerable.Range(1, 4).Select(i => i * 5 + 10))*/)
                 {
                     benchmark.MessageCount = msgCount;
                     var score = benchmark.Score(factory, new Random().Next());
@@ -205,14 +205,39 @@ namespace Urfu.AuthorDetecor.ExperimentConsole
                             //MultiplyMetricsProvider = StaticVars.Kernel.Get<IMultiplyMetricsProvider>()
                         }, "BC5-1-" + auCount, auCount);
 
-                    Test2(new StupidPerecentileBayesClassifierFactory()
+                    
+                }
+
+                foreach (var k in new []{5})
+                {
+                    Test2(
+                        new KNearestSumClassifierFactory()
+                            {
+                                CommonMetricProvider = StaticVars.Kernel.Get<IPostMetricProvider>(),
+                                K = k
+                            },
+                        string.Format("KNearestSumClassifierFactory_{0}", k), auCount);
+                        
+                   /* Test2(
+                        new KNearestBayesClassifierFactory()
+                            {
+                                CommonMetricProvider = StaticVars.Kernel.Get<IPostMetricProvider>(),
+                                K = k
+                            },
+                        string.Format("KNearestBayesClassifierFactory_{0}", k), auCount);*/
+                }
+
+                
+                Test2(new StupidPerecentileBayesClassifierFactory()
                         {
                             PostMetricProvider = pp,
                             //MultiplyMetricsProvider = StaticVars.Kernel.Get<IMultiplyMetricsProvider>()
-                        }, "BC5-2-" + auCount, auCount);
-                }
-               
+                        }, "BC5-1-" + auCount, auCount);
 
+                
+
+                continue;
+                
 
                 Test2(new MSvmClassifierClassifierFactory()
                 {

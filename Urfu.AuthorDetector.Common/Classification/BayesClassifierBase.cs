@@ -40,6 +40,8 @@ namespace Urfu.AuthorDetector.Common.Classification
             get { return _authors.Keys; }
         }
 
+        
+
         public string Description { get; private set; }
         public string Name { get; private set; }
 
@@ -86,11 +88,16 @@ namespace Urfu.AuthorDetector.Common.Classification
 
         public Author ClassificatePosts(IEnumerable<string> posts)
         {
+            return ClassificatePosts(posts, 1)[0];
+        }
+
+        public Author[] ClassificatePosts(IEnumerable<string> posts, int topN)
+        {
             posts = posts as string[] ?? posts.ToArray();
             Dictionary<Author, double> cands = Authors.ToDictionary(x => x, x => 1d);
             if (_commonProvider != null)
             {
-                foreach (var avt in AuthorProbab(_commonStats,posts.Select(x=>_commonProvider.GetMetrics(x).ToArray())))
+                foreach (var avt in AuthorProbab(_commonStats, posts.Select(x => _commonProvider.GetMetrics(x).ToArray())))
                 {
                     cands[avt.Key] *= avt.Value;
                 }
@@ -104,8 +111,8 @@ namespace Urfu.AuthorDetector.Common.Classification
                 }
             }
 
-            return cands.OrderByDescending(x => x.Value).First().Key;
-
+            return cands.OrderByDescending(x => x.Value).Select(x=>x.Key).Take(topN).ToArray();
         }
+
     }
 }

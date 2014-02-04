@@ -63,9 +63,14 @@ namespace Urfu.AuthorDetector.Common.Classification
         public IEnumerable<Author> Authors { get; private set; }
         public Author ClassificatePosts(IEnumerable<string> posts)
         {
+            return ClassificatePosts(posts,1)[0];
+        }
+
+        public Author[] ClassificatePosts(IEnumerable<string> posts,int topN)
+        {
             var metric = CallculateMetrics(posts);
             var etalons = _authorMetrics.OrderBy(x => CompareMetrics(x.Value, metric)).Select(x => x.Key);
-            return etalons.First();
+            return etalons.ToArray();
         }
 
         public virtual string Description

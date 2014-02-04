@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Accord.Math;
 using MathNet.Numerics.Statistics;
 using Ninject;
 using Urfu.AuthorDetector.Common.MetricProvider;
@@ -18,12 +19,12 @@ namespace Urfu.AuthorDetector.Common.Classification
         public StupidBayesClassifier(IDictionary<Author, IEnumerable<string>> authors, IPostMetricProvider postMetricProvider)
         {
             Authors = authors.Keys;
-            var dataExtractor = StaticVars.Kernel.Get<IDataExtractor>();
+            //var dataExtractor = StaticVars.Kernel.Get<IDataExtractor>();
             _postMetricProvider = postMetricProvider;
             _postMetricProvider = postMetricProvider;
             var m = _postMetricProvider.Size;
             var authorMetrics = authors.ToDictionary(x => x.Key,
-                                                     x => x.Value.Select(xx => _postMetricProvider.GetMetrics(xx).ToArray()).ToArray());
+                                                     x => x.Value.Select(xx => Enumerable.ToArray(_postMetricProvider.GetMetrics(xx))).ToArray());
 
             var minVals = Enumerable.Range(0, m).Select(i => authorMetrics.Select(x => x.Value.Select(xx => xx[i]).Min()).Min()).ToArray();
             var maxVals = Enumerable.Range(0, m).Select(i => authorMetrics.Select(x => x.Value.Select(xx => xx[i]).Max()).Max()).ToArray();
@@ -64,8 +65,13 @@ namespace Urfu.AuthorDetector.Common.Classification
         public IEnumerable<Author> Authors { get; private set; }
         public Author ClassificatePosts(IEnumerable<string> posts)
         {
+            return ClassificatePosts(posts, 1)[0];
+        }
+
+        public Author[] ClassificatePosts(IEnumerable<string> posts, int topN)
+        {
             var resDict = Authors.ToDictionary(x => x, x => 1d);
-            var postsMetrics = posts.Select(x => _postMetricProvider.GetMetrics(x).ToArray()).ToArray();
+            var postsMetrics = posts.Select(x => Enumerable.ToArray(_postMetricProvider.GetMetrics(x))).ToArray();
             foreach (var post in postsMetrics)
             {
                 foreach (var j in Enumerable.Range(0, _postMetricProvider.Size))
@@ -83,7 +89,7 @@ namespace Urfu.AuthorDetector.Common.Classification
                     resDict[author] = resDict[author] / mx;
                 }
             }
-            return resDict.OrderByDescending(x => x.Value).First().Key;
+            return resDict.OrderByDescending(x => x.Value).Select(x=>x.Key).ToArray();
         }
 
         public string Description { get; private set; }

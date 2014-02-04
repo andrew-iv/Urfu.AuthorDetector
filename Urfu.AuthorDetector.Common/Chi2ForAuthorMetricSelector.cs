@@ -37,7 +37,7 @@ namespace Urfu.AuthorDetector.Common
             }
 
 
-
+            //new ChiSquareTest()
             foreach (var i in Enumerable.Range(0, _authorsArray.Length))
             {
                 for (var j = i + 1; j < _authorsArray.Length; j++)
@@ -59,6 +59,15 @@ namespace Urfu.AuthorDetector.Common
             return hashRes.OrderBy(x => x).ToArray();
         }
     }
+
+    public class Chi2TopMetricSelector : IMetricSelector
+    {
+        public IEnumerable<int> SelectMetrics(ICommonMetricProvider postMetricProvider)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
+
 
     public class Chi2HistogramTopMetricSelector : BaseHistogramTopMetricSelector
     {

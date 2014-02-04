@@ -47,11 +47,14 @@ namespace Urfu.AuthorDetector.Common.Classification
         
         public Author ClassificatePosts(IEnumerable<string> posts)
         {
-            //var postArr = posts.ToArray();
+            return ClassificatePosts(posts, 1)[0];
+        }
 
-            return _probalistic ? _stat.GetProbabilities(posts).OrderByDescending(x => x.Value).First().Key :
-                       _stat.GetTops(posts).OrderByDescending(x => x.Value).First().Key
-                ;
+        public Author[] ClassificatePosts(IEnumerable<string> posts, int topN)
+        {
+            return (_probalistic
+                        ? _stat.GetProbabilities(posts).OrderByDescending(x => x.Value).Select(x => x.Key)
+                        : _stat.GetTops(posts).OrderByDescending(x => x.Value).Select(x => x.Key)).Take(topN).ToArray();
         }
 
         public string Description { get { return "SvmClassifier"; } }

@@ -93,7 +93,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AverageSingleMetricProvider.cs" />
+    <Compile Include="Classification\ExperimentLogger.cs" />
+    <Compile Include="Classification\KNearestBayesClassifier.cs" />
     <Compile Include="Classification\MSvmClassifier.cs" />
+    <Compile Include="Classification\MSvmClassifierBruter.cs" />
     <Compile Include="Classification\MSvmClassifierParams.cs" />
     <Compile Include="Classification\MultyKSvmStatistics.cs" />
     <Compile Include="GroupByNMetricProvider.cs" />

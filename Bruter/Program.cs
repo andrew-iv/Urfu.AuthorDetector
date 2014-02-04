@@ -26,7 +26,7 @@ namespace Bruter
                 DateStart = new DateTime(2012, 1, 1)
             }).InTransientScope();
 
-            Kernel.Bind<int>().ToConstant(1).Named("ClsVersionId");
+            Kernel.Bind<int>().ToConstant(2).Named("ClsVersionId");
             Kernel.Bind<IExperimentLogger>().To<ExperimentLogger>().InSingletonScope();
             Kernel.Bind<IClassifierBenchmark>().ToMethod(x =>
                 {
@@ -36,8 +36,8 @@ namespace Bruter
                             AuthorsCount = 10,
                             LearningCount = 300,
                             RoundCount = 5,
-                            TestsInRoundCount = 1000
-
+                            TestsInRoundCount = 1000,
+                            MessageCount = 5
                         };
                 }
                 ).InSingletonScope();
@@ -54,7 +54,7 @@ namespace Bruter
             StaticVars.InitializeTops(topPosts);
             var provider = new UseNgramsMetricProvider();
             var allMetrics = provider.GetMetrics(topPosts);
-            var bruter = new MSvmClassifierBruter();
+           /* var bruter = new MSvmClassifierBruter();
             bruter.K = Enumerable.Range(1, 4).Select(i => i*5).ToArray();
             bruter.Providers = new[] {provider};
             bruter.Kernels =
@@ -75,9 +75,16 @@ namespace Bruter
                         }).ToArray();
             bruter.N = 20;
             bruter.Algorithms = new MSvmClassifierParams.LearningAlgorithm[]{MSvmClassifierParams.LearningAlgorithm.LS_SVM,MSvmClassifierParams.LearningAlgorithm.SMO};
-            bruter.Brute();
-            
+            bruter.Brute();*/
 
+            var bruter = new KNearestClassifierBruter
+                {
+                    K = Enumerable.Range(1, 10).Select(i => i*5).ToArray(),
+                    N = 6,
+                    Factories = new IKNearestClassifierFactory[]{new KNearestBayesClassifierFactory(), new KNearestSumClassifierFactory()},
+                    Providers = new ICommonMetricProvider[]{new SomeWordsAndGrammsMetricProvider()}
+                };
+            bruter.Brute();
         }
     }
 }
