@@ -1,0 +1,995 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Urfu.AuthorDetector.Common.AverageSingleMetricProvider" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="26.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AARAiAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AverageSingleMetricProvider.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.BaseMetric" Collapsed="true">
+    <Position X="11.75" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>BaseMetrics.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.KolmogorovSmirnovMetricSelector" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAFAAA=</HashCode>
+      <FileName>Chi2ForAuthorMetricSelector.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Chi2HistogramTopMetricSelector" Collapsed="true">
+    <Position X="18.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Chi2ForAuthorMetricSelector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.IntersectionHistogramTopMetricSelector" Collapsed="true">
+    <Position X="20.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Chi2ForAuthorMetricSelector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.BaseHistogramTopMetricSelector" Collapsed="true">
+    <Position X="19.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAACAAAAAAAAAAAAAAAIEEAAFAAA=</HashCode>
+      <FileName>Chi2ForAuthorMetricSelector.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Chi2TopMetricSelector" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="33.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAFAAA=</HashCode>
+      <FileName>Chi2TopMetricSelector.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.CommonModule" Collapsed="true">
+    <Position X="25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAABAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>CommonModule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.LorModule" Collapsed="true">
+    <Position X="25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CommonModule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.DictionaryMetric" Collapsed="true">
+    <Position X="10.5" Y="19.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DictionaryMetrics.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.FromHtmlDataExtractor" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="26.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAIAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FromHtmlDataExtractor.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.GroupByNMetricProvider" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="28.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCgAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>GroupByNMetricProvider.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.HistogramOperation" Collapsed="true">
+    <Position X="32" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAAAgAAAAAABgAAIAAAA=</HashCode>
+      <FileName>HistogramOperation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.AuthorMinPosts" Collapsed="true">
+    <Position X="25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAiAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>IForumStorage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.PostsQueryFilter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="28.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABCQAAAAAAAAAAAAAIAAAAIAAAAA=</HashCode>
+      <FileName>IForumStorage.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.GroupMetricFunctions" Collapsed="true">
+    <Position X="30.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAMAAAAAAAA=</HashCode>
+      <FileName>ISingleMetricProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.ForumStorageBase" Collapsed="true">
+    <Position X="8" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABICAABAAAAAAAIBAKAAABAAAAIBQEAgAAAAg=</HashCode>
+      <FileName>LorStorage.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.LorStorage" Collapsed="true">
+    <Position X="10.25" Y="16.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LorStorage.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.FlampStorage" Collapsed="true">
+    <Position X="5.75" Y="16.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LorStorage.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.ForumIdStorage" Collapsed="true">
+    <Position X="8" Y="16.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>LorStorage.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.PostBrief" Collapsed="true">
+    <Position X="0.5" Y="19.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAEQAAAAAAgAABAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>PostBrief.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.PostInfo" Collapsed="true">
+    <Position X="0.5" Y="20.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>PostInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.StaticVars" Collapsed="true">
+    <Position X="30.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAIAAAAAAAAAAAAAAIQAAIAAAAAAAAgAAACA=</HashCode>
+      <FileName>StaticVars.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.TrigrammsTrivialMetric" Collapsed="true">
+    <Position X="12.75" Y="21.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAkAACABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TrivialMetrics.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.TrivialMetric" Collapsed="true">
+    <Position X="12.75" Y="19.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABgAAgIAAgAQAAIAABAABAAABAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>TrivialMetrics.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.BayesClassifierBase" Collapsed="true">
+    <Position X="18.75" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAEAAgAgAAAICAAQCAQCAABAAAAAIAAAAAgAAEA=</HashCode>
+      <FileName>Classification\BayesClassifierBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.BinaryBayesBase" Collapsed="true">
+    <Position X="18.5" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IBAAAAEAAgCUBAAAAAAAAAAAAABAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Classification\BinaryBayesBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.BinaryBayesStatistics" Collapsed="true">
+    <Position X="18.5" Y="19.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classification\BinaryBayesStatistics.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.BinaryFromMultyClassifier" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="30.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAwAAAIgAAAFAQAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classification\BinaryFromMultyClassifier.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.BinaryFromMultyClassifierFactory" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="32" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAIAQAAACMAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classification\BinaryFromMultyClassifierFactory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.CommonStatisctics" Collapsed="true">
+    <Position X="26.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAEAAAAIAAQAAAAQAAAAAAAIAACAAAAAAAA=</HashCode>
+      <FileName>Classification\CommonStatisctics.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.BayesResultLogger" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="28.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAADAAAAAAAAAAAAAgAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Classification\ExperimentLogger.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.DummyBayesResultLogger" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="30.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classification\ExperimentLogger.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.ExperimentLogger" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAADAAAAAAAAAAAAAAAAAAAAEAEAAAAAAA=</HashCode>
+      <FileName>Classification\ExperimentLogger.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.BaseClassifierFactory" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classification\IClassifierFactory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.PerecentileBayesClassifierFactory" Collapsed="true">
+    <Position X="0.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classification\IClassifierFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.StupidPerecentileBayesClassifierFactory" Collapsed="true">
+    <Position X="3" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classification\IClassifierFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.MSvmClassifierClassifierFactory" Collapsed="true">
+    <Position X="5.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classification\IClassifierFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.KNearestBayesClassifierFactory" Collapsed="true">
+    <Position X="7.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAQAAAIAAAAA=</HashCode>
+      <FileName>Classification\IClassifierFactory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.KNearestSumClassifierFactory" Collapsed="true">
+    <Position X="9.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAQAAAIAAAAA=</HashCode>
+      <FileName>Classification\IClassifierFactory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.ClassifierBase" Collapsed="true">
+    <Position X="1.75" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIgAAAIAgQAAICAAAAAQAAABAAAAAAgACQAgAAAA=</HashCode>
+      <FileName>Classification\KNearestBayesClassifier.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.KNearestClassifierBase" Collapsed="true">
+    <Position X="1.75" Y="16.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAGAQAAAAAAAAAAQACAYAAAAA=</HashCode>
+      <FileName>Classification\KNearestBayesClassifier.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.KNearestBayesClassifier" Collapsed="true">
+    <Position X="0.5" Y="18.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Classification\KNearestBayesClassifier.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.KNearestSumClassifier" Collapsed="true">
+    <Position X="2.75" Y="18.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Classification\KNearestBayesClassifier.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.MSvmClassifier" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="28.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAgAAAISAAAGAUCAABAIAAAIAEAAAgAAAA=</HashCode>
+      <FileName>Classification\MSvmClassifier.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.MSvmClassifierBruter" Collapsed="true">
+    <Position X="30.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAAAIAAAIAAAAAAAAABAAAJAAAAA=</HashCode>
+      <FileName>Classification\MSvmClassifierBruter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.KNearestClassifierBruter" Collapsed="true">
+    <Position X="33.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAEAAIAAAAAAAAAAAAAAAAAJAAAAA=</HashCode>
+      <FileName>Classification\MSvmClassifierBruter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.MSvmClassifierParams" Collapsed="true">
+    <Position X="32" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAAAAAAAAAAAQAABAAAAAAAAAAAgQAAAA=</HashCode>
+      <FileName>Classification\MSvmClassifierParams.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.MultyKSvmStatistics" Collapsed="true">
+    <Position X="23.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAyAAAAAAgCAIEGCAAAFAAKEFAAGCAAIAAAAhAQAEA=</HashCode>
+      <FileName>Classification\MultyKSvmStatistics.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.NeighboorClassifier" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAIgCAAAAgAIAICAAAAAQAgABAAAAAAAAAAEgAAAA=</HashCode>
+      <FileName>Classification\NeighboorClassifier.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.PerecentileBayesClassifier" Collapsed="true">
+    <Position X="19.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classification\PerecentileBayesClassifier.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.QuantilesInfo" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="30.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgABBAAAAAAAgAAAAAAAAEAAAAgAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Classification\QuantilesInfo.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.QuantilesStats" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="32" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAIQAAAAAAIAAAAAgAAAAgAA=</HashCode>
+      <FileName>Classification\QuantilesStats.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.StatsHelper" Collapsed="true">
+    <Position X="33.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAQAAAABAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Classification\StatsHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.StuipidQuantilesStats" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAIQAAAAAAAAAAAAgABAAgAA=</HashCode>
+      <FileName>Classification\StuipidQuantilesStats.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.StupidBayesClassifier" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABIAAAAAAgAAAICAAAAAQAAADAAAAAAAAAAAgAIAA=</HashCode>
+      <FileName>Classification\StupidBayesClassifier.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Classification.StupidPerecentileBayesClassifier" Collapsed="true">
+    <Position X="17.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classification\StupidPerecentileBayesClassifier.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetecor.Experiment.AppSettingsExperiment" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAIAQAAAAAAAAAAAAEAAAAAAAAIBAAAAAAAAA=</HashCode>
+      <FileName>Experiment\AppSettingsExperiment.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetecor.Experiment.Experiment" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="32" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAIAQAAAAAAAAAAAAEAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Experiment\Experiment.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetecor.Experiment.Experimentator" Collapsed="true">
+    <Position X="33.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAEIACAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Experiment\Experimentator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetecor.Experiment.ExperimentHeper" Collapsed="true">
+    <Position X="23.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Experiment\ExperimentHeper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Experiment.DataSource" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="28.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAACAAAIAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Experiment\DataSource.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.MetricProvider.AllAllPostMetricProvider" Collapsed="true">
+    <Position X="8.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAQAAAAAIACAAAAAAAAAAAAA=</HashCode>
+      <FileName>MetricProvider\AllAllPostMetricProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.MetricProvider.SubstringMetricProviderBase" Collapsed="true">
+    <Position X="15.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>MetricProvider\BaseAllPostMetricProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.MetricProvider.SubstringMetricProvider" Collapsed="true">
+    <Position X="13" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>MetricProvider\BaseAllPostMetricProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.MetricProvider.PunctuationPostMetricProvider" Collapsed="true">
+    <Position X="19.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>MetricProvider\BaseAllPostMetricProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.MetricProvider.UseNgramsMetricProvider" Collapsed="true">
+    <Position X="15.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>MetricProvider\BaseAllPostMetricProvider.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.MetricProvider.UseWordsMetricProvider" Collapsed="true">
+    <Position X="17.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>MetricProvider\BaseAllPostMetricProvider.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.MetricProvider.BasePostMetricProvider" Collapsed="true">
+    <Position X="15.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAAAAIAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MetricProvider\BaseAllPostMetricProvider.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.MetricProvider.SimpleStatMetricProvider" Collapsed="true">
+    <Position X="15.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAQAAAAAIACAAAAAAAAAAAAA=</HashCode>
+      <FileName>MetricProvider\BaseAllPostMetricProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.MetricProvider.BaseAllPostMetricProvider" Collapsed="true">
+    <Position X="12" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAAAAAAAggAAAAACIQAgAAAIACAAAAAAAAAAAAA=</HashCode>
+      <FileName>MetricProvider\BaseAllPostMetricProvider.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.MetricProvider.BaseSelectedMetricProvider&lt;TMetricProvider&gt;" Collapsed="true">
+    <Position X="11" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAggAAAAAAkAAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MetricProvider\BaseSelectedMetricProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.MetricProvider.CombinedCommonMetricProvider" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAEAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MetricProvider\CombinedCommonMetricProvider.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.MetricProvider.GrammemesPostMetricProvider" Collapsed="true">
+    <Position X="10.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAAAAAAAAMAAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>MetricProvider\GrammemesPostMetricProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.MetricProvider.MetricsHeper" Collapsed="true">
+    <Position X="26.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MetricProvider\MetricsHeper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.MetricProvider.SelectedPostMetricProvider" Collapsed="true">
+    <Position X="11" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MetricProvider\SelectedPostMetricProvider.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.MetricProvider.SomeSelectedMetricProviders" Collapsed="true">
+    <Position X="28.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAADBAAAAAAAAAAAABAAAAAAgAQAAAAAAAAAIAAA=</HashCode>
+      <FileName>MetricProvider\SomeSelectedMetricProviders.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.MetricProvider.WordsAndGrammsMetricProvider" Collapsed="true">
+    <Position X="11" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAEQAAAAAIACAAAAAAABAAAAA=</HashCode>
+      <FileName>MetricProvider\SomeWordsAndGrammsMetricProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.MetricProvider.SomeWordsAndGrammsMetricProvider" Collapsed="true">
+    <Position X="13.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEQAAAAAIACAAAAAAABAAAAA=</HashCode>
+      <FileName>MetricProvider\SomeWordsAndGrammsMetricProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.MetricProvider.Sentance.BaseSentenceMetricProvider" Collapsed="true">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>MetricProvider\Sentance\BaseSentenceMetricProvider.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.MetricProvider.Sentance.CombinedMultyMetricProvider" Collapsed="true">
+    <Position X="5.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAoAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>MetricProvider\Sentance\CombinedMultyMetricProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.MetricProvider.Sentance.GramemmeMetricProvider" Collapsed="true">
+    <Position X="7.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>MetricProvider\Sentance\GramemmeMetricProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.MetricProvider.Sentance.LengthMetricProvider" Collapsed="true">
+    <Position X="0.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>MetricProvider\Sentance\LengthMetricProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.MetricProvider.Sentance.PunctuationMetricProvider" Collapsed="true">
+    <Position X="3" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>MetricProvider\Sentance\PunctuationMetricProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.MetricProvider.Sentance.SelectedMultiMetricProvider" Collapsed="true">
+    <Position X="8.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MetricProvider\Sentance\SelectedMultiMetricProvider.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.MetricProvider.Sentance.SelectedCommonMetricProvider" Collapsed="true">
+    <Position X="13.25" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MetricProvider\Sentance\SelectedMultiMetricProvider.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.MetricProvider.Sentance.SelectedSentenceMetricProvider" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="33.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAAAAAAAgAAgAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MetricProvider\Sentance\SelectedSentenceMetricProvider.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.Sentance.SentanceInfo" Collapsed="true">
+    <Position X="25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAIAAAAAAAAEAAAAABAAAAIAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>MetricProvider\Sentance\SentanceInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.ParameterSelection.AddDelSelectionStrategy" Collapsed="true">
+    <Position X="18.5" Y="16.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QCgAAAAAAAAAAAAAAAAQAAAGAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>ParameterSelection\AddDelSelectionStrategy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.ParameterSelection.SelectionStrategyBase" Collapsed="true">
+    <Position X="18.5" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAACACAIAAAAAAAAAAAAAAAAAAAAAQAAQAAA=</HashCode>
+      <FileName>ParameterSelection\AddSelectionStrategy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.ParameterSelection.BenchmarkBase" Collapsed="true">
+    <Position X="3" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gACQAAAAAAEAAAAEEQAAAAACAAgIABAAgAAAAAAAgAk=</HashCode>
+      <FileName>ParameterSelection\BenchmarkBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.ParameterSelection.MultyBenchmark" Collapsed="true">
+    <Position X="5.25" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAABAgAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ParameterSelection\ForumClassifierBenchmark.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.ParameterSelection.CommonProviderStrategyProxy" Collapsed="true">
+    <Position X="12.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAoAAAgCAAoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ParameterSelection\PostMetricProviderStrategyProxy.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.ParameterSelection.SelectionCollectionChanged" Collapsed="true">
+    <Position X="23.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAQEAAAAAAAA=</HashCode>
+      <FileName>ParameterSelection\SelectionCollectionChanged.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.ParameterSelection.BinaryBayesStatisticsMaker" Collapsed="true">
+    <Position X="0.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEQAAAAEAgAAAAAAAAAACgAAAAAAAAAAAAQgAA=</HashCode>
+      <FileName>ParameterSelection\SingleBenchmark.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.ParameterSelection.SingleBenchmark" Collapsed="true">
+    <Position X="3" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAEAgAAAAAAAAAACgAAAAAAAAAAAAQgAA=</HashCode>
+      <FileName>ParameterSelection\SingleBenchmark.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.ParameterSelection.StrategyProxyBase" Collapsed="true">
+    <Position X="12.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ParameterSelection\StrategyProxyBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.StatMethods.MultiplyMetricProviderAndTransformer" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="33.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCgAAAAAAAgAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>StatMethods\PCA.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.StatMethods.SimpleMetricProviderAndTransformer" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="26.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCgAAAAAAAgAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>StatMethods\PCA.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.StatMethods.PcaMetricTransformer" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="26.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAggAAAQAAoIAgkAAAAEAAAAIAAAAAAAAAAAEAAIA=</HashCode>
+      <FileName>StatMethods\PCA.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Urfu.AuthorDetector.Common.StatMethods.StatisticsHelper" Collapsed="true">
+    <Position X="32" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAQAAAQA=</HashCode>
+      <FileName>StatMethods\StatisticsHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Urfu.AuthorDetector.Common.MetricInfo" Collapsed="true">
+    <Position X="23.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MetricInfo.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="Urfu.AuthorDetector.Common.IMetricProviderInfo" Collapsed="true">
+    <Position X="4" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ICommonMetricProvider.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Common.IDataExtractor" Collapsed="true">
+    <Position X="30.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IDataExtractor.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Common.IForumStorage" Collapsed="true">
+    <Position X="25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAABAEAgAAAAA=</HashCode>
+      <FileName>IForumStorage.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Common.IPostsQueryFilter" Collapsed="true">
+    <Position X="30.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABCQAAAAAAAAAAAAAIAAAAIAAAAA=</HashCode>
+      <FileName>IForumStorage.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Common.IMetricSelector" Collapsed="true">
+    <Position X="26.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>IMetricSelector.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Common.ISingleMetricProvider" Collapsed="true">
+    <Position X="5.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ISingleMetricProvider.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Common.IMetric" Collapsed="true">
+    <Position X="19.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>PostMetrics.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Common.IFillableMetric" Collapsed="true">
+    <Position X="18.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PostMetrics.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Common.IGrammsMetric" Collapsed="true">
+    <Position X="20.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PostMetrics.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Common.Classification.IBayesStatisticsProvider" Collapsed="true">
+    <Position X="25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAACAAAAA=</HashCode>
+      <FileName>Classification\ExperimentLogger.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Common.Classification.IBayesResultLogger" Collapsed="true">
+    <Position X="23.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classification\ExperimentLogger.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Common.Classification.IBinaryClassifier">
+    <Position X="7" Y="20.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classification\IBinaryClassifier.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Common.Classification.IBinaryClassifierFactory" Collapsed="true">
+    <Position X="26.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAMAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classification\IBinaryClassifierFactory.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Common.Classification.IAlogorithm">
+    <Position X="6.75" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAIAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classification\IClassifier.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Common.Classification.IClassifier" Collapsed="true">
+    <Position X="4.75" Y="20" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAAABAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Classification\IClassifier.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Common.Classification.IClassifierFactory" Collapsed="true">
+    <Position X="15.5" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classification\IClassifierFactory.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Common.Classification.IKNearestClassifierFactory" Collapsed="true">
+    <Position X="15.5" Y="19.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Classification\IClassifierFactory.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Common.Classification.IExperimentLogger" Collapsed="true">
+    <Position X="23.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Classification\IClassifierFactory.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Common.Classification.IKNearestClassifier" Collapsed="true">
+    <Position X="4.75" Y="21.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Classification\KNearestBayesClassifier.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Common.Classification.IByesStats" Collapsed="true">
+    <Position X="28.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classification\PerecentileBayesClassifier.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Common.Classification.IQuantilesInfo" Collapsed="true">
+    <Position X="32" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAgAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classification\QuantilesInfo.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetecor.Experiment.IExperiment" Collapsed="true">
+    <Position X="33.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAIAQAAAAAAAAAAAAEAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Experiment\IExperiment.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Common.Experiment.IDataSource" Collapsed="true">
+    <Position X="32" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Experiment\DataSource.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Common.MetricProvider.IPostMetricProvider" Collapsed="true">
+    <Position X="3" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MetricProvider\IPostMetricProvider.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Common.MetricProvider.ICommonMetricProvider" Collapsed="true">
+    <Position X="3" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MetricProvider\IPostMetricProvider.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Common.MetricProvider.Sentance.IMultiplyMetricsProvider" Collapsed="true">
+    <Position X="0.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MetricProvider\Sentance\ISentenceMetricProvider.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Common.MetricProvider.Sentance.ISentenceMetricProvider" Collapsed="true">
+    <Position X="0.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>MetricProvider\Sentance\ISentenceMetricProvider.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Common.ParameterSelection.IBenchmark" Collapsed="true">
+    <Position X="14.75" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gACAAAAAAAAAAAAEEAAAAAAAAAgAAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>ParameterSelection\IBenchmark.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Common.ParameterSelection.IBinaryClassifierBenchmark" Collapsed="true">
+    <Position X="13.5" Y="16.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ParameterSelection\IBinaryClassifierBenchmark.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Common.ParameterSelection.IClassifierBenchmark" Collapsed="true">
+    <Position X="15.75" Y="16.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAgAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ParameterSelection\IClassifierBenchmark.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Common.ParameterSelection.IPostMetricProviderStrategyProxy" Collapsed="true">
+    <Position X="28.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAgAAAgCAAoAAAIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ParameterSelection\IPostMetricProviderStrategyProxy.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Urfu.AuthorDetector.Common.StatMethods.IMetricTransformer" Collapsed="true">
+    <Position X="7.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>StatMethods\PCA.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
