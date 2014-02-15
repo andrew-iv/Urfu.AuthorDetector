@@ -104,7 +104,7 @@ namespace Urfu.AuthorDetector.Common.Classification
                     prms["factory"] = factory.GetType().ToString();
                     foreach (var provider in Providers)
                     {
-                        factory.CommonMetricProvider = provider;
+                        factory.CommonMetricProviders = new[]{provider};
 
                         logger.LogBenchmark(factory, prms);
                     }

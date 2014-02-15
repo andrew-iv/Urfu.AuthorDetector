@@ -17,11 +17,13 @@ namespace Urfu.AuthorDetector.DataLayer
         public ClassifierVersion()
         {
             this.ClassifierResult = new HashSet<ClassifierResult>();
+            this.BayesClassifierTest = new HashSet<BayesClassifierTest>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
     
         public virtual ICollection<ClassifierResult> ClassifierResult { get; set; }
+        public virtual ICollection<BayesClassifierTest> BayesClassifierTest { get; set; }
     }
 }

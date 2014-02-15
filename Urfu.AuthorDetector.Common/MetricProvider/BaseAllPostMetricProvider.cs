@@ -40,9 +40,59 @@ namespace Urfu.AuthorDetector.Common.MetricProvider
         }
     }
 
+    public class SubstringMetricProvider : SubstringMetricProviderBase
+    {
+        private readonly string[] _useWords;
+
+        public SubstringMetricProvider(string[] useWords)
+        {
+            _useWords = useWords;
+        }
+
+        protected override string[] UseWord
+        {
+            get { return _useWords; }
+        }
+
+        protected override string NamesPrefix
+        {
+            get { return "Substring_"; }
+        }
+    }
+
+    public class PunctuationPostMetricProvider : BasePostMetricProvider
+    {
+        private readonly char[] _useWords;
+
+        public PunctuationPostMetricProvider(char[] puncts=null)
+        {
+            _useWords = puncts ?? new[] { '.', ',', '-', '!', '?', ':', '(', ')' };
+        }
+
+        public override IEnumerable<string> Names
+        {
+            get { return _useWords.Select(x=>NamesPrefix+x); }
+        }
+
+        public override double[] GetMetrics(string text)
+        {
+            return _useWords.Select(punc => (double) text.Count(x => x == punc)/text.Length).ToArray();
+        }
+
+        protected virtual string NamesPrefix
+        {
+            get { return "Punctuation_"; }
+        }
+    }
+
+
+
     public class UseNgramsMetricProvider: SubstringMetricProviderBase, IPostMetricProvider
     {
-        protected override string[] UseWord { get { return StaticVars.Top3Gramms; } }
+        protected override string[] UseWord
+        {
+            get { { return StaticVars.Top3Gramms; } }
+        }
 
         protected override string NamesPrefix
         {
@@ -67,9 +117,16 @@ namespace Urfu.AuthorDetector.Common.MetricProvider
         public virtual int Size {
             get { return Names.Count(); }
         }
+
+        private Dictionary<string,double[]> _cache = new Dictionary<string, double[]>();
+
         public virtual double[][] GetMetrics(IEnumerable<string> text)
         {
-            return text.Select(GetMetrics).ToArray();
+            return text.Select(x =>
+                {
+                    double[] fromCache;
+                    return _cache.TryGetValue(x,out fromCache) ? fromCache : GetMetrics(x);
+                }).ToArray();
         }
         public abstract double[] GetMetrics(string text);
     }
@@ -102,7 +159,7 @@ namespace Urfu.AuthorDetector.Common.MetricProvider
 
         public IEnumerable<string> Names
         {
-            get
+            get 
             {
                 return new string[] { "Length", "PunctuationShare", "WhitespacesShare", 
                     "UpperShare", "DigitShare","VovelShare","NewLinesShare" }.Concat((UseNgramms ?? new string[] { }).Select(x => "Top3Gramms_" + x))

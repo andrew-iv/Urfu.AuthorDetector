@@ -38,15 +38,21 @@ namespace Urfu.AuthorDetector.Common.Classification
 
         }
 
-        public IEnumerable<Author> Authors { get { return KeysDict.Keys; } }
-        public Author ClassificatePosts(IEnumerable<string> posts)
+        public void LogResult(bool isSuccess)
         {
+        }
+
+        public IEnumerable<Author> Authors { get { return KeysDict.Keys; } }
+        public Author ClassificatePosts(IEnumerable<string> posts, out bool reliable)
+        {
+            reliable = true;
             return ClassificatePosts(posts, 1)[0];
         }
 
         public abstract Author[] ClassificatePosts(IEnumerable<string> posts,int topN);
         public abstract string Description { get; }
         public abstract string Name { get; }
+        public double ErrorLevel { get; set; }
     }
 
     public interface IKNearestClassifier: IClassifier

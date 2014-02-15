@@ -22,12 +22,12 @@ namespace Urfu.AuthorDetector.Tests
     [TestFixture]
     public class LorDataExtractorTests
     {
-        private LorDataExtractor _extractor;
+        private FromHtmlDataExtractor _extractor;
 
         [SetUp]
         public void SetUp()
         {
-            _extractor = new LorDataExtractor();
+            _extractor = new FromHtmlDataExtractor();
         }
 
 

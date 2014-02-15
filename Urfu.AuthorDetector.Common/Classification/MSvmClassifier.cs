@@ -43,10 +43,15 @@ namespace Urfu.AuthorDetector.Common.Classification
         
         //private MultyKSvmStatistics
 
+        public void LogResult(bool isSuccess)
+        {
+        }
+
         public IEnumerable<Author> Authors { get { return _keys; } }
         
-        public Author ClassificatePosts(IEnumerable<string> posts)
+        public Author ClassificatePosts(IEnumerable<string> posts, out bool reliable)
         {
+            reliable = true;
             return ClassificatePosts(posts, 1)[0];
         }
 
@@ -59,5 +64,6 @@ namespace Urfu.AuthorDetector.Common.Classification
 
         public string Description { get { return "SvmClassifier"; } }
         public string Name { get { return "SvmClassifier"; } }
+        public double ErrorLevel { get; set; }
     }
 }

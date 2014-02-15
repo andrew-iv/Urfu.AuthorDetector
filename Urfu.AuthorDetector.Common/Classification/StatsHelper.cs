@@ -42,7 +42,7 @@ namespace Urfu.AuthorDetector.Common.Classification
             var words = new Dictionary<string, int>();
             foreach (var post in posts)
             {
-                foreach (var gramm in post.RussianWords())
+                foreach (var gramm in post.RussianWords().Where(x=>x.Length != 3))
                 {
                     if (words.ContainsKey(gramm))
                     {

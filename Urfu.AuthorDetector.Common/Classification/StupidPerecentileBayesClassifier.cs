@@ -8,8 +8,8 @@ namespace Urfu.AuthorDetector.Common.Classification
 {
     public class StupidPerecentileBayesClassifier : BayesClassifierBase
     {
-        public StupidPerecentileBayesClassifier(IDictionary<Author, IEnumerable<string>> authors, IPostMetricProvider commonProvider = null, IMultiplyMetricsProvider multiplyProvider = null)
-            : base(authors, commonProvider, multiplyProvider)
+        public StupidPerecentileBayesClassifier(IDictionary<Author, IEnumerable<string>> authors, ICommonMetricProvider[] providers)
+            : base(authors, providers)
         {
         }
 

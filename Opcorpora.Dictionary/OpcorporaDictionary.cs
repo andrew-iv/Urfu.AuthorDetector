@@ -12,8 +12,6 @@ namespace Opcorpora.Dictionary
 {
     public class OpcorporaDictionary : IOpcorporaDictionary
     {
-        
-
         private dictionary _xsdType;
         private Dictionary<string, List<lemmaItem>> _lemmaDict;
 

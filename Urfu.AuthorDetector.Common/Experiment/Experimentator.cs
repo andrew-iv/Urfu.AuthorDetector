@@ -62,10 +62,10 @@ namespace Urfu.AuthorDetecor.Experiment
             var possibleOffset = allCount - exp.PostsCount;
             var extractor = _kernel.Get<IDataExtractor>();
 
+            bool reliable;
             var res = _classifier.ClassificatePosts(possibleOffset <= 0
                                                         ? newPosts.Select(extractor.GetText).ToList()
-                                                        : newPosts.OrderBy(x => x.Id).Skip(rand.Next(possibleOffset)).Take(exp.PostsCount).Select(extractor.GetText).ToList()
-                );
+                                                        : newPosts.OrderBy(x => x.Id).Skip(rand.Next(possibleOffset)).Take(exp.PostsCount).Select(extractor.GetText).ToList(), out reliable);
             return new Result(res,need);
         }
     }

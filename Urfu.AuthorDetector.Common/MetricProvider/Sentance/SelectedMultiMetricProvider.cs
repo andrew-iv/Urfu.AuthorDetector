@@ -24,4 +24,20 @@ namespace Urfu.AuthorDetector.Common.MetricProvider.Sentance
             return text.SelectMany(GetMetrics).ToArray();
         }
     }
+
+    public class SelectedCommonMetricProvider : BaseSelectedMetricProvider<ICommonMetricProvider>, ICommonMetricProvider
+    {
+        public SelectedCommonMetricProvider(ICommonMetricProvider baseProvider)
+            : base(baseProvider)
+        {
+        }
+
+        
+
+
+        public double[][] GetMetrics(IEnumerable<string> text)
+        {
+            return base.BaseProvider.GetMetrics(text).Select(x => x.GetOnIndexes(Indexes)).ToArray();
+        }
+    }
 }

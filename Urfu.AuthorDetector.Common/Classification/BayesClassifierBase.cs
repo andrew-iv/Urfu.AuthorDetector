@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Accord.Statistics.Filters;
 using Accord.Statistics.Kernels;
@@ -6,67 +7,79 @@ using Urfu.AuthorDetector.Common.MetricProvider;
 using Urfu.AuthorDetector.Common.MetricProvider.Sentance;
 using Urfu.AuthorDetector.Common.Sentance;
 using Urfu.AuthorDetector.DataLayer;
+using Ninject;
 
 namespace Urfu.AuthorDetector.Common.Classification
 {
-
-
-
-
     public abstract class BayesClassifierBase : IClassifier
     {
-        private readonly IDictionary<Author, IEnumerable<string>> _authors;
-        private readonly IPostMetricProvider _commonProvider;
-        private readonly IMultiplyMetricsProvider _multiplyProvider;
-        private readonly string[] _allPosts;
-        private IQuantilesInfo _commonInfo;
-        private IQuantilesInfo _multyInfo;
-        private Dictionary<Author, IByesStats> _commonStats;
-        private Dictionary<Author, IByesStats> _multyStats;
 
-        protected BayesClassifierBase(IDictionary<Author, IEnumerable<string>> authors, IPostMetricProvider commonProvider = null, IMultiplyMetricsProvider multiplyProvider = null)
+        private class ProviderStats
         {
-            _authors = authors;
-            _commonProvider = commonProvider;
-            _multiplyProvider = multiplyProvider;
-            _allPosts = authors.SelectMany(x => x.Value).ToArray();
-            if (_commonProvider != null)
-                InitPostProvider();
-            if (_multiplyProvider != null)
-                InitMultyProvider();
+            public Dictionary<Author, IByesStats> Stats;
+            public IQuantilesInfo Info;
+            public ICommonMetricProvider Provider;
+
         }
 
-        public IEnumerable<Author> Authors {
+        private readonly IDictionary<Author, IEnumerable<string>> _authors;
+        private readonly ICommonMetricProvider[] _providers;
+
+        private readonly string[] _allPosts;
+        private readonly ProviderStats[] _stats;
+        private BayesClassifierTest _lastResult;
+
+
+        protected BayesClassifierBase(IDictionary<Author, IEnumerable<string>> authors, params ICommonMetricProvider[] providers)
+        {
+            _authors = authors;
+            _providers = providers;
+            _allPosts = authors.SelectMany(x => x.Value).ToArray();
+            _stats = _providers.Select(InitProvider).ToArray();
+
+        }
+
+        public void LogResult(bool isSuccess)
+        {
+            var logger = StaticVars.Kernel.Get<IBayesResultLogger>();
+            if (logger == null) return;
+            _lastResult.Success = isSuccess;
+            logger.Log(_lastResult);
+        }
+
+        public IEnumerable<Author> Authors
+        {
             get { return _authors.Keys; }
         }
 
-        
+
 
         public string Description { get; private set; }
         public string Name { get; private set; }
+        public double ErrorLevel { get; set; }
 
         protected abstract IQuantilesInfo QuantilesInfoConstructor(int size, double[][] allMetrics);
         protected abstract IByesStats ByesStatsConstructor(IQuantilesInfo quantilesInfo, IEnumerable<double[]> allMetrics);
 
-        private void InitPostProvider()
+        private ProviderStats InitProvider(ICommonMetricProvider provider)
         {
-            _commonInfo = QuantilesInfoConstructor(_commonProvider.Size, _allPosts.Select(x => _commonProvider.GetMetrics(x).ToArray()).ToArray());
-            _commonStats = _authors.ToDictionary(x => x.Key,
-                                                 x =>
-                                                 ByesStatsConstructor(_commonInfo,
-                                                                      x.Value.Select(xx => _commonProvider.GetMetrics(xx).ToArray())) as IByesStats);
+            var info = QuantilesInfoConstructor(provider.Size,
+                                                provider.GetMetrics(_allPosts).ToArray());
+            return new ProviderStats
+                {
+                    Info = info,
+                    Stats = _authors.ToDictionary(x => x.Key,
+                                                  x =>
+                                                  ByesStatsConstructor(info,
+                                                                       provider.GetMetrics(x.Value)) as
+                                                  IByesStats),
+                    Provider = provider
+                };
         }
 
-        private void InitMultyProvider()
-        {
-            _multyInfo = QuantilesInfoConstructor(_multiplyProvider.Size, _allPosts.SelectMany(x => _multiplyProvider.GetMetrics(x).ToArray()).ToArray());
-            _multyStats = _authors.ToDictionary(x => x.Key,
-                                                x =>
-                                                ByesStatsConstructor(_multyInfo,
-                                                                     x.Value.SelectMany(xx => _multiplyProvider.GetMetrics(xx).ToArray())) as IByesStats);
-        }
 
-        protected virtual IEnumerable<KeyValuePair<Author, double>> AuthorProbab(IDictionary<Author, IByesStats> stats, IEnumerable<double[]> metrics)
+
+        protected virtual IEnumerable<KeyValuePair<Author, double>> AuthorProbab(IEnumerable<KeyValuePair<Author, IByesStats>> stats, IEnumerable<double[]> metrics)
         {
             var statArr = stats.ToArray();
             var probab = new double[statArr.Length];
@@ -83,11 +96,12 @@ namespace Urfu.AuthorDetector.Common.Classification
                     probab[i] *= statArr[i].Value.Probability(metr) / mx;
                 }
             }
-            return statArr.Zip(probab, (x, pr) => new KeyValuePair<Author, double>(x.Key,pr )).ToArray();
+            return statArr.Zip(probab, (x, pr) => new KeyValuePair<Author, double>(x.Key, pr)).ToArray();
         }
 
-        public Author ClassificatePosts(IEnumerable<string> posts)
+        public Author ClassificatePosts(IEnumerable<string> posts, out bool reliable)
         {
+            reliable = true;
             return ClassificatePosts(posts, 1)[0];
         }
 
@@ -95,23 +109,24 @@ namespace Urfu.AuthorDetector.Common.Classification
         {
             posts = posts as string[] ?? posts.ToArray();
             Dictionary<Author, double> cands = Authors.ToDictionary(x => x, x => 1d);
-            if (_commonProvider != null)
+
+            foreach (var stat in _stats)
             {
-                foreach (var avt in AuthorProbab(_commonStats, posts.Select(x => _commonProvider.GetMetrics(x).ToArray())))
+                foreach (var avt in AuthorProbab(stat.Stats, stat.Provider.GetMetrics(posts)))
                 {
                     cands[avt.Key] *= avt.Value;
                 }
             }
-
-            if (_multiplyProvider != null)
-            {
-                foreach (var avt in AuthorProbab(_multyStats, posts.SelectMany(x => _multiplyProvider.GetMetrics(x).ToArray())))
+            var ordered = cands.OrderByDescending(x => x.Value).ToArray();
+            _lastResult = new BayesClassifierTest()
                 {
-                    cands[avt.Key] *= avt.Value;
-                }
-            }
-
-            return cands.OrderByDescending(x => x.Value).Select(x=>x.Key).Take(topN).ToArray();
+                    FirstToAll = ordered[0].Value / cands.Skip(1).Sum(x => x.Value),
+                    FirstToSecond
+                        = ordered[0].Value / ordered[1].Value,
+                    MessageCount = posts.Count()
+                };
+            _lastResult.MessagesLength = posts.Select(x => x.Length).Sum();
+            return ordered.Select(x => x.Key).Take(topN).ToArray();
         }
 
     }

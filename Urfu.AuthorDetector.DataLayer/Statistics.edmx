@@ -13,6 +13,7 @@
     <EntitySet Name="ClassifierVersionSet" EntityType="Statistics.Store.ClassifierVersionSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ClassifierResultSet" EntityType="Statistics.Store.ClassifierResultSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ClassifierParamsSet" EntityType="Statistics.Store.ClassifierParamsSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BayesClassifierTestSet" EntityType="Statistics.Store.BayesClassifierTestSet" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="PostAuthor" Association="Statistics.Store.PostAuthor">
       <End Role="Post" EntitySet="Posts" />
       <End Role="Author" EntitySet="Authors" />
@@ -36,6 +37,10 @@
     <AssociationSet Name="ClassifierResultClassifierParams" Association="Statistics.Store.ClassifierResultClassifierParams">
       <End Role="ClassifierResult" EntitySet="ClassifierResultSet" />
       <End Role="ClassifierParams" EntitySet="ClassifierParamsSet" />
+    </AssociationSet>
+    <AssociationSet Name="ClassifierVersionBayesClassifierTest" Association="Statistics.Store.ClassifierVersionBayesClassifierTest">
+      <End Role="ClassifierVersion" EntitySet="ClassifierVersionSet" />
+      <End Role="BayesClassifierTest" EntitySet="BayesClassifierTestSet" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Posts">
@@ -104,6 +109,18 @@
     <Property Name="Key" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
     <Property Name="ClassifierResult_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BayesClassifierTestSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Success" Type="bit" Nullable="false" />
+    <Property Name="FirstToAll" Type="float" Nullable="false" />
+    <Property Name="FirstToSecond" Type="float" Nullable="true" />
+    <Property Name="MessageCount" Type="int" Nullable="false" />
+    <Property Name="MessagesLength" Type="int" Nullable="true" />
+    <Property Name="ClassifierVersion_Id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="PostAuthor">
     <End Role="Post" Type="Statistics.Store.Posts" Multiplicity="*" />
@@ -177,6 +194,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="ClassifierVersionBayesClassifierTest">
+    <End Role="ClassifierVersion" Type="Statistics.Store.ClassifierVersionSet" Multiplicity="1" />
+    <End Role="BayesClassifierTest" Type="Statistics.Store.BayesClassifierTestSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ClassifierVersion">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BayesClassifierTest">
+        <PropertyRef Name="ClassifierVersion_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -212,6 +241,11 @@
           <AssociationSet Name="ClassifierResultClassifierParams" Association="Statistics.ClassifierResultClassifierParams">
             <End Role="ClassifierResult" EntitySet="ClassifierResultSet" />
             <End Role="ClassifierParams" EntitySet="ClassifierParamsSet" />
+          </AssociationSet>
+          <EntitySet Name="BayesClassifierTestSet" EntityType="Statistics.BayesClassifierTest" />
+          <AssociationSet Name="ClassifierVersionBayesClassifierTest" Association="Statistics.ClassifierVersionBayesClassifierTest">
+            <End Role="ClassifierVersion" EntitySet="ClassifierVersionSet" />
+            <End Role="BayesClassifierTest" EntitySet="BayesClassifierTestSet" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Post">
@@ -279,6 +313,7 @@
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Name" Nullable="false" />
           <NavigationProperty Name="ClassifierResult" Relationship="Statistics.ClassifierVersionClassifierResult" FromRole="ClassifierVersion" ToRole="ClassifierResult" />
+          <NavigationProperty Name="BayesClassifierTest" Relationship="Statistics.ClassifierVersionBayesClassifierTest" FromRole="ClassifierVersion" ToRole="BayesClassifierTest" />
         </EntityType>
         <EntityType Name="ClassifierResult">
           <Key>
@@ -310,6 +345,22 @@
         <Association Name="ClassifierResultClassifierParams">
           <End Type="Statistics.ClassifierResult" Role="ClassifierResult" Multiplicity="1" />
           <End Type="Statistics.ClassifierParams" Role="ClassifierParams" Multiplicity="*" />
+        </Association>
+        <EntityType Name="BayesClassifierTest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Boolean" Name="Success" Nullable="false" />
+          <Property Type="Double" Name="FirstToAll" Nullable="false" />
+          <Property Type="Double" Name="FirstToSecond" Nullable="true" />
+          <NavigationProperty Name="ClassifierVersion" Relationship="Statistics.ClassifierVersionBayesClassifierTest" FromRole="BayesClassifierTest" ToRole="ClassifierVersion" />
+          <Property Type="Int32" Name="MessageCount" Nullable="false" />
+          <Property Type="Int32" Name="MessagesLength" Nullable="true" />
+        </EntityType>
+        <Association Name="ClassifierVersionBayesClassifierTest">
+          <End Type="Statistics.ClassifierVersion" Role="ClassifierVersion" Multiplicity="1" />
+          <End Type="Statistics.BayesClassifierTest" Role="BayesClassifierTest" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -385,6 +436,18 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="BayesClassifierTestSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Statistics.BayesClassifierTest)">
+        <MappingFragment StoreEntitySet="BayesClassifierTestSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Success" ColumnName="Success" />
+          <ScalarProperty Name="FirstToAll" ColumnName="FirstToAll" />
+          <ScalarProperty Name="FirstToSecond" ColumnName="FirstToSecond" />
+          <ScalarProperty Name="MessageCount" ColumnName="MessageCount" />
+          <ScalarProperty Name="MessagesLength" ColumnName="MessagesLength" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="PostAuthor" TypeName="Statistics.PostAuthor" StoreEntitySet="Posts">
       <EndProperty Name="Author">
         <ScalarProperty Name="Id" ColumnName="Author_Id" />
@@ -431,6 +494,14 @@
         <ScalarProperty Name="Id" ColumnName="ClassifierResult_Id" />
       </EndProperty>
       <EndProperty Name="ClassifierParams">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ClassifierVersionBayesClassifierTest" TypeName="Statistics.ClassifierVersionBayesClassifierTest" StoreEntitySet="BayesClassifierTestSet">
+      <EndProperty Name="ClassifierVersion">
+        <ScalarProperty Name="Id" ColumnName="ClassifierVersion_Id" />
+      </EndProperty>
+      <EndProperty Name="BayesClassifierTest">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Urfu.AuthorDetector.Common.MetricProvider;
 using Urfu.AuthorDetector.Common.MetricProvider.Sentance;
 using Urfu.AuthorDetector.Common.Sentance;
@@ -6,11 +7,12 @@ using Urfu.AuthorDetector.DataLayer;
 
 namespace Urfu.AuthorDetector.Common.Classification
 {
+
+    
+
     public interface IClassifierFactory
     {
-        IPostMetricProvider PostMetricProvider { get; set; }
-        ICommonMetricProvider CommonMetricProvider { get; set; }
-        IMultiplyMetricsProvider MultiplyMetricsProvider { get; set; }
+        ICommonMetricProvider[] CommonMetricProviders { get; set; }
         IClassifier Create(IDictionary<Author, IEnumerable<string>> authors);
     }
 
@@ -22,9 +24,7 @@ namespace Urfu.AuthorDetector.Common.Classification
     public abstract class BaseClassifierFactory : IClassifierFactory
     {
 
-        public ICommonMetricProvider CommonMetricProvider { get; set; }
-        public IPostMetricProvider PostMetricProvider { get; set; }
-        public IMultiplyMetricsProvider MultiplyMetricsProvider { get; set; }
+        public ICommonMetricProvider[] CommonMetricProviders { get; set; }
         public abstract IClassifier Create(IDictionary<Author, IEnumerable<string>> authors);
     }
 
@@ -32,7 +32,7 @@ namespace Urfu.AuthorDetector.Common.Classification
     {
         public override IClassifier Create(IDictionary<Author, IEnumerable<string>> authors)
         {
-            return new PerecentileBayesClassifier(authors, PostMetricProvider, MultiplyMetricsProvider);
+            return new PerecentileBayesClassifier(authors, CommonMetricProviders);
         }
     }
 
@@ -40,7 +40,7 @@ namespace Urfu.AuthorDetector.Common.Classification
     {
         public override IClassifier Create(IDictionary<Author, IEnumerable<string>> authors)
         {
-            return new StupidPerecentileBayesClassifier(authors, PostMetricProvider, MultiplyMetricsProvider);
+            return new StupidPerecentileBayesClassifier(authors, CommonMetricProviders);
         }
     }
 
@@ -75,7 +75,7 @@ namespace Urfu.AuthorDetector.Common.Classification
         public override IClassifier Create(IDictionary<Author, IEnumerable<string>> authors)
         {
             var cls = new KNearestBayesClassifier() {K = K};
-            cls.Init(authors,CommonMetricProvider);
+            cls.Init(authors,CommonMetricProviders.First());
             return cls;
         }
     }
@@ -93,7 +93,7 @@ namespace Urfu.AuthorDetector.Common.Classification
         public override IClassifier Create(IDictionary<Author, IEnumerable<string>> authors)
         {
             var cls = new KNearestSumClassifier() { K = K };
-            cls.Init(authors,CommonMetricProvider);
+            cls.Init(authors, CommonMetricProviders.First());
             return cls;
         }
     }

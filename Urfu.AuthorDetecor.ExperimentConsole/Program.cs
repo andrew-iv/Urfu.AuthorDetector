@@ -48,21 +48,48 @@ namespace Urfu.AuthorDetecor.ExperimentConsole
             using (var writerStat = new CsvWriter(new StreamWriter(fileStat)))
             {
                 var ds = StaticVars.Kernel.Get<IDataSource>().GetPosts(30);
-                var benchmark = new ForumClassifierBenchmark(ds)
+                var benchmark = new MultyBenchmark(ds)
                     {
                         AuthorsCount = authorsCount,
-                        LearningCount = 500,
-                        RoundCount = 3,
-                        TestsInRoundCount = 300
+                        LearningCount = 600,
+                        RoundCount = 10,
+                        TestsInRoundCount = 50
 
                     };
-                foreach (var msgCount in Enumerable.Range(1, 10).Select(i => i * 5+20)
+                foreach (var msgCount in Enumerable.Range(1, 15).Select(i => i * 2)
+                    /*.Concat(Enumerable.Range(1, 4).Select(i => i * 5 + 10))*/)
+                {
+                    benchmark.MessageCount = msgCount;
+                    var score = benchmark.ScoreTopN(factory,3, new Random().Next());
+                    writerStat.WriteFields(score, msgCount);
+                    Console.WriteLine("{0}% - {1}", score * 100, msgCount);
+                }
+            }
+        }
+
+        private static void Test2(IBinaryClassifierFactory factory, string filePrefix, int authorsCount = 10)
+        {
+            using (var fileStat = File.Open(
+                string.Format("{1}_{0}_Total.csv", DateTime.Now.Ticks, filePrefix)
+                , FileMode.Create, FileAccess.Write))
+            using (var writerStat = new CsvWriter(new StreamWriter(fileStat)))
+            {
+                var ds = StaticVars.Kernel.Get<IDataSource>().GetPosts(40);
+                var benchmark = new SingleBenchmark(ds)
+                {
+                    AuthorsCount = authorsCount,
+                    LearningCount = 500,
+                    RoundCount = 20,
+                    TestsInRoundCount = 50,
+                    ChangeAuthorCount = 10
+                };
+                foreach (var msgCount in Enumerable.Range(1, 15).Select(i => i * 2 )
                     /*.Concat(Enumerable.Range(1, 4).Select(i => i * 5 + 10))*/)
                 {
                     benchmark.MessageCount = msgCount;
                     var score = benchmark.Score(factory, new Random().Next());
-                    writerStat.WriteFields(score, msgCount);
-                    Console.WriteLine("{0}% - {1}", score * 100, msgCount);
+                    writerStat.WriteFields(msgCount, score.Item1,score.Item2);
+                    Console.WriteLine("{0}% |{1}% - {2}", score.Item1 * 100, score.Item2 * 100, msgCount);
                 }
             }
         }
@@ -91,7 +118,7 @@ namespace Urfu.AuthorDetecor.ExperimentConsole
             using (var writerStat = new CsvWriter(new StreamWriter(fileStat)))
             {
 
-                foreach (var postsCount in Enumerable.Range(1, 5).Select(i => i * 2 - 1))
+                foreach (var postsCount in Enumerable.Range(1, 4).Select(i => i * 5))
                 {
                     using (var file = File.Open(
                         string.Format("{2}_{1}_{0}.csv", postsCount, DateTime.Now.Ticks, filePrefix)
@@ -138,53 +165,19 @@ namespace Urfu.AuthorDetecor.ExperimentConsole
                         ForumId = 3,
                         DateStart = new DateTime(2012, 1, 1)
                     }).InTransientScope();
+                Kernel.Bind<int>().ToConstant(4).Named("BayesClsVersionId");
+                Kernel.Bind<IBayesResultLogger>().To<DummyBayesResultLogger>().InSingletonScope();
             }
         }
 
         static void Main(string[] args)
         {
-            StaticVars.Kernel = new StandardKernel(new CommonModule() { NeedCreateDictionary = false }, new LorModule(), new ExperimentModule());
-            StaticVars.InitializeTops(StaticVars.Kernel.Get<IDataSource>().GetPosts(30).SelectMany(x=>x.Value));
+            StaticVars.Kernel = new StandardKernel(new CommonModule() { NeedCreateDictionary = true }, new LorModule(), new ExperimentModule());
+            StaticVars.InitializeTops(StaticVars.Kernel.Get<IDataSource>().GetPosts(30).SelectMany(x => x.Value));
             _kernel = StaticVars.Kernel;
 
             PcaMetricTransformer smpTrans = null;
-            /*var smp = PcaMetricTransformer.CreateSimpeMetricProvider(0.99f, out smpTrans, AnalysisMethod.Standardize);
-           PcaMetricTransformer mmpTrans = null;
-            var mmp = PcaMetricTransformer.CreateMultiplyMetricProvider(0.99f, out mmpTrans);
-
-
-            Test2(new StupidPerecentileBayesClassifierFactory()
-                {
-                    PostMetricProvider = smp,
-                    MultiplyMetricsProvider = mmp
-                },"BC1",10);
-
-            Test2(new StupidPerecentileBayesClassifierFactory()
-            {
-                //PostMetricProvider = smp,
-                MultiplyMetricsProvider = mmp
-            }, "BC2", 10);
-            * */
-
-            /*Test2(new StupidPerecentileBayesClassifierFactory()
-            {
-                PostMetricProvider = new SelectedPostMetricProvider(smp) { Indexes = new[] { 1, 5, 6, 7, 9,12,15,17,18,23,33,36,47,52,54,55 } },
-                //MultiplyMetricsProvider = mmp
-            }, "BC3-1", 10);
-
-            Test2(new StupidPerecentileBayesClassifierFactory()
-            {
-                PostMetricProvider = new SelectedPostMetricProvider(smp) { Indexes = new[] { 1, 6, 7, 8 } },
-                //MultiplyMetricsProvider = mmp
-            }, "BC3-1", 10);
-
             
-            Test2(new StupidPerecentileBayesClassifierFactory()
-            {
-                PostMetricProvider = smp,
-                //MultiplyMetricsProvider = mmp
-            }, "BC3-2", 10);
-             * */
             var pp = new SelectedPostMetricProvider(StaticVars.Kernel.Get<IPostMetricProvider>())
                 {
                     Indexes =
@@ -197,47 +190,53 @@ namespace Urfu.AuthorDetecor.ExperimentConsole
                 };
             foreach (var auCount in new int[] { 10 })
             {
-                if (auCount != 10)
+
+                Test2(
+                    /*new BinaryFromMultyClassifierFactory(*/
+                    new KNearestSumClassifierFactory()
                 {
-                    Test2(new StupidPerecentileBayesClassifierFactory()
-                        {
-                            PostMetricProvider = StaticVars.Kernel.Get<IPostMetricProvider>(),
-                            //MultiplyMetricsProvider = StaticVars.Kernel.Get<IMultiplyMetricsProvider>()
-                        }, "BC5-1-" + auCount, auCount);
+                    K = 5,
+                    CommonMetricProviders = new[] { SomeSelectedMetricProviders.AddSelection2
+                        ,
 
-                    
-                }
+                        /* , new LengthMetricProvider(), */ }
+                    //StaticVars.Kernel.Get<IPostMetricProvider>(),
+                    //MultiplyMetricsProvider = StaticVars.Kernel.Get<IMultiplyMetricsProvider>()
+                }, "Chi2Test4-2-" + auCount, auCount);
 
-                foreach (var k in new []{5})
+                /*Test2(new StupidPerecentileBayesClassifierFactory()
                 {
-                    Test2(
-                        new KNearestSumClassifierFactory()
-                            {
-                                CommonMetricProvider = StaticVars.Kernel.Get<IPostMetricProvider>(),
-                                K = k
-                            },
-                        string.Format("KNearestSumClassifierFactory_{0}", k), auCount);
-                        
-                   /* Test2(
-                        new KNearestBayesClassifierFactory()
-                            {
-                                CommonMetricProvider = StaticVars.Kernel.Get<IPostMetricProvider>(),
-                                K = k
-                            },
-                        string.Format("KNearestBayesClassifierFactory_{0}", k), auCount);*/
-                }
+                    CommonMetricProviders = new[] { SomeSelectedMetricProviders.AddSelection2 }
+                    //StaticVars.Kernel.Get<IPostMetricProvider>(),
+                    //MultiplyMetricsProvider = StaticVars.Kernel.Get<IMultiplyMetricsProvider>()
+                }, "Selection2-" + auCount, auCount);
 
-                
                 Test2(new StupidPerecentileBayesClassifierFactory()
-                        {
-                            PostMetricProvider = pp,
-                            //MultiplyMetricsProvider = StaticVars.Kernel.Get<IMultiplyMetricsProvider>()
-                        }, "BC5-1-" + auCount, auCount);
+                {
+                    CommonMetricProviders = new[] { SomeSelectedMetricProviders.AddSelection1 }
+                    //StaticVars.Kernel.Get<IPostMetricProvider>(),
+                    //MultiplyMetricsProvider = StaticVars.Kernel.Get<IMultiplyMetricsProvider>()
+                }, "Selection1-" + auCount, auCount);
 
-                
+
+                Test2(new StupidPerecentileBayesClassifierFactory()
+                    {
+                        CommonMetricProviders = new[] { SomeSelectedMetricProviders.Chi2Test4 }
+                        //StaticVars.Kernel.Get<IPostMetricProvider>(),
+                        //MultiplyMetricsProvider = StaticVars.Kernel.Get<IMultiplyMetricsProvider>()
+                    }, "Chi2Test4-" + auCount, auCount);
+
+                Test2(new StupidPerecentileBayesClassifierFactory()
+                    {
+                        CommonMetricProviders = new[] { SomeSelectedMetricProviders.Chi2Test3 }
+                        //StaticVars.Kernel.Get<IPostMetricProvider>(),
+                        //MultiplyMetricsProvider = StaticVars.Kernel.Get<IMultiplyMetricsProvider>()
+                    }, "Chi2Test3-" + auCount, auCount);
+
+                */
 
                 continue;
-                
+
 
                 Test2(new MSvmClassifierClassifierFactory()
                 {
@@ -254,7 +253,7 @@ namespace Urfu.AuthorDetecor.ExperimentConsole
                     /*MultiplyMetricsProvider = new SelectedMultiMetricProvider(PcaMetricTransformer.CreateMultiplyMetricProvider(0.995f, out smpTrans, AnalysisMethod.Standardize))
                         {
                             Indexes = new int[] { 0, 7, 28, 31, 33, 35, 40, 66, 72, 75, 77 }
-                        }*/ 
+                        }*/
                 }, "BC5-3-" + auCount, auCount);
 
                 Test2(new MSvmClassifierClassifierFactory()

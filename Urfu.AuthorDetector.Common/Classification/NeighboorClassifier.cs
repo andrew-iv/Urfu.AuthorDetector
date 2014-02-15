@@ -60,9 +60,15 @@ namespace Urfu.AuthorDetector.Common.Classification
                     }).Sum());
         }
 
-        public IEnumerable<Author> Authors { get; private set; }
-        public Author ClassificatePosts(IEnumerable<string> posts)
+        public void LogResult(bool isSuccess)
         {
+            
+        }
+
+        public IEnumerable<Author> Authors { get; private set; }
+        public Author ClassificatePosts(IEnumerable<string> posts, out bool reliable)
+        {
+            reliable = true;
             return ClassificatePosts(posts,1)[0];
         }
 
@@ -78,5 +84,6 @@ namespace Urfu.AuthorDetector.Common.Classification
             get { return "Метод ближайших соседей"; }
         }
         public virtual string Name { get { return "Метод ближайших соседей"; } }
+        public double ErrorLevel { get; set; }
     }
 }

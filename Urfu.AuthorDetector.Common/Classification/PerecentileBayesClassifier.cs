@@ -15,8 +15,8 @@ namespace Urfu.AuthorDetector.Common.Classification
 
     public class PerecentileBayesClassifier : BayesClassifierBase
     {
-        public PerecentileBayesClassifier(IDictionary<Author, IEnumerable<string>> authors, IPostMetricProvider commonProvider = null, IMultiplyMetricsProvider multiplyProvider = null) 
-            : base(authors, commonProvider, multiplyProvider)
+        public PerecentileBayesClassifier(IDictionary<Author, IEnumerable<string>> authors, ICommonMetricProvider[] providers )
+            : base(authors, providers)
         {
         }
 

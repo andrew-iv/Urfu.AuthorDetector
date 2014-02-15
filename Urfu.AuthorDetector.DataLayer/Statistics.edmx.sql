@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 01/31/2014 01:05:00
+-- Date Created: 02/10/2014 22:17:55
 -- Generated from EDMX file: C:\Users\andrew-iv\Documents\Visual Studio 2012\Projects\Urfu.AuthorDetector2\Urfu.AuthorDetector.DataLayer\Statistics.edmx
 -- --------------------------------------------------
 
@@ -35,6 +35,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ClassifierResultClassifierParams]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ClassifierParamsSet] DROP CONSTRAINT [FK_ClassifierResultClassifierParams];
 GO
+IF OBJECT_ID(N'[dbo].[FK_ClassifierVersionBayesClassifierTest]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[BayesClassifierTestSet] DROP CONSTRAINT [FK_ClassifierVersionBayesClassifierTest];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -60,6 +63,9 @@ IF OBJECT_ID(N'[dbo].[ClassifierResultSet]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[ClassifierParamsSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ClassifierParamsSet];
+GO
+IF OBJECT_ID(N'[dbo].[BayesClassifierTestSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[BayesClassifierTestSet];
 GO
 
 -- --------------------------------------------------
@@ -133,6 +139,18 @@ CREATE TABLE [dbo].[ClassifierParamsSet] (
 );
 GO
 
+-- Creating table 'BayesClassifierTestSet'
+CREATE TABLE [dbo].[BayesClassifierTestSet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Success] bit  NOT NULL,
+    [FirstToAll] float  NOT NULL,
+    [FirstToSecond] float  NULL,
+    [MessageCount] int  NOT NULL,
+    [MessagesLength] int  NULL,
+    [ClassifierVersion_Id] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -176,6 +194,12 @@ GO
 -- Creating primary key on [Id] in table 'ClassifierParamsSet'
 ALTER TABLE [dbo].[ClassifierParamsSet]
 ADD CONSTRAINT [PK_ClassifierParamsSet]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'BayesClassifierTestSet'
+ALTER TABLE [dbo].[BayesClassifierTestSet]
+ADD CONSTRAINT [PK_BayesClassifierTestSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -265,6 +289,20 @@ ADD CONSTRAINT [FK_ClassifierResultClassifierParams]
 CREATE INDEX [IX_FK_ClassifierResultClassifierParams]
 ON [dbo].[ClassifierParamsSet]
     ([ClassifierResult_Id]);
+GO
+
+-- Creating foreign key on [ClassifierVersion_Id] in table 'BayesClassifierTestSet'
+ALTER TABLE [dbo].[BayesClassifierTestSet]
+ADD CONSTRAINT [FK_ClassifierVersionBayesClassifierTest]
+    FOREIGN KEY ([ClassifierVersion_Id])
+    REFERENCES [dbo].[ClassifierVersionSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ClassifierVersionBayesClassifierTest'
+CREATE INDEX [IX_FK_ClassifierVersionBayesClassifierTest]
+ON [dbo].[BayesClassifierTestSet]
+    ([ClassifierVersion_Id]);
 GO
 
 -- --------------------------------------------------

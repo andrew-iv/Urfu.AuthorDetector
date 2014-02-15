@@ -65,7 +65,7 @@ namespace Urfu.AuthorDetector.Common
         public override void Load()
         {
             Kernel.Bind<IForumStorage>().To<LorStorage>().InTransientScope();
-            Kernel.Bind<IDataExtractor>().To<LorDataExtractor>().InThreadScope();
+            Kernel.Bind<IDataExtractor>().To<FromHtmlDataExtractor>().InThreadScope();
         }
 
         public override void Unload()

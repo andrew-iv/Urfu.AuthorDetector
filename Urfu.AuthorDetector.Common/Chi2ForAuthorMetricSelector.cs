@@ -10,8 +10,8 @@ namespace Urfu.AuthorDetector.Common
 {
     public class KolmogorovSmirnovMetricSelector : IMetricSelector
     {
-        private int _topMetricsCount;
-        private IEnumerable<string>[] _authorsArray;
+        private readonly int _topMetricsCount;
+        private readonly IEnumerable<string>[] _authorsArray;
 
         public KolmogorovSmirnovMetricSelector(IEnumerable<IEnumerable<string>> authors, int topMetricsCount = 3)
         {
@@ -19,11 +19,11 @@ namespace Urfu.AuthorDetector.Common
             _authorsArray = authors as IEnumerable<string>[] ?? authors.ToArray();
         }
 
-        public IEnumerable<int> SelectMetrics(ICommonMetricProvider postMetricProvider)
+        public Dictionary<int, HashSet<int>> SelectMetrics(ICommonMetricProvider postMetricProvider)
         {
             
             var authorMetrics = new double[_authorsArray.Length][][];
-            var hashRes = new HashSet<int>();
+            var hashRes = Enumerable.Range(1, 10).ToDictionary(x => x, x => new HashSet<int>());
             var empArray = new EmpiricalDistribution[_authorsArray.Length][];
 
             foreach (var i in Enumerable.Range(0,_authorsArray.Length))
@@ -42,7 +42,7 @@ namespace Urfu.AuthorDetector.Common
             {
                 for (var j = i + 1; j < _authorsArray.Length; j++)
                 {
-                    
+                    var skipCount = 0;
                     foreach (var index in Enumerable.Range(0, postMetricProvider.Size).Select(index => new
                     {
                         index,
@@ -51,20 +51,15 @@ namespace Urfu.AuthorDetector.Common
                     }).Where(x=>x.distance.Significant).OrderByDescending(x => x.distance.Statistic)
                     .Take(_topMetricsCount).Select(x => x.index))
                     {
-                        hashRes.Add(index);
+                        for (int k = (++skipCount); k <= _topMetricsCount; k++)
+                        {
+                            hashRes[k].Add(index);
+                        }
                     }
 
                 }
             }
-            return hashRes.OrderBy(x => x).ToArray();
-        }
-    }
-
-    public class Chi2TopMetricSelector : IMetricSelector
-    {
-        public IEnumerable<int> SelectMetrics(ICommonMetricProvider postMetricProvider)
-        {
-            throw new System.NotImplementedException();
+            return hashRes;
         }
     }
 
@@ -114,12 +109,12 @@ namespace Urfu.AuthorDetector.Common
         
 
 
-        public IEnumerable<int> SelectMetrics(ICommonMetricProvider postMetricProvider)
+        public Dictionary<int, HashSet<int>> SelectMetrics(ICommonMetricProvider postMetricProvider)
         {
             
             var histArray = new Histogram[_authorsArray.Length][];
             var authorMetrics = new double[_authorsArray.Length][][];
-            var hashRes = new HashSet<int>();
+            var hashRes = Enumerable.Range(1, 10).ToDictionary(x => x, x => new HashSet<int>());
             
             foreach (var i in Enumerable.Range(0,_authorsArray.Length))
             {
@@ -149,18 +144,22 @@ namespace Urfu.AuthorDetector.Common
                 {
                     var a1 = histArray[i];
                     var a2 = histArray[j];
+                    var skipCount = 0;
                     foreach (var index in Enumerable.Range(0, postMetricProvider.Size).Where(ind => a1[ind] != null && a2[ind] != null).Select(index => new
                         {
                             index,
                             distance = DistanceFunction(a1[index],a2[index])
                         }).OrderByDescending(x => x.distance).Take(_topMetricsCount).Select(x => x.index))
                     {
-                        hashRes.Add(index);
+                        for (int k = (++skipCount); k <= _topMetricsCount; k++)
+                        {
+                            hashRes[k].Add(index);
+                        }
                     }
                     
                 }
             }
-            return hashRes.OrderBy(x => x).ToArray();
+            return hashRes;
         }
     }
 }

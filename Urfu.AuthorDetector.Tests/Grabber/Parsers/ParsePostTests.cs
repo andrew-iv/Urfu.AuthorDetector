@@ -38,7 +38,7 @@ namespace Urfu.AuthorDetector.Tests.Grabber.Parsers
         }
         
         [Test]
-        [Ignore("Dohera")]
+        [Ignore("Dolgo")]
         public void TestLoadForum()
         {
             var moq = new Moq.Mock<IVBulletinLog>();

@@ -8,10 +8,12 @@ namespace Urfu.AuthorDetector.Common.MetricProvider
 {
     public class GrammemesPostMetricProvider : BasePostMetricProvider
     {
-        public GrammemesPostMetricProvider():base()
+        private readonly bool _unknown;
+
+        public GrammemesPostMetricProvider(string[] grammemes=null, bool unknown =true):base()
         {
-            var dict = StaticVars.Kernel.Get<Opcorpora.Dictionary.IOpcorporaDictionary>();
-            _grammemes = dict.Grammemes.Select(x => x.name).ToArray();
+            _unknown = unknown;
+            _grammemes =  grammemes ?? StaticVars.Kernel.Get<Opcorpora.Dictionary.IOpcorporaDictionary>().Grammemes.Select(x => x.name).ToArray();
         }
 
 
@@ -21,7 +23,12 @@ namespace Urfu.AuthorDetector.Common.MetricProvider
         {
             get
             {
-                return _grammemes.Select(x => "Grammeme_" + x).Union(new string[]{"Grammeme_UNKNOWN"});
+                return _grammemes.Select(x => "Grammeme_" + x).Union(
+                    _unknown?
+                    new string[]{"Grammeme_UNKNOWN"}
+                    :
+                    new string[] {}
+                    );
             }
         }
 
@@ -44,7 +51,8 @@ namespace Urfu.AuthorDetector.Common.MetricProvider
                     yield return 0;
                 }
             }
-            yield return si.UnknownWords.Length /(double) si.Length;
+            if(_unknown)
+                yield return si.UnknownWords.Length /(double) si.Length;
         }
     }
 }

@@ -258,7 +258,8 @@ namespace Urfu.AuthorDetector.Tests.Common.Classification
                     {new Author(){Identity = "author2"},author2 as IEnumerable<string>},
                     {new Author(){Identity = "author3"},author3 as IEnumerable<string> }
                 }, StaticVars.Kernel.Get<IPostMetricProvider>());
-            return classifier.ClassificatePosts(example.Select(x=>x.Text)).Identity;
+            bool reliable;
+            return classifier.ClassificatePosts(example.Select(x=>x.Text), out reliable).Identity;
     }
 
         [TestCaseSource("TestClassifier1Source")]

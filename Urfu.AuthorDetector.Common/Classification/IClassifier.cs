@@ -3,16 +3,43 @@ using Urfu.AuthorDetector.DataLayer;
 
 namespace Urfu.AuthorDetector.Common.Classification
 {
-    public interface IClassifier
+    public interface IAlogorithm
     {
+        /// <summary>
+        /// Описание алгоритма
+        /// </summary>
+        string Description { get; }
+        /// <summary>
+        /// Название
+        /// </summary>
+        string Name { get; }
+
+        /// <summary>
+        /// Уровень ошибки первого рода
+        /// </summary>
+        double ErrorLevel { get; set; }
+    }
+
+    public interface IClassifier : IAlogorithm
+    {
+        /// <summary>
+        /// Записать результат в базу
+        /// </summary>
+        /// <param name="isSuccess"></param>
+        void LogResult(bool isSuccess);
+
+        /// <summary>
+        /// На каких авторах обучен классификатор
+        /// </summary>
         IEnumerable<Author> Authors { get; }
 
         /// <summary>
         /// Определить автора сообщений
         /// </summary>
-        /// <param name="posts"></param>
+        /// <param name="posts"></param>>
+        /// <param name="reliable">Достоверный ли ответ?</param>
         /// <returns></returns>
-        Author ClassificatePosts(IEnumerable<string> posts);
+        Author ClassificatePosts(IEnumerable<string> posts, out bool reliable);
 
         /// <summary>
         /// Определить возможных авторов сообщений
@@ -21,8 +48,7 @@ namespace Urfu.AuthorDetector.Common.Classification
         /// <returns></returns>
         Author[] ClassificatePosts(IEnumerable<string> posts, int topN);
 
-        string Description { get; }
-        string Name { get; }
+        
     }
 
     

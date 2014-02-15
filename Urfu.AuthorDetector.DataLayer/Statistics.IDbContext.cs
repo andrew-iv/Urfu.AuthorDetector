@@ -49,5 +49,9 @@ namespace Urfu.AuthorDetector.DataLayer
     
     	IDbSet<ClassifierParams> ClassifierParamsSet	{ get; }
     
+       
+    
+    	IDbSet<BayesClassifierTest> BayesClassifierTestSet	{ get; }
+    
     }
 }

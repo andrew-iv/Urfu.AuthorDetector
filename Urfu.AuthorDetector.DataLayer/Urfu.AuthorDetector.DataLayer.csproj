@@ -52,6 +52,9 @@
     <Compile Include="Author.cs">
       <DependentUpon>Statistics.tt</DependentUpon>
     </Compile>
+    <Compile Include="BayesClassifierTest.cs">
+      <DependentUpon>Statistics.tt</DependentUpon>
+    </Compile>
     <Compile Include="ClassifierParams.cs">
       <DependentUpon>Statistics.tt</DependentUpon>
     </Compile>

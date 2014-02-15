@@ -41,8 +41,7 @@ namespace Urfu.AuthorRecognizer.MetricSelector
             PcaMetricTransformer pca;
             var factory = new StupidPerecentileBayesClassifierFactory()
                 {
-                    PostMetricProvider =
-                    StaticVars.Kernel.Get<IPostMetricProvider>()
+                    CommonMetricProviders = new[] { SomeSelectedMetricProviders.Chi2Test4 }
                     /* PcaMetricTransformer.CreateSimpeMetricProvider(
                     (float)double.Parse(tbTreeshold.Text), out pca,AnalysisMethod.Standardize)*/
                 };
@@ -51,15 +50,17 @@ namespace Urfu.AuthorRecognizer.MetricSelector
             UpdateLayout();
             
             var ds = StaticVars.Kernel.Get<IDataSource>();
-            var strategy = new IndexSelectionStrategy()
+            var strategy = new AddDelSelectionStrategy()
                 {
-                    Benchmark = new ForumClassifierBenchmark(ds.GetPosts(20))
+                    Benchmark = new MultyBenchmark(ds.GetPosts(20))
                         {
                             TestsInRoundCount = 400,
-                            RoundCount = 5,
+                            RoundCount = 4,
                             MessageCount = int.Parse(tbMsgCount.Text)
                         },
-                    TimeOut = TimeSpan.FromMinutes(int.Parse(tbMinutes.Text))
+                    TimeOut = TimeSpan.FromMinutes(int.Parse(tbMinutes.Text)),
+                    DeltaAdd = 30,
+                    DeltaDel = 14
                 };
             strategy.ArgAdded += (o, changed) =>
             {
@@ -67,22 +68,19 @@ namespace Urfu.AuthorRecognizer.MetricSelector
                 TextBlockLog.UpdateLayout();
                 UpdateLayout();
             };
-            var ind = strategy.SelectMetric(new MultyMetricProviderStrategyProxy()
+            var ind = strategy.SelectMetric(new CommonProviderStrategyProxy()
                 {
                     Factory = new StupidPerecentileBayesClassifierFactory()
                         {
-                            PostMetricProvider = new SelectedPostMetricProvider(
-                                StaticVars.Kernel.Get<IPostMetricProvider>()) { Indexes = new int[] { 3, 4, 6, 14, 17, 25, 29, 31, 32, 36, 38, 41, 42, 43, 44, 45, 46, 48, 50, 51, 53, 55, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 68, 69, 70, 71, 72, 73 }},
-                            MultiplyMetricsProvider = PcaMetricTransformer.CreateMultiplyMetricProvider(0.995f,
-                            out pca,AnalysisMethod.Standardize)
+                            CommonMetricProviders = new []{SomeSelectedMetricProviders.Chi2Test4}
                         }
-                });
+                },new int[]{3,5,7,9,10,11,12,15,18,21,22,23,24,35,37,40,41,42});
 
 
 
             foreach (var i in ind)
             {
-                this.TextBlockRes.Text += i + " = " + factory.PostMetricProvider.Names.ToArray()[i] + Environment.NewLine;
+                this.TextBlockRes.Text += i + " = " + factory.CommonMetricProviders[0].Names.ToArray()[i] + Environment.NewLine;
             }
         }
     }

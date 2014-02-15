@@ -12,7 +12,6 @@ namespace Urfu.AuthorDetector.Common.MetricProvider
             if (length > 0)
             {
                 var ss = new StringSearch(keywords);
-                var dictCount = new Dictionary<string, int>(keywords.Count());
                 var allRes = ss.FindAll(text.ToLower()).GroupBy(x => x.Keyword).ToDictionary(x => x.Key, x => x.Count());
                 foreach (var x in keywords)
                 {

@@ -50,6 +50,10 @@ namespace Urfu.AuthorDetector.DataLayer
     
     		public InMemoryDbSet<ClassifierParams> ClassifierParamsSet = new InMemoryDbSet<ClassifierParams>();
     
+    	   
+    
+    		public InMemoryDbSet<BayesClassifierTest> BayesClassifierTestSet = new InMemoryDbSet<BayesClassifierTest>();
+    
     	
     	    public virtual Mock<IStatisticsContext>  BuildMockDbContext(MockBehavior mockBehavior)
     	    {
@@ -110,6 +114,14 @@ namespace Urfu.AuthorDetector.DataLayer
         		mockDbContext
                     .Setup(context => context.Add(It.IsAny<ClassifierParams>()))
                     .Callback((ClassifierParams dataRow) => ClassifierParamsSet.Add(dataRow));		
+    	   	
+    			mockDbContext
+    				.Setup(context => context.BayesClassifierTestSet)
+    				.Returns(BayesClassifierTestSet);
+    
+        		mockDbContext
+                    .Setup(context => context.Add(It.IsAny<BayesClassifierTest>()))
+                    .Callback((BayesClassifierTest dataRow) => BayesClassifierTestSet.Add(dataRow));		
     		
     			return mockDbContext;	
     		}
@@ -137,6 +149,8 @@ namespace Urfu.AuthorDetector.DataLayer
     			&& context.ClassifierResultSet == ClassifierResultSet.AsQueryable()	
     	   
     			&& context.ClassifierParamsSet == ClassifierParamsSet.AsQueryable()	
+    	   
+    			&& context.BayesClassifierTestSet == BayesClassifierTestSet.AsQueryable()	
     				);
     		return dbContext;
     		}

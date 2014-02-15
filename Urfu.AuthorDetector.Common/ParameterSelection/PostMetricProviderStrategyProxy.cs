@@ -4,59 +4,32 @@ using Urfu.AuthorDetector.Common.MetricProvider.Sentance;
 
 namespace Urfu.AuthorDetector.Common.ParameterSelection
 {
-    public class PostMetricProviderStrategyProxy : StrategyProxyBase, IPostMetricProviderStrategyProxy
+    
+    public class CommonProviderStrategyProxy : StrategyProxyBase, IPostMetricProviderStrategyProxy
     {
-            private IPostMetricProvider _postMetricProvider;
-
-            public void Start()
-            {
-                _postMetricProvider = Factory.PostMetricProvider;
-            }
-
-            public void End()
-            {
-                Factory.PostMetricProvider = _postMetricProvider;
-            }
-
-            public void SetIndexes(  int[] indexes)
-            {
-                Factory.PostMetricProvider = new SelectedPostMetricProvider(_postMetricProvider)
-                            {
-                                Indexes = indexes
-                            };
-            }
-
-            public int Size
-            {
-                get { return _postMetricProvider.Size; }
-            }
-
-            public IEnumerable<string> Names
-            {
-                get { return _postMetricProvider.Names; }
-            }
-        }
-
-    public class MultyMetricProviderStrategyProxy : StrategyProxyBase, IPostMetricProviderStrategyProxy
-    {
-        private IMultiplyMetricsProvider _postMetricProvider;
+        private ICommonMetricProvider _postMetricProvider;
 
         public void Start()
         {
-            _postMetricProvider = Factory.MultiplyMetricsProvider;
+            _postMetricProvider = Factory.CommonMetricProviders[0];
         }
 
         public void End()
         {
-            Factory.MultiplyMetricsProvider = _postMetricProvider;
+            Factory.CommonMetricProviders[0] = _postMetricProvider;
         }
 
         public void SetIndexes(int[] indexes)
         {
-            Factory.MultiplyMetricsProvider = new SelectedMultiMetricProvider(_postMetricProvider)
+            Factory.CommonMetricProviders[0] = new SelectedCommonMetricProvider(_postMetricProvider)
             {
                 Indexes = indexes
             };
+        }
+
+        public bool IsCorrelated(int ind1, int ind2)
+        {
+            throw new System.NotImplementedException();
         }
 
         public int Size
