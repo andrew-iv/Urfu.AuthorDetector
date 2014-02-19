@@ -134,7 +134,6 @@
     <Compile Include="Classification\StupidBayesClassifier.cs" />
     <Compile Include="Classification\NeighboorClassifier.cs" />
     <Compile Include="Classification\StatsHelper.cs" />
-    <Compile Include="Classification\GrammsMetricNeighboorClassifier.cs" />
     <Compile Include="Classification\IClassifier.cs" />
     <Compile Include="Classification\StupidPerecentileBayesClassifier.cs" />
     <Compile Include="CommonModule.cs" />
