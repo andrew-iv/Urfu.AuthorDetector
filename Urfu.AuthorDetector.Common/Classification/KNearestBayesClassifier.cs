@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using AForge.Math;
-using Accord.MachineLearning;
 using Accord.Math;
 using Urfu.AuthorDetector.Common.MetricProvider;
 using Urfu.AuthorDetector.DataLayer;
-using Tools = Accord.Statistics.Tools;
 
 namespace Urfu.AuthorDetector.Common.Classification
 {
@@ -60,47 +57,9 @@ namespace Urfu.AuthorDetector.Common.Classification
         int K { get; set; }
     }
 
-    public abstract class KNearestClassifierBase : ClassifierBase, IKNearestClassifier
-    {
-        protected double[,] _matrix;
-
-        protected int _k = 25;
-        protected KNearestNeighbors _classifier;
-
-        public int K
-        {
-            get { return _k; }
-            set
-            {
-                if(value <= 0)
-                    throw new PropertyConstraintException("K must be >= 1");
-                _k = value;
-            }
-        }
-
-        public override string Description
-        {
-            get { return "Ближайшие соседи"; }
-        }
-
-        protected virtual double[,] GetMatrix(IEnumerable<double[][]> classMetrics)
-        {
-            return Tools.Covariance(classMetrics.First());
-        }
-
-        public override string Name { get { return "KNearestBayesClassifier"; } }
-
-        public override void Init(IDictionary<Author, IEnumerable<string>> authors,
-                                  ICommonMetricProvider metricProvider)
-        {
-            base.Init(authors,metricProvider);
-            _matrix = GetMatrix(AuthorMetrics.Select(x => x.Value));
-            _classifier = new KNearestNeighbors(K,authors.Count, AllMetrics, AllIndex,
-                    (x, y) => x.Mahalanobis(y, (double[,]) _matrix));
-
-        }
-    }
-
+    /// <summary>
+    /// классификатор метода ближайших сособей с байесовской оценкой плотности
+    /// </summary>
     public class KNearestBayesClassifier : KNearestClassifierBase, IClassifier
     {
         public override Author[] ClassificatePosts(IEnumerable<string> posts, int topN)
@@ -123,23 +82,6 @@ namespace Urfu.AuthorDetector.Common.Classification
                               ));
             var ind = Enumerable.Range(0, KeysDict.Count).OrderByDescending(x => vars[x]).Take(topN).ToArray();
             return ind.Select(i=>KeysDict.First(x=>x.Value == i).Key).ToArray();
-        }
-    }
-
-    public class KNearestSumClassifier : KNearestClassifierBase, IClassifier
-    {
-        public override Author[] ClassificatePosts(IEnumerable<string> posts, int topN)
-        {
-            var vars = Enumerable.ToArray(MetricProvider.GetMetrics(posts).Select(x =>
-            {
-                double[] scores;
-                _classifier.Compute(x, out scores);
-                return scores;
-            }).Aggregate(Enumerable.Range(0, KeysDict.Count).Select(x => 1d).ToArray(),
-                                 (x1, x2) => Enumerable.Range(0, KeysDict.Count).Select(i => x1[i]
-                                                                                             +x2[i]).ToArray()));
-            var ind = Enumerable.Range(0, KeysDict.Count).OrderByDescending(x => vars[x]).Take(topN).ToArray();
-            return ind.Select(i => KeysDict.First(x => x.Value == i).Key).ToArray();
         }
     }
 }
