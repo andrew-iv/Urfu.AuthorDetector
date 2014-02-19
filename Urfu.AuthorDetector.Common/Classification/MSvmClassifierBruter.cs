@@ -7,6 +7,9 @@ using ResolutionExtensions = Ninject.ResolutionExtensions;
 
 namespace Urfu.AuthorDetector.Common.Classification
 {
+    /// <summary>
+    /// подбор параметров SVM классификатора
+    /// </summary>
     public class MSvmClassifierBruter
     {
         public int N { get; set; }

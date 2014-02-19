@@ -103,6 +103,7 @@
     <Compile Include="Classification\IAlogorithm.cs" />
     <Compile Include="Classification\IBinaryClassifier.cs" />
     <Compile Include="Classification\IBinaryClassifierFactory.cs" />
+    <Compile Include="Classification\IKNearestClassifier.cs" />
     <Compile Include="Classification\IKNearestClassifierFactory.cs" />
     <Compile Include="Classification\KNearestBayesClassifier.cs" />
     <Compile Include="Classification\KNearestBayesClassifierFactory.cs" />
@@ -135,7 +136,6 @@
     <Compile Include="Classification\StatsHelper.cs" />
     <Compile Include="Classification\GrammsMetricNeighboorClassifier.cs" />
     <Compile Include="Classification\IClassifier.cs" />
-    <Compile Include="Classification\MetricNeighboorClassifier.cs" />
     <Compile Include="Classification\StupidPerecentileBayesClassifier.cs" />
     <Compile Include="CommonModule.cs" />
     <Compile Include="Classification\CommonStatisctics.cs" />

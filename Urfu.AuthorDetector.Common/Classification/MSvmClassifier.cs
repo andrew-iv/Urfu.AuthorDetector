@@ -6,6 +6,9 @@ using Urfu.AuthorDetector.DataLayer;
 
 namespace Urfu.AuthorDetector.Common.Classification
 {
+    /// <summary>
+    /// Svm классификатор
+    /// </summary>
     public class MSvmClassifier : IClassifier
     {
 

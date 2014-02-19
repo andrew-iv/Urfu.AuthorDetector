@@ -9,6 +9,9 @@ using Urfu.AuthorDetector.DataLayer;
 
 namespace Urfu.AuthorDetector.Common.Classification
 {
+    /// <summary>
+    /// байесовский классификатор с гистограммами
+    /// </summary>
     public class StupidBayesClassifier : IClassifier
     {
         private readonly IPostMetricProvider _postMetricProvider;

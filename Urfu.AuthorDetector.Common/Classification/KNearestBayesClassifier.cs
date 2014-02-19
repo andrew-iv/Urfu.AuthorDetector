@@ -8,6 +8,10 @@ using Urfu.AuthorDetector.DataLayer;
 
 namespace Urfu.AuthorDetector.Common.Classification
 {
+
+    /// <summary>
+    /// Базовый класс для классификатора.
+    /// </summary>
     public abstract class ClassifierBase : IClassifier
     {
         protected IDictionary<Author, IEnumerable<string>> AuthorsTexts;
@@ -52,13 +56,8 @@ namespace Urfu.AuthorDetector.Common.Classification
         public double ErrorLevel { get; set; }
     }
 
-    public interface IKNearestClassifier: IClassifier
-    {
-        int K { get; set; }
-    }
-
     /// <summary>
-    /// классификатор метода ближайших сособей с байесовской оценкой плотности
+    /// классификатор метода ближайших сосодей с байесовской оценкой плотности
     /// </summary>
     public class KNearestBayesClassifier : KNearestClassifierBase, IClassifier
     {

@@ -3,6 +3,9 @@ using Urfu.AuthorDetector.DataLayer;
 
 namespace Urfu.AuthorDetector.Common.Classification
 {
+    /// <summary>
+    /// SVM классификатор(фабрика)
+    /// </summary>
     public class MSvmClassifierClassifierFactory : BaseClassifierFactory
     {
 

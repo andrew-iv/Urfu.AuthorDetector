@@ -6,6 +6,9 @@ using Urfu.AuthorDetector.DataLayer;
 
 namespace Urfu.AuthorDetector.Common.Classification
 {
+    /// <summary>
+    /// Метод ближайших соседей
+    /// </summary>
     public class NeighboorClassifier : IClassifier
     {
         private readonly IPostMetricProvider _postMetricProvider;

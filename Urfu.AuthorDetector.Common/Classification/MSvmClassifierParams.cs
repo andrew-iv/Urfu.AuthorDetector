@@ -4,6 +4,9 @@ using Urfu.AuthorDetector.Common.MetricProvider;
 
 namespace Urfu.AuthorDetector.Common.Classification
 {
+    /// <summary>
+    /// Параметры SVM
+    /// </summary>
     public class MSvmClassifierParams
     {
         public enum LearningAlgorithm

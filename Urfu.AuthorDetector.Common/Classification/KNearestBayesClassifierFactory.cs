@@ -4,6 +4,9 @@ using Urfu.AuthorDetector.DataLayer;
 
 namespace Urfu.AuthorDetector.Common.Classification
 {
+    /// <summary>
+    /// Фабрика для KNearestBayesClassifier
+    /// </summary>
     public class KNearestBayesClassifierFactory : BaseClassifierFactory, IKNearestClassifierFactory
     {
         private int _k=25;

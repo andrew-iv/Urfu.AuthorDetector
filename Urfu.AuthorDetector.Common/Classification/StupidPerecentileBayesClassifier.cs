@@ -6,6 +6,9 @@ using Urfu.AuthorDetector.DataLayer;
 
 namespace Urfu.AuthorDetector.Common.Classification
 {
+    /// <summary>
+    /// Наивный байесовский классификатор
+    /// </summary>
     public class StupidPerecentileBayesClassifier : BayesClassifierBase
     {
         public StupidPerecentileBayesClassifier(IDictionary<Author, IEnumerable<string>> authors, ICommonMetricProvider[] providers)
